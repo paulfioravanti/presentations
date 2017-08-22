@@ -14,4 +14,4 @@ you can [contact me](https://twitter.com/paulfioravanti).
 ## Other Resources
 
 - [PDF slides on Speaker Deck](https://speakerdeck.com/paulfioravanti/code-quality-tools-and-services)
-- [Screencast on Vimeo](https://vimeo.com/61782979)
+- [Screencast on Vimeo](http://vimeo.com/paulfioravanti/code-quality)
