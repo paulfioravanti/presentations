@@ -6,8 +6,9 @@ gem to create my resume.
 It was presented at the
 [Ruby on Rails Oceania meetup on 10 May 2016](https://www.meetup.com/Ruby-On-Rails-Oceania-Sydney/events/228886775/).
 
-The Markdown file for the presentation (which includes speaker notes) can
-be used in [Deckset](https://www.decksetapp.com/).
+The Markdown file for the presentation, which includes speaker notes, can
+be used in [Deckset](https://www.decksetapp.com/), and is best viewed in Raw
+form.
 
 ## Other Resources
 

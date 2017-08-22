@@ -6,8 +6,9 @@ stateless modules.
 Presented at the
 [Ruby on Rails Oceania meetup on 11 July 2017](https://www.meetup.com/Ruby-On-Rails-Oceania-Sydney/events/237283326/)
 
-The Markdown file for the presentation (which includes speaker notes) can
-be used in [Deckset](https://www.decksetapp.com/).
+The Markdown file for the presentation, which includes speaker notes, can
+be used in [Deckset](https://www.decksetapp.com/), and is best viewed in Raw
+form.
 
 ## Other Resources
 

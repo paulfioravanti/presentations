@@ -8,8 +8,9 @@ Presented at:
 - [Elixir Girls](http://elixirgirls.com/) Sydney workshop on 28 July 2017
 - [Sydney Elixir Meetup on 2 August 2017](https://www.meetup.com/sydney-ex/events/241639658/)
 
-The Markdown file for the presentation (which includes speaker notes) can
-be used in [Deckset](https://www.decksetapp.com/).
+The Markdown file for the presentation, which includes speaker notes, can
+be used in [Deckset](https://www.decksetapp.com/), and is best viewed in Raw
+form.
 
 ## Other Resources
 
