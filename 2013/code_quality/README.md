@@ -7,12 +7,9 @@ It was originally delivered in person to the
 [Adelaide.rb meetup group](https://www.meetup.com/adelaiderb/)
 on January 8, 2013.
 
-The keynote file used to make this presentation isn't included in this
-repository as it's over 1 GB in size, but the slides in PDF form, along
-with a set of separate slide notes are.
-
-If you really want the Keynote file for some reason, you can
-[contact me](https://twitter.com/paulfioravanti).
+The Keynote file used to make this presentation isn't included in this
+repository as it's over 1 GB in size, but ff you really want it for some reason,
+you can [contact me](https://twitter.com/paulfioravanti).
 
 ## Other Resources
 
