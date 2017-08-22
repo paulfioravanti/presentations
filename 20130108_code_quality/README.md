@@ -14,7 +14,7 @@ with a set of separate slide notes are.
 If you really want the Keynote file for some reason, you can
 [contact me](https://twitter.com/paulfioravanti).
 
-## Other Media
+## Other Resources
 
 - [PDF slides on Speaker Deck](https://speakerdeck.com/paulfioravanti/code-quality-tools-and-services)
 - [Screencast on Vimeo](https://vimeo.com/61782979)
