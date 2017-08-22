@@ -1,7 +1,8 @@
 # Everything is Reduce
 
-A presentation about the `Enum.reduce/3` function in Elixir, and the general
-concepts around a reductor function.
+A presentation about the
+[`Enum.reduce/3`](https://hexdocs.pm/elixir/Enum.html#reduce/3)
+function in Elixir, and the general concepts around a reductor function.
 
 Presented at:
 
