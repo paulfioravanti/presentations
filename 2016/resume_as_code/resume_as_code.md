@@ -223,7 +223,7 @@ Buzzword Bingo up the top to make it easier to matchmake my abilities with the p
 
 ---
 
-![right](https://dl.dropboxusercontent.com/u/6878052/nekobus_headshot.jpeg)
+![right](https://www.dropbox.com/s/5w770gu31uw33l9/nekobus_headshot.jpeg?dl=1)
 # [fit] **Thanks!**
 # [fit] _`@paulfioravanti`_
 
