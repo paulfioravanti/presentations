@@ -8,7 +8,7 @@ It was originally delivered in person to the
 on January 8, 2013.
 
 The Keynote file used to make this presentation isn't included in this
-repository as it's over 1 GB in size, but ff you really want it for some reason,
+repository as it's over 1 GB in size, but if you really want it for some reason,
 you can [contact me](https://twitter.com/paulfioravanti).
 
 ## Other Resources
