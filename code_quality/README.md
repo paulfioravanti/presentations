@@ -1,7 +1,7 @@
 # Code Quality: Tools and Services
 
 This is a presentation I gave on the tools and services I use to try
-and make me a better [Ruby][ruby] programmer.
+and make me a better [Ruby][] programmer.
 
 Presented at:
 
@@ -17,7 +17,7 @@ you can [contact me][twitter-url].
 - :video_camera: [Screencast on Vimeo][vimeo]
 
 [adelaide-rb]: https://www.meetup.com/adelaiderb/
-[ruby]: https://www.ruby-lang.org/en/
+[Ruby]: https://www.ruby-lang.org/en/
 [speakerdeck]: https://speakerdeck.com/paulfioravanti/code-quality-tools-and-services
 [twitter-url]: https://twitter.com/paulfioravanti
 [vimeo]: https://vimeo.com/paulfioravanti/code-quality

@@ -8,8 +8,8 @@ Presented at:
 - :question: TBD
 
 The Markdown file for the presentation, which includes speaker notes, can
-be used in [Deckset][deckset], and is best viewed in Raw form.
+be used in [Deckset][], and is best viewed in Raw form.
 
 ## Other Resources
 
-[deckset]: https://www.decksetapp.com/
+[Deckset]: https://www.decksetapp.com/

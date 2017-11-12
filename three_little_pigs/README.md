@@ -1,7 +1,7 @@
 # The Story of the Three Little Pigs :pig_nose:
 
 A test-driven interpretation of the classic fairy tale,
-using [Ruby][ruby] and [RSpec][rspec].
+using [Ruby][] and [RSpec][].
 
 Presented at:
 
@@ -19,7 +19,7 @@ Presented at:
 [keynote-file]: https://www.dropbox.com/s/p32one616dgjjdf/three_little_pigs.key?dl=1
 [rails-camp]: https://ti.to/ruby-australia/rails-camp-queensland-2016/en
 [roro]: https://www.meetup.com/Ruby-On-Rails-Oceania-Sydney/events/234773812/
-[rspec]: http://rspec.info/
-[ruby]: https://www.ruby-lang.org/en/
+[RSpec]: http://rspec.info/
+[Ruby]: https://www.ruby-lang.org/en/
 [speakerdeck]: https://speakerdeck.com/paulfioravanti/the-story-of-the-three-little-pigs
 [video]: https://vimeo.com/196540052
