@@ -8,16 +8,19 @@ If I present this to a private audience, I will use the non-redacted version.
 
 Presented at:
 
-- :school: [Coder Academy][coder-academy] Sydney campus on 13 Sep 2017 for a
+- :school: [Coder Academy][] Sydney campus on 13 Sep 2017 for a
+  mentor session.
+- :school: [General Assembly][] Sydney campus on 13 Nov 2017 for a
   mentor session.
 
 The Markdown file for the presentation, which includes speaker notes, can
-be used in [Deckset][deckset], and is best viewed in Raw form.
+be used in [Deckset][], and is best viewed in Raw form.
 
 ## Other Resources
 
 - :card_index: [PDF slides on Speaker Deck][speakerdeck]
 
-[coder-academy]: https://coderacademy.edu.au/
-[deckset]: https://www.decksetapp.com/
+[Coder Academy]: https://coderacademy.edu.au/
+[Deckset]: https://www.decksetapp.com/
+[General Assembly]: https://generalassemb.ly/
 [speakerdeck]: https://speakerdeck.com/paulfioravanti/developer-story
