@@ -45,7 +45,7 @@ I've been in the IT industry for 11 years so far...
 [.hide-footer]
 [.slidenumbers: false]
 
-# **Programmer**
+# **- Programmer**
 
 ^
 During that time I've been a programmer...
@@ -55,8 +55,8 @@ During that time I've been a programmer...
 [.hide-footer]
 [.slidenumbers: false]
 
-# **Programmer**
-# **_Consultant_**
+# **- Programmer**
+# **_- Consultant_**
 
 ^
 ...a project consultant...
@@ -66,9 +66,9 @@ During that time I've been a programmer...
 [.hide-footer]
 [.slidenumbers: false]
 
-# **Programmer**
-# **_Consultant_**
-# **Pre-sales**
+# **- Programmer**
+# **_- Consultant_**
+# **- Pre-sales**
 
 ^
 ...and a technical pre-sales consultant...
@@ -78,7 +78,7 @@ During that time I've been a programmer...
 [.hide-footer]
 [.slidenumbers: false]
 
-# [fit] **_Programmer_**
+# [fit] **Programmer**
 
 ^
 ...before looping back to being a programmer again.
@@ -148,6 +148,7 @@ cHTML did add a particular feature called accesskey tags, which allowed you to p
 
 ---
 
+![120%](https://www.dropbox.com/s/7wk2jjvrcrxg3it/octocat_iphone_blue.jpg?dl=1)
 # [fit] `paulfioravanti/oi-kochi`
 
 ^
@@ -249,7 +250,9 @@ So, maybe there may be some resemblance to the bootcamp that you're going throug
 
 [.hide-footer]
 
-![160%](https://www.dropbox.com/s/mkqvx6w924kp458/training_timesheet_redacted.png?dl=1)
+![160% original](https://www.dropbox.com/s/mkqvx6w924kp458/training_timesheet_redacted.png?dl=1)
+
+#### Timesheet
 
 ^
 The official work day began at 9:00am and ended at 5:30pm<br />
@@ -292,7 +295,10 @@ This pattern repeated until we got our work done for the day and would come up t
 
 ---
 
-![fit](https://www.dropbox.com/s/w1mjg63x8he0hmx/work_report_redacted.png?dl=1)
+![fit original](https://www.dropbox.com/s/w1mjg63x8he0hmx/work_report_redacted.png?dl=1)
+
+#### Work
+#### Report
 
 ^
 We submitted a work report for every day of training and all reports needed to be hand-written with pencils and rulers on company graph paper.<br />
@@ -417,6 +423,11 @@ The logic behind this was that every distribution of Linux comes with vi by defa
 There were also extra rules around using vi during training like, "if you are caught using the arrow keys on your keyboard to navigate, instead of HJKL...
 
 ---
+
+[.hide-footer]
+[.slidenumbers: false]
+
+![](https://www.dropbox.com/s/l3iwhm6h2tqdz88/shimatsusho.jpg?dl=1)
 
 # [fit] Letter
 # [fit] of
@@ -576,7 +587,6 @@ Since the company actively promoted PostgreSQL in Japan, we of course had to lea
 The thing that I remember most about it was that the instructor for this section of the course actually ran their terminal of an early-model Playstation 3 that they'd hacked to run Unix on, before all the safeguards were introduced by Sony into the console that made this impossible.
 
 ---
-
 
 [.hide-footer]
 
@@ -966,7 +976,7 @@ I hope you're enjoying your coding journey. If you are, it'll show when you go a
 
 ---
 
-# [fit] `$ git push origin`
+# [fit] `git push`
 # [fit] **_Often_**
 
 ^
@@ -999,3 +1009,7 @@ The next Ruby on Rails Oceania meetup, known as RORO, which I'm a co-organiser o
 
 ^
 Thanks very much, and I'm more than happy to field any questions.
+
+^
+Image credits:
+Slide 16: https://github.com/levymetal/github-iphone-wallpapers/blob/master/wallpapers/octocat_iphone_blue.jpg
