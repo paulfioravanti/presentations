@@ -8,7 +8,7 @@ If I present this to a private audience, I will use the non-redacted version.
 
 Presented at:
 
-- :school: [Coder Academy][] Sydney campus on 13 Sep 2017 for a
+- :school: [Coder Academy][] Sydney campus on 11 Sep 2017 for a
   mentor session.
 - :school: [General Assembly][] Sydney campus on 13 Nov 2017 for a
   mentor session.
