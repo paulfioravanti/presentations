@@ -10,7 +10,7 @@ Hi everyone!
 
 ---
 
-![700%](https://www.dropbox.com/s/itvcqdwk4bk9sao/open_hands.png?dl=1)
+![](https://www.dropbox.com/s/itvcqdwk4bk9sao/open_hands.png?dl=1)
 
 ^
 Let's talk about hands!
@@ -61,14 +61,14 @@ Hand written...
 
 ---
 
-![700%](https://www.dropbox.com/s/itvcqdwk4bk9sao/open_hands.png?dl=1)
+![](https://www.dropbox.com/s/itvcqdwk4bk9sao/open_hands.png?dl=1)
 
 ^
 The use of your hands to do or create something...
 
 ---
 
-![700%](https://www.dropbox.com/s/itvcqdwk4bk9sao/open_hands.png?dl=1)
+![](https://www.dropbox.com/s/itvcqdwk4bk9sao/open_hands.png?dl=1)
 
 # [fit] EMPHASISE
 
@@ -77,7 +77,7 @@ The use of your hands to do or create something...
 
 ---
 
-![700%](https://www.dropbox.com/s/itvcqdwk4bk9sao/open_hands.png?dl=1)
+![](https://www.dropbox.com/s/itvcqdwk4bk9sao/open_hands.png?dl=1)
 
 # [fit] EMPHASISE
 # [fit] QUALITY
@@ -91,15 +91,17 @@ The use of your hands to do or create something...
 # [fit] ASSET
 
 ^
-As a programmer your hands are a very important asset and your most used tools every day.<br />
-Without them, not much coding is going to get done, so they're worth taking the time to invest in.
+As a programmer your hands are a very important asset, and your most used tools every day.<br />
+Without them, not much coding is going to get done, so I think they are worth taking some time to invest in.
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
-![550%](https://www.dropbox.com/s/pwnpkbwg4rbwfbl/nail_care.png?dl=1)
+![](https://www.dropbox.com/s/pwnpkbwg4rbwfbl/nail_care.png?dl=1)
 
 ^
-By invest, I'm not here to sell you nail polish or hand moisturiser.
+By invest, I don't mean to sell you nail polish or hand moisturiser.
 
 ---
 
@@ -119,28 +121,28 @@ I want to make you cognisant of the gap between your brain and your hands via yo
 # :point_up:
 
 ^
-- Consider the following workflow, which may sound familiar.
+What I mean by that is: consider the following workflow, which may sound familiar.
 
 ---
 
 ![120%](https://www.dropbox.com/s/73a3km8p6qse4i2/hunt_and_peck_step1.png?dl=1)
 
 ^
-Think of something to type.
+- Think of something to type.
 
 ---
 
 ![120%](https://www.dropbox.com/s/paeli6xghxoi55x/hunt_and_peck_steps1-2.png?dl=1)
 
 ^
-Look at keyboard to get your bearings.
+- Look at keyboard to get your bearings.
 
 ---
 
 ![120%](https://www.dropbox.com/s/afun5chbegviqml/hunt_and_peck_steps1-3.png?dl=1)
 
 ^
-Consciously type some letters.
+- Consciously type some letters.
 
 ---
 
@@ -157,7 +159,7 @@ Consciously type some letters.
 ![120%](https://www.dropbox.com/s/qq3ocuswbtvf1tw/hunt_and_peck_steps1-5.png?dl=1)
 
 ^
-Rinse and Repeat until you finish your thought
+- Rinse and Repeat until you finish your thought
 
 ---
 
@@ -172,18 +174,18 @@ You can reduce this to:
 # [fit] 1. **Think** of something
 
 ^
-Think of something to type, then...
+- Think of something to type, then...
 
 ---
 
-![110%](https://www.dropbox.com/s/9wpmmsrng5f7mrf/words_appear_on_the_screen.png?dl=1)
+![120%](https://www.dropbox.com/s/9wpmmsrng5f7mrf/words_appear_on_the_screen.png?dl=1)
 
 ^
 ...words just appear on the screen...
 
 ---
 
-![110%](https://www.dropbox.com/s/yujgau5j0kevb62/words_appear_on_the_screen_like.png?dl=1)
+![120%](https://www.dropbox.com/s/yujgau5j0kevb62/words_appear_on_the_screen_like.png?dl=1)
 
 ^
 ...like...
@@ -193,7 +195,7 @@ Think of something to type, then...
 [.slidenumbers: false]
 [.hide-footer]
 
-![110%](https://www.dropbox.com/s/qc1q2frx1mb34fk/words_appear_on_the_screen_like_magic.png?dl=1)
+![120%](https://www.dropbox.com/s/qc1q2frx1mb34fk/words_appear_on_the_screen_like_magic.png?dl=1)
 
 ^
 ...magic!
@@ -233,7 +235,15 @@ One of the obvious benefits of this is...
 
 ^
 ...the speed at which you can get things done on a computer, which is great in and of itself.<br />
-But, much of the time we spend coding is not necessarily about banging out code fast, right? Way more time is spent thinking and problem-solving.<br />
+But, much of the time we spend coding is not necessarily about writing code fast, right?
+
+---
+
+# [fit] **THINKING** &
+# [fit] PROBLEM SOLVING
+
+^
+Way more time is spent thinking and problem-solving.<br />
 But within our jobs, we don't tend to just write code.
 
 ---
@@ -323,6 +333,15 @@ But touch typing also unlocks a couple more bonus developer perks.
 
 ^
 The first being the ability to use a modal editor like Vim or Emacs.<br />
+
+---
+[.hide-footer]
+[.slidenumbers: false]
+
+![left 180%](https://www.dropbox.com/s/vhwl2po3t26zz2r/gary-bernhardt.png?dl=1)
+![right 240%](https://www.dropbox.com/s/g0ui0khs8x4e7qz/destroy-all-software.jpg?dl=1)
+
+^
 When I first saw Gary Bernhardt's Destroy all Software screencasts, his adeptness at Vim made it look like he was casting magic spells to navigate through a project and move chunks of text from one place to another, and that's when I knew I had to get in on this old-school editor and start manipulating data at...<br />
 
 ---
@@ -331,7 +350,7 @@ When I first saw Gary Bernhardt's Destroy all Software screencasts, his adeptnes
 # [fit] **THOUGHT**
 
 ^
-...the speed of thought. I've only been using Vim for 4 years, and I now wonder how I ever cut code without it.
+...the speed of thought. I've only been using Vim exclusively for 5 years, and I now wonder how I ever wrote code without it.
 
 ---
 
@@ -339,8 +358,8 @@ When I first saw Gary Bernhardt's Destroy all Software screencasts, his adeptnes
 ![inline fill](https://www.dropbox.com/s/yanb19wuoev0ck9/kinesis_advantage.jpg?dl=1)
 
 ^
-The second ability is to take better advantage of ergonomic keyboard options that can make your typing experience more pleasant (since we are on keyboards for many hours a day).<br />
-They can also potentially reduce your risk of developing issues like carpal tunnel syndrome, so that you can continue coding comfortably for many more years to come, which is always a plus.
+The second perk is to take better advantage of ergonomic keyboard options that can make your typing experience more pleasant (since we are on keyboards for many hours a day).<br />
+They can also potentially reduce your risk of developing issues like carpal tunnel syndrome, so that you can continue coding comfortably for many more years to come.
 
 ---
 
@@ -370,8 +389,8 @@ It may look strange if you've never seen this kind of keyboard before, but...
 # TOUCH TYPING
 
 ^
-So, I would urge you to give learning to touch type a try if you haven't already, and even if
-you have, I'd urge you to go back and try again
+So, I would urge you to give learning to touch type a try if you haven't already.<br />
+Even if you have, I'd urge you to go back and try again
 
 ---
 
@@ -389,7 +408,7 @@ I have failed to learn touch typing 4 times in my life, but through sheer stubbo
 # TIME :clap:
 
 ^
-...I got it on the 5th time during my 30s, and have no regrets
+...I got it on the 5th time during my 30s, and have no regrets, so it's never too late.
 
 ---
 
@@ -398,7 +417,8 @@ I have failed to learn touch typing 4 times in my life, but through sheer stubbo
 # **GRIND** :punch:
 
 ^
-It's tough to discipline yourself to practice typing every day until you become more efficient than with your old habits, and make no mistake, it's a grind.<br />
+It's tough to discipline yourself to practice typing every day until you become more efficient than with your old habits.<br />
+And make no mistake, it is a grind.<br />
 But any short term productivity hits or annoyances are so far outweighed by...
 
 ---
@@ -419,7 +439,8 @@ But any short term productivity hits or annoyances are so far outweighed by...
 # [fit] **typing.com** _||_ zty.pe (typing game)
 
 ^
-So, go home tonight, purchase Mavis Beacon or sign up to any one of these services here (and I'll make the list available), and do 30 minutes of typing practice and then keep on doing it literally every day, even if you hate it, and your reward will be a new superpower for life.
+So, go home tonight, purchase Mavis Beacon or sign up to any one of these services here (and I'll make the list available), and do 30 minutes of typing practice.<br />
+Then, keep on doing it literally every day, even if you hate it, and your reward will be a new superpower for life.
 
 ---
 
