@@ -72,7 +72,7 @@ public and private keypairs...
 ---
 [.hide-footer]
 
-![left fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
+![fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
 # [fit] ExCrypto
 # [fit] **__`https://github.com/ntrepid8/ex_crypto`__**
@@ -83,11 +83,10 @@ like ExCrypto which wraps around Erlang's :crypto module, or...
 ---
 [.hide-footer]
 
-![left fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
+![fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
 # [fit] ExCrypto
 # [fit] **__`https://github.com/ntrepid8/ex_crypto`__**
-<br />
 # [fit] RSA Ex
 # [fit] **__`https://github.com/anoskov/rsa-ex`__**
 
@@ -238,4 +237,295 @@ ECDSA, and using a specific type of Elliptic Curve algorithm called...
 
 ^
 secp256k1, I believe because it's easy to remember.
-I will leave looking into the details of Elliptic Curves as an exercise for the listener cause its maths hurts my brain, suffice to say that a Bitcoin public key ends up being an {x,y} coordinate on the Elliptic Curve. This graph here depicts curve points possible if mapped over the prime number of 17. Imagine, if you can, what it would look like mapped over massive prime numbers.  
+I will leave looking into the details of Elliptic Curves as an exercise for the listener cause its maths hurts my brain, suffice to say that a Bitcoin public key ends up being...
+
+---
+[.slidenumbers: false]
+
+![right fit](https://www.dropbox.com/s/rrz6id0yedv044n/elliptic-curve-points.png?dl=1)
+
+# [fit] **ECDSA**
+# [fit] secp256k1
+# [fit] **`{x,y}`**
+# [fit] coordinate on the
+# [fit] **Elliptic Curve**
+
+^
+...an {x,y} coordinate on the Elliptic Curve.<br />
+This graph here depicts curve points possible if mapped over the prime number of 17. Imagine, if you can, what it would look like mapped over massive prime numbers.  
+
+---
+
+# [fit] **_Anyway..._**
+
+^
+Anyway...
+
+---
+
+![left fit](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)
+![right fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
+
+^
+What we want is an Elixir library or libraries to get that job done, and surely there are Elixir libraries specifically for Bitcoin that can do this, right?<br />
+Well, there are some, most being works in progress, but the most robust one that I have found so far is...
+
+---
+
+![left fit](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)
+![right fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
+
+# [fit] **bitcoin-elixir**
+### **https://github.com/comboy/bitcoin-elixir**
+
+^
+Bitcoin-Elixir
+
+---
+
+**__```
+defmodule Bitcoin.Key.Public do
+  def to_address(pk) do
+    pk
+    |> Crypto.sha256()
+    |> Crypto.ripemd160()
+    |> Binary.prepend(@address_prefix[:public])
+    |> Base58Check.encode()
+  end
+end
+```__**
+
+^
+Now Bitcoin-Elixir does have a function that can turn a Bitcoin public key into a Bitcoin address that looks like this, which is great!<br />
+It hashes the public key a couple of times, adds a prefix and then encodes it in Base58, which is like Base64 but uses a few less characters due to their ambiguity when reading them, like capital O and zero.
+
+---
+
+# [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
+
+^
+But!
+
+---
+
+# [fit] **Checklist**
+
+# *- Private Key* :white_check_mark:
+# *- Bitcoin Public Key* :x:
+# *- Bitcoin Address* :question:
+
+^
+Bitcoin-Elixir does not have a function for our middle step to convert a private key to a Bitcoin public key!<br />
+
+---
+
+# [fit] **NOW**
+# [fit] WHAT?
+
+^
+So now what? Are we stuck? Nope, but we will have to look outside the Elixir Ecosystem for help.
+
+---
+
+![left 50%](https://www.dropbox.com/s/8q03qum3zzursmm/python-logo-no-text.png?dl=1)
+![right 50%](https://www.dropbox.com/s/9sg30zgqr7dbuz8/cpp_logo.png?dl=1)
+
+^
+The most fully-featured Bitcoin libraries are written in Python and C++, or at
+least I'm assuming they are...
+
+---
+[.hide-footer]
+
+![fit](https://www.dropbox.com/s/1ra32v79pa943jy/andreas-antonopoulos.jpg?dl=1)
+
+^
+...since Andreas Antonopoulos, the author of the book...
+
+---
+
+![fit](https://www.dropbox.com/s/ykcfun5zlcu7aw1/masteringbitcoin_cover.jpg?dl=1)
+
+^
+...Mastering Bitcoin, used those languages in all its code examples, which I then attempted to port to Elixir.<br />
+I got some of the way through porting the code, and for functionality where I did not have Elixir equivalents, I would ask libraries in Python and C++ to do the work for me by calling out to them via Elixir ports.
+
+---
+
+![left 50%](https://www.dropbox.com/s/8q03qum3zzursmm/python-logo-no-text.png?dl=1)
+![right 50%](https://www.dropbox.com/s/9sg30zgqr7dbuz8/cpp_logo.png?dl=1)
+
+^
+So, we're going to have a look at solving the Bitcoin address generation problem in two different ways...
+
+---
+
+![fit](https://www.dropbox.com/s/c61ctinlmkjyjmd/in-it-for-the-technology.jpg?dl=1)
+
+^
+cause we are in it for the technology and the learning, as well as the lambos.
+
+---
+
+# [fit] **New project!**
+# `$ mix new bitcoin_address`
+# `$ cd bitcoin_address`
+# `$ mix deps.get`
+
+^
+Let's kick it off with a new mix project we'll call `bitcoin_address`, and take a first look at Python offerings.
+
+---
+
+![fit](https://www.dropbox.com/s/8q03qum3zzursmm/python-logo-no-text.png?dl=1)
+
+# [fit] Pybitcointools
+# [fit] **https://github.com/vbuterin/pybitcointools**
+<br />
+
+# [fit] `$ pip install bitcoin`
+
+^
+Now, Python has a library of Bitcoin tools called pybitcointools
+so the first thing you will need to do is install python via your method of choice if you don't have it
+already, and then use Python's package manager pip to install pybitcointools.
+
+---
+
+# [fit] **Python Code**
+# [fit] `priv/bitcoin_address.py`
+
+^
+In an Elixir project, the `priv` directory is reserved for artifacts that you
+need alongside your Elixir code, so that's where we'll put the python code, which
+we'll call `bitcoin_address.py`. First, we need a function that will create
+a Bitcoin public key from a private key, so we'll write it like this:
+
+---
+
+# [fit] **Python Code**
+
+```python
+import bitcoin
+
+def create_bitcoin_public_key(private_key):
+  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
+  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  (public_key_x, public_key_y) = public_key
+  compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
+  return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
+```
+
+^
+So, here in our `create_bitcoin_public_key` function, we do the following:
+
+---
+
+# [fit] **Python Code**
+
+```python, [.highlight: 4]
+import bitcoin
+
+def create_bitcoin_public_key(private_key):
+  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
+  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  (public_key_x, public_key_y) = public_key
+  compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
+  return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
+```
+
+^
+Use the `bitcoin` library to decode the private key from a hex string into an integer
+
+---
+
+# [fit] **Python Code**
+
+```python, [.highlight: 5]
+import bitcoin
+
+def create_bitcoin_public_key(private_key):
+  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
+  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  (public_key_x, public_key_y) = public_key
+  compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
+  return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
+```
+
+^
+We then use the `bitcoin` library's `fast_multiply` function, which calculates a public key point on the Elliptic Curve with the help of a pre-determined generator point constant known as G...
+
+---
+
+# [fit] **Python Code**
+
+```python, [.highlight: 6]
+import bitcoin
+
+def create_bitcoin_public_key(private_key):
+  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
+  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  (public_key_x, public_key_y) = public_key
+  compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
+  return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
+```
+
+^
+...which is de-structured on the next line here as a tuple containing and x and y coordinate, both x and y here are huge integers
+
+---
+
+# [fit] **Python Code**
+
+```python, [.highlight: 7]
+import bitcoin
+
+def create_bitcoin_public_key(private_key):
+  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
+  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  (public_key_x, public_key_y) = public_key
+  compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
+  return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
+```
+
+^
+We then determine how the public key should be prefixed depending on whether the public key y value is even or odd, which is a specific Bitcoin
+
+---
+
+# [fit] **Python Code**
+
+```python, [.highlight: 8]
+import bitcoin
+
+def create_bitcoin_public_key(private_key):
+  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
+  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  (public_key_x, public_key_y) = public_key
+  compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
+  return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
+```
+
+^
+...and then concatenate the prefix with the hex value of the public key x coordinate to get our return value.
+
+---
+
+# [fit] **Python Code**
+
+```python
+import bitcoin
+
+def create_bitcoin_public_key(private_key):
+  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
+  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  (public_key_x, public_key_y) = public_key
+  compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
+  return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
+```
+
+^
+And that gives us our Bitcoin public key, with us using 3 functions and 1 constant from the bitcoin library.
+So, how do we talk to this file from Elixir?
+
+---
