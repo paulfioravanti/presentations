@@ -1117,4 +1117,1156 @@ c_src
 ```
 
 ^
-And `main.h`: The header file for `main.c`
+And `main.h`: The header file for `main.c`<br />
+The first thing we'll do take a look inside the...
+
+---
+
+# **`main.c`**
+
+```cpp
+#include "main.h"
+int main(void) {
+  int bytes_read;
+  byte buffer[MAX_BUFFER_SIZE];
+
+  while((bytes_read = read_msg(buffer)) > 0) {
+    // TODO put C-code here, right now it only echos data back
+    // to Elixir.
+    send_msg(buffer, bytes_read);
+  }
+  return 0;
+}
+```
+
+^
+...main.c file to see how Cure is expecting us to communicate with C.<br />
+So, when Elixir spawns a Cure process, it will call this main function which will kick off the...
+
+---
+
+# **`main.c`**
+
+```cpp, [.highlight: 6-10]
+#include "main.h"
+int main(void) {
+  int bytes_read;
+  byte buffer[MAX_BUFFER_SIZE];
+
+  while((bytes_read = read_msg(buffer)) > 0) {
+    // TODO put C-code here, right now it only echos data back
+    // to Elixir.
+    send_msg(buffer, bytes_read);
+  }
+  return 0;
+}
+```
+
+^
+...while loop, where messages will be explicitly read in from Elixir via the read_msg function, and we send messages back to Elixir via the send_msg function, and when we eventually terminate the Cure process from Elixir
+
+---
+
+# **`main.c`**
+
+```cpp, [.highlight: 11]
+#include "main.h"
+int main(void) {
+  int bytes_read;
+  byte buffer[MAX_BUFFER_SIZE];
+
+  while((bytes_read = read_msg(buffer)) > 0) {
+    // TODO put C-code here, right now it only echos data back
+    // to Elixir.
+    send_msg(buffer, bytes_read);
+  }
+  return 0;
+}
+```
+
+^
+we break out of the while loop, and the C code finishes running.
+
+---
+
+# **`main.c`**
+
+```cpp
+#include "main.h"
+int main(void) {
+  int bytes_read;
+  byte buffer[MAX_BUFFER_SIZE];
+
+  while((bytes_read = read_msg(buffer)) > 0) {
+    // TODO put C-code here, right now it only echos data back
+    // to Elixir.
+    send_msg(buffer, bytes_read);
+  }
+  return 0;
+}
+```
+
+^
+Okay, I think we got it.
+
+---
+
+# [fit] **Rename Files**
+
+**```
+$ mv c_src/main.h c_src/bitcoin_address.h
+$ mv c_src/main.c c_src/bitcoin_address.cpp
+```**
+
+^
+Before we start writing code, since we are dealing with C++ Bitcoin libraries, we will need to rename the files appropriately, which is something we can easily do since C++ files can also run C code.
+
+---
+
+# **`bitcoin_address.h`**
+
+```cpp
+#ifndef BITCOIN_ADDRESS_H
+#define BITCOIN_ADDRESS_H
+#include <elixir_comm.h>
+
+std::string create_bitcoin_public_key(std::string priv_key);
+
+#endif
+```
+
+^
+Next, we'll get to implementing a create_bitcoin_public_key function, same name as the Python file for consistency, which will look something like this. First define the function in the header file...
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp
+#include <string>
+#include "bitcoin_address.h"
+
+int main(void) { ... }
+
+std::string create_bitcoin_public_key(std::string priv_key) {
+  bc::ec_secret decoded;
+  bc::decode_base16(decoded, priv_key);
+  bc::wallet::ec_private
+    secret(decoded, bc::wallet::ec_private::mainnet_p2kh);
+  bc::wallet::ec_public public_key(secret);
+  return public_key.encoded();
+}
+```
+
+^
+...and then the implementation.  Similar to the Python code, this function...
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp, [.highlight: 1]
+std::string create_bitcoin_public_key(std::string priv_key) {
+  bc::ec_secret decoded;
+  bc::decode_base16(decoded, priv_key);
+  bc::wallet::ec_private
+    secret(decoded, bc::wallet::ec_private::mainnet_p2kh);
+  bc::wallet::ec_public public_key(secret);
+  return public_key.encoded();
+}
+```
+
+^
+...takes in a hex-encoded private key...
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp, [.highlight: 2-3]
+std::string create_bitcoin_public_key(std::string priv_key) {
+  bc::ec_secret decoded;
+  bc::decode_base16(decoded, priv_key);
+  bc::wallet::ec_private
+    secret(decoded, bc::wallet::ec_private::mainnet_p2kh);
+  bc::wallet::ec_public public_key(secret);
+  return public_key.encoded();
+}
+```
+
+^
+...Decodes it into an integer...
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp, [.highlight: 4-5]
+std::string create_bitcoin_public_key(std::string priv_key) {
+  bc::ec_secret decoded;
+  bc::decode_base16(decoded, priv_key);
+  bc::wallet::ec_private
+    secret(decoded, bc::wallet::ec_private::mainnet_p2kh);
+  bc::wallet::ec_public public_key(secret);
+  return public_key.encoded();
+}
+```
+
+^
+...Calculates a public key point on the Elliptic Curve...
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp, [.highlight: 6]
+std::string create_bitcoin_public_key(std::string priv_key) {
+  bc::ec_secret decoded;
+  bc::decode_base16(decoded, priv_key);
+  bc::wallet::ec_private
+    secret(decoded, bc::wallet::ec_private::mainnet_p2kh);
+  bc::wallet::ec_public public_key(secret);
+  return public_key.encoded();
+}
+```
+
+^
+...Generates a public key from that point...
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp, [.highlight: 7]
+std::string create_bitcoin_public_key(std::string priv_key) {
+  bc::ec_secret decoded;
+  bc::decode_base16(decoded, priv_key);
+  bc::wallet::ec_private
+    secret(decoded, bc::wallet::ec_private::mainnet_p2kh);
+  bc::wallet::ec_public public_key(secret);
+  return public_key.encoded();
+}
+```
+
+^
+...and returns it.
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp
+#include <string>
+#include "bitcoin_address.h"
+
+int main(void) { ... }
+
+std::string create_bitcoin_public_key(std::string priv_key) {
+  bc::ec_secret decoded;
+  bc::decode_base16(decoded, priv_key);
+  bc::wallet::ec_private
+    secret(decoded, bc::wallet::ec_private::mainnet_p2kh);
+  bc::wallet::ec_public public_key(secret);
+  return public_key.encoded();
+}
+```
+
+^
+Okay, so, that's all well and good, but how can we use this function from Elixir?
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp
+int main(void) {
+  int bytes_read;
+  byte buffer[MAX_BUFFER_SIZE];
+
+  while((bytes_read = read_msg(buffer)) > 0) {
+    // TODO put C-code here, right now it only echos data back
+    // to Elixir.
+    send_msg(buffer, bytes_read);
+  }
+  return 0;
+}
+```
+
+^
+Unlike Export, where we are able to send messages to any Python library directly and get values returned, here, we're tied to the C++ `main` function, which brings in messages from Elixir in a buffer of bytes.
+
+---
+
+# [fit] Just send
+# [fit] **private key?**
+
+^
+In order to call the create_bitcoin_public_key function...
+
+---
+
+# [fit] Just send
+# [fit] **private key?** :x:
+
+^
+...we can't just send the private key from Elixir and expect that C++ will know what to do with it.
+
+---
+
+# [fit] Send **Flag** :checkered_flag:!
+
+^
+We'll need to send a flag along as well, that will allow the C++ program to
+determine what function to be called, and the easiest type of flag in this case...
+
+---
+
+# [fit] Send **Flag** :checkered_flag:!
+<br />
+# [fit] `const int CREATE_BITCOIN_PUBLIC_KEY = 1;`
+
+^
+...is an integer, so, let's say that the integer 1 stands for generating a bitcoin public key, and we want to be able to extract that as the first byte of the message from Elixir.<br />
+We will need a function that processes a message that includes information about what command is to be called...
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp
+const int CREATE_BITCOIN_PUBLIC_KEY = 1;
+
+int main(void) {
+  int bytes_read;
+  byte buffer[MAX_BUFFER_SIZE];
+
+  while((bytes_read = read_msg(buffer)) > 0) {
+    process_command(buffer, bytes_read);
+  }
+  return 0;
+}
+```
+
+^
+...so let's call that `process_command`.<br />
+After declaring the `process_command` in the header file, let's have a look at what its details could look like.
+
+---
+
+```cpp
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+Something like this.
+
+---
+
+```cpp, [.highlight: 1]
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+We take the buffer and number of bytes read as arguments to the function...
+
+---
+
+```cpp, [.highlight: 2]
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+...and from the buffer we extract the first byte to determine which function to call.
+
+---
+
+```cpp, [.highlight: 3]
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+...and then we declare the function argument arg to be a pointer at the second byte of the buffer and cast it to a string, which for our purposes is equivalent to assigning the contents of the buffer, minus the first function name byte to the `arg` variable (being able to do this is something that I learned about C++).
+
+---
+
+```cpp, [.highlight: 4-10]
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+From there, we take the function integer, switch on it, call the function that
+maps to it, and assign it to a `result` string.
+
+---
+
+```cpp, [.highlight: 11]
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+We then overwrite the contents of the current buffer with the result calling the create_bitcoin_public_key with this `memcpy` incantation...
+
+---
+
+```cpp, [.highlight: 12]
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+and then send it back to Elixir via the `send_msg` function provided by Cure.
+
+---
+
+```cpp
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+Quite a bit more involved than Python, right? 
+
+---
+
+![fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
+
+^
+So, how does this look on the Elixir side?
+
+---
+
+```elixir
+defmodule BitcoinAddress.CPlusPlus do
+  alias Cure.Server, as: Cure
+
+  @cpp_executable "priv/bitcoin_address"
+  # Integers representing C++ methods
+  @create_bitcoin_public_key 1
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <- create_bitcoin_public_key(pid, private_key) do
+      IO.puts("Private key: #{inspect(private_key)}")
+      IO.puts("Bitcoin public key: #{inspect(bitcoin_public_key)}")
+      :ok = Cure.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_public_key(pid, private_key) do
+    Cure.send_data(pid, <<@generate_public_key, private_key::binary>>, :once)
+
+    receive do
+      {:cure_data, response} ->
+        response
+    end
+  end
+end
+```
+
+^
+Kind of similar to what we did for Python as the actions we're performing from the Elixir point of view are similar.<br />
+Let's do another deep dive cause this is a lot of code for a slide.
+
+---
+
+```elixir
+defmodule BitcoinAddress.CPlusPlus do
+  alias Cure.Server, as: Cure
+
+  @cpp_executable "priv/bitcoin_address"
+  # Integers representing C++ methods
+  @create_bitcoin_public_key 1
+
+  # ...
+end
+```
+
+^
+First...
+
+---
+
+```elixir, [.highlight: 4]
+defmodule BitcoinAddress.CPlusPlus do
+  alias Cure.Server, as: Cure
+
+  @cpp_executable "priv/bitcoin_address"
+  # Integers representing C++ methods
+  @create_bitcoin_public_key 1
+
+  # ...
+end
+```
+
+^
+we need to tell Cure where to look for the C++ executable file (generation of which we'll look at in just a moment, suffice to say that even though C code itself lives in the `c_src` directory, the executable will get compiled out to the priv directory where the Python code lives)
+
+---
+
+```elixir, [.highlight: 5-6]
+defmodule BitcoinAddress.CPlusPlus do
+  alias Cure.Server, as: Cure
+
+  @cpp_executable "priv/bitcoin_address"
+  # Integers representing C++ methods
+  @create_bitcoin_public_key 1
+
+  # ...
+end
+```
+
+^
+We then define mirroring integers that map to the C++ functions, so there's necessary tight coupling here.
+
+---
+
+```elixir
+defmodule BitcoinAddress.CPlusPlus do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key) do
+      # ...
+      :ok = Cure.stop(pid)
+    end
+  end
+
+  # ...
+end
+```
+
+^
+From there, we'll add in a generate() function to kick off the bitcoin address generation, and in it, we'll do the following:
+
+---
+
+```elixir, [.highlight: 5]
+defmodule BitcoinAddress.CPlusPlus do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key) do
+      # ...
+      :ok = Cure.stop(pid)
+    end
+  end
+
+  # ...
+end
+```
+
+^
+We then call Cure.start_link to spawn off a process to the executable which gives us back its process ID
+
+---
+
+```elixir, [.highlight: 6-7]
+defmodule BitcoinAddress.CPlusPlus do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key) do
+      # ...
+      :ok = Cure.stop(pid)
+    end
+  end
+
+  # ...
+end
+```
+
+^
+Which we then pass to the create_bitcoin_public_key function, along with the private_key we want to create a Bitcoin public key for. This is probably starting to sound familiar by now.
+
+---
+
+```elixir, [.highlight: 6-7, 13-21]
+defmodule BitcoinAddress.CPlusPlus do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key) do
+      # ...
+      :ok = Cure.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_public_key(pid, priv_key) do
+    Cure.send_data(pid, <<@create_bitcoin_public_key, priv_key::binary>>, :once)
+    receive do
+      {:cure_data, response} ->
+        response
+    end
+  end
+end
+```
+
+^
+There, using the power of Elixir binaries that allow us to tinker with the innards of a sequence of bytes, we use Cure.send_data send a binary to the C++ executable consisting of the integer for the function we want to call, ("create_bitcoin_public_key"), and the rest of the message payload, in this case the private key, and the atom `:once` to indicate that we only want a single message back from Cure and we don't need to listen for any other returned messages.<br />
+Cure returns the response from C++ to our process mailbox with the `:cure_data` atom, which we receive and simply return back...
+
+---
+
+# [fit] Bitcoin Public key :white_check_mark:
+
+```elixir
+defmodule BitcoinAddress.CPlusPlus do
+  alias Cure.Server, as: Cure
+
+  @cpp_executable "priv/bitcoin_address"
+  # Integers representing C++ methods
+  @create_bitcoin_public_key 1
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <- create_bitcoin_public_key(pid, private_key) do
+      IO.puts("Private key: #{inspect(private_key)}")
+      IO.puts("Bitcoin public key: #{inspect(bitcoin_public_key)}")
+      :ok = Cure.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_public_key(pid, private_key) do
+    Cure.send_data(pid, <<@create_bitcoin_public_key, priv_key::binary>>, :once)
+
+    receive do
+      {:cure_data, response} ->
+        response
+    end
+  end
+end
+```
+
+^
+...and output to standard output.<br />
+So now we have the Bitcoin public key, what about the address? Let's add that in to the C++ file as a function called `create_bitcoin_address`, that takes in a Bitcoin public key, and returns a Base58 Bitcoin address.
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp
+std::string create_bitcoin_address(std::string pub_key) {
+  bc::wallet::ec_public public_key = bc::wallet::ec_public::ec_public(pub_key);
+  bc::data_chunk public_key_data;
+  public_key.to_data(public_key_data);
+  const auto hash = bc::bitcoin_short_hash(public_key_data);
+  bc::data_chunk unencoded_address;
+  unencoded_address.reserve(25);
+  unencoded_address.push_back(0);
+  bc::extend_data(unencoded_address, hash);
+  bc::append_checksum(unencoded_address);
+  const std::string address = bc::encode_base58(unencoded_address);
+  return address;
+}
+```
+
+^
+Right, so most of the code for this function comes straight out of the Mastering Bitcoin book and I have it in a Github repo if you care to do more detailed analysis, but suffice to say it does the same thing as the Python function equivalent, giving us back a Bitcoin address.
+
+---
+
+```cpp
+const int CREATE_BITCOIN_PUBLIC_KEY = 1;
+const int CREATE_BITCOIN_ADDRESS = 2;
+
+int main(void) { ... }
+
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+    case CREATE_BITCOIN_ADDRESS:
+      result = create_bitcoin_address(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+In order to be able to call this function...
+
+---
+
+```cpp, [.highlight: 1-2, 11-18]
+const int CREATE_BITCOIN_PUBLIC_KEY = 1;
+const int CREATE_BITCOIN_ADDRESS = 2;
+
+int main(void) { ... }
+
+void process_command(byte* buffer, int bytes_read) {
+  int function = buffer[0];
+  std::string arg = (char*) &buffer[1];
+  std::string result;
+
+  switch (function) {
+    case CREATE_BITCOIN_PUBLIC_KEY:
+      result = generate_bitcoin_public_key(arg);
+      break;
+    case CREATE_BITCOIN_ADDRESS:
+      result = create_bitcoin_address(arg);
+      break;
+  }
+  memcpy(buffer, result.data(), result.length());
+  send_msg(buffer, result.size());
+}
+```
+
+^
+we will also need to modify the process command method to be able to call it, so let's do that, mapping this function to the integer 2, so you can see now why a switch statement was called for in the first place.
+
+---
+
+```elixir
+defmodule BitcoinAddress.CPlusPlus do
+  @create_bitcoin_public_key 1
+  @create_bitcoin_address 2
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key),
+         bitcoin_address <-
+           create_bitcoin_address(pid, public_key) do
+      # ...
+    end
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    Cure.send_data(pid, <<@create_bitcoin_address, pub_key::binary>>, :once)
+    receive do
+      {:cure_data, response} ->
+        response
+    end
+  end
+end
+```
+
+^
+Back in Elixir, we perform a similar modification to wrap around that function call.
+
+---
+
+```elixir, [.highlight: 3]
+defmodule BitcoinAddress.CPlusPlus do
+  @create_bitcoin_public_key 1
+  @create_bitcoin_address 2
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key),
+         bitcoin_address <-
+           create_bitcoin_address(pid, public_key) do
+      # ...
+    end
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    Cure.send_data(pid, <<@create_bitcoin_address, pub_key::binary>>, :once)
+    receive do
+      {:cure_data, response} ->
+        response
+    end
+  end
+end
+```
+
+^
+We create a new module attribute for the C++ `create_bitcoin_address` function.
+
+---
+
+```elixir, [.highlight: 9-10, 15-21]
+defmodule BitcoinAddress.CPlusPlus do
+  @create_bitcoin_public_key 1
+  @create_bitcoin_address 2
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key),
+         bitcoin_address <-
+           create_bitcoin_address(pid, public_key) do
+      # ...
+    end
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    Cure.send_data(pid, <<@create_bitcoin_address, pub_key::binary>>, :once)
+    receive do
+      {:cure_data, response} ->
+        response
+    end
+  end
+end
+```
+
+^
+and add an Elixir create_bitcoin_address function that will send the function flag and bitcoin_public_key to C++ and return the response.
+
+---
+
+```elixir
+defmodule BitcoinAddress.CPlusPlus do
+  alias Cure.Server, as: Cure
+
+  @cpp_executable "priv/bitcoin_address"
+  # Integers representing C++ methods
+  @create_bitcoin_public_key 1
+  @create_bitcoin_address 2
+
+  def generate(private_key) do
+    with {:ok, pid} <- Cure.start_link(@cpp_executable),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key),
+         bitcoin_address <-
+           create_bitcoin_address(pid, bitcoin_public_key) do
+      IO.puts("Private key: #{inspect(private_key)}")
+      IO.puts("Public key: #{inspect(bitcoin_public_key)}")
+      IO.puts("Bitcoin address: #{inspect(bitcoin_address)}")
+      :ok = Cure.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_public_key(pid, priv_key) do
+    call_cpp(pid, <<@generate_public_key, priv_key::binary>>)
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    call_cpp(pid, <<@create_bitcoin_address, pub_key::binary>>)
+  end
+
+  defp call_cpp(pid, data) do
+    Cure.send_data(pid, data, :once)
+    receive do
+      {:cure_data, response} ->
+        response
+    end
+  end
+end
+```
+
+^
+Now we have what we need, with slight refactoring here, the only thing left would be to try it out in an iex terminal and see if we get the same values back from both Python and C++.
+
+---
+
+# [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
+
+^
+But, before we can attempt to run this, we still have the C++ executable compilation issue to deal with and that Makefile from earlier on.<br />
+Makefiles are not something that I write at all, and the Makefile and Cure comes with out of the box didn't work at all with any of my code, so I had to create my own incantations from scratch, and this is what I came up with.
+
+---
+
+# **Makefile** :scream:
+
+```
+CC = g++ -std=c++11
+APP_DIR = $(shell dirname $(shell pwd))
+CURE_DEPS_DIR = $(APP_DIR)/deps/cure/c_src
+CURE_DEPS = -I$(CURE_DEPS_DIR) -L$(CURE_DEPS_DIR)
+ELIXIR_COMM_C = -x c++ $(CURE_DEPS_DIR)/elixir_comm.c
+LIBBITCOIN_DEPS = $(shell pkg-config --cflags --libs libbitcoin)
+C_FLAGS = $(CURE_DEPS) $(ELIXIR_COMM_C) $(LIBBITCOIN_DEPS) -O3
+PRIV_DIR = $(APP_DIR)/priv
+C_SRC_DIR = $(APP_DIR)/c_src
+EXECUTABLES = bitcoin_address
+
+all: $(EXECUTABLES)
+# * $< - prerequisite file
+# * $@ - executable file
+$(EXECUTABLES): %: %.cpp
+	$(CC) $(C_FLAGS) $(C_SRC_DIR)/$< -o $(PRIV_DIR)/$@
+```
+
+^
+I'm going to spare you the very dry details of this, cause this is enough to make anyone's eyes bleed, suffice to say that the last lines...
+
+---
+
+# [fit] **Compile from** `c_src/` **to** `priv/`
+
+```
+all: $(EXECUTABLES)
+# * $< - prerequisite file
+# * $@ - executable file
+$(EXECUTABLES): %: %.cpp
+	$(CC) $(C_FLAGS) $(C_SRC_DIR)/$< -o $(PRIV_DIR)/$@
+```
+
+^
+...takes any .cpp files that are in the project c_src/ directory, and compile executables for them into the project priv/ directory.<br />
+But, the killer feature of having this is that it enables me to be able to run compilation via the `mix compile.cure` command. And this can now be done from within mix, you can do things like...
+
+---
+
+# [fit] **Compile C++ with Elixir**
+
+```elixir
+defmodule BitcoinAddress.Mixfile do
+  use Mix.Project
+
+  def project do
+    [
+      # ...
+      compilers: Mix.compilers ++ [:cure, :"cure.deps"]
+    ]
+  end
+
+  # ...
+end
+```
+
+^
+Have the C++ files also compile whenever you run `mix compile`, or...
+
+---
+
+# [fit] **Compile during TDD**
+
+```elixir
+if Mix.env() == :dev do
+  config :mix_test_watch,
+    clear: true,
+    tasks: [
+      "compile.cure",
+      "format",
+      "test",
+      "credo --strict"
+    ]
+end
+```
+
+^
+perhaps independently add their compilation to your mix test.watch pipeline.
+
+---
+
+# [fit] **_Anyway..._**
+
+^
+Anyway...how about that testing to see if it works thing...?
+
+---
+
+# [fit] **`iex -S mix`**
+
+```elixir
+iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
+"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+iex(2)> BitcoinAddress.Python.generate(private_key)
+Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
+Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
+```
+
+^
+Okay, so we've got our private key and Python solution, so let's test C++...
+
+---
+
+# [fit] **`iex -S mix`**
+
+```elixir
+iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
+"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+iex(2)> BitcoinAddress.Python.generate(private_key)
+Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
+Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
+iex(3)> BitcoinAddress.CPlusPlus.generate(private_key)
+Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
+Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
+```
+
+^
+And, it's the same, so it works! I'll actually bring this up in a console and run it for real in a bit, but for now...
+
+---
+[.hide-footer]
+[.slidenumbers: false]
+
+![](https://www.dropbox.com/s/tmb0ep4uu3b4w9n/bitcoin-lamborghini.jpg?dl=1)
+
+^
+Lambos for all!
+
+---
+
+![left 50%](https://www.dropbox.com/s/8q03qum3zzursmm/python-logo-no-text.png?dl=1)
+![right 50%](https://www.dropbox.com/s/9sg30zgqr7dbuz8/cpp_logo.png?dl=1)
+
+^
+So, what we've learned here is if you find that Elixir does not yet have the libraries to handle the problems that you want to solve, there are other options available to you using both compiled and runtime languages.
+
+---
+
+# [fit] **Self-Promotion**
+
+- https://paulfioravanti.com/blog/2017/12/04/using-pythons-bitcoin-libraries-in-elixir/
+- https://paulfioravanti.com/blog/2017/12/13/using-c-plus-plus-bitcoin-libraries-in-elixir/
+
+^
+So, I've written up two blog posts about using Python and C++ Bitcoin libraries
+in Elixir that should hopefully give you all the details that were potentially
+absent from this presentation.<br />
+Both got picked up by Elixir Weekly so that means they're totally worth reading.
+
+---
+
+# [fit] **Github Repos**
+- https://github.com/paulfioravanti/bitcoin_address
+- https://github.com/paulfioravanti/mastering_bitcoin
+
+^
+The code used in this presentation is contained in its own bitcoin_address repo listed here, and it was based on the repo that I made to port the code examples from Mastering Bitcoin over to Elixir.
+
+---
+
+<br />
+# [fit] *Ironically enough...*
+
+^
+Ironically enough, while preparing this presentation, I actually figured out how to generate Bitcoin public keys directly in Elixir...
+
+---
+
+![right fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
+
+<br />
+# [fit] :muscle:
+
+^
+(which you can find in the bitcoin_address repo), so there's no need to call out to any other language's library for this particular use case, but hopefully if you're ever called upon to integrate with libraries from other languages, you're now armed with enough information about your options to know how to start, but more importantly...
+
+---
+[.hide-footer]
+[.slidenumbers: false]
+
+![fit](https://www.dropbox.com/s/d1ama4a83avuq63/my-bitcoin-address.png?dl=1)
+
+^
+with more knowledge about Bitcoin addresses, you are now one step closer to your own lambo, so make sure you give me a ride in it sometime when you get it.
+
+---
+[.slidenumbers: false]
+
+![right](https://www.dropbox.com/s/5w770gu31uw33l9/nekobus_headshot.jpeg?dl=1)
+
+# [fit] Thanks!
+# [fit] __`@paulfioravanti`__
+![inline fit](https://www.dropbox.com/s/d1ama4a83avuq63/my-bitcoin-address.png?dl=1)
+
+^
