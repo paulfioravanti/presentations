@@ -268,7 +268,7 @@ Anyway...
 
 ^
 What we want is an Elixir library or libraries to get that job done, and surely there are Elixir libraries specifically for Bitcoin that can do this, right?<br />
-Well, there are some, most being works in progress, but the most robust one that I have found so far is...
+Well, there are some, most being works in progress like...
 
 ---
 
@@ -276,28 +276,24 @@ Well, there are some, most being works in progress, but the most robust one that
 ![right fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
 # [fit] **bitcoin-elixir**
-### **https://github.com/comboy/bitcoin-elixir**
+- https://github.com/comboy/bitcoin-elixir
 
 ^
-Bitcoin-Elixir
+Bitcoin-Elixir...
 
 ---
 
-**__```
-defmodule Bitcoin.Key.Public do
-  def to_address(pk) do
-    pk
-    |> Crypto.sha256()
-    |> Crypto.ripemd160()
-    |> Binary.prepend(@address_prefix[:public])
-    |> Base58Check.encode()
-  end
-end
-```__**
+![left fit](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)
+![right fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
+
+# [fit] **bitcoin-elixir**
+- https://github.com/comboy/bitcoin-elixir
+
+# [fit] **Bitcoin-Ex**
+- https://github.com/justinlynn/bitcoin-ex
 
 ^
-Now Bitcoin-Elixir does have a function that can turn a Bitcoin public key into a Bitcoin address that looks like this, which is great!<br />
-It hashes the public key a couple of times, adds a prefix and then encodes it in Base58, which is like Base64 but uses a few less characters due to their ambiguity when reading them, like capital O and zero.
+...and Bitcoin-Ex
 
 ---
 
@@ -312,10 +308,10 @@ But!
 
 # *- Private Key* :white_check_mark:
 # *- Bitcoin Public Key* :x:
-# *- Bitcoin Address* :question:
+# *- Bitcoin Address* :hand:
 
 ^
-Bitcoin-Elixir does not have a function for our middle step to convert a private key to a Bitcoin public key!<br />
+Neither have a function for our middle step to convert a private key to a Bitcoin public key, so it would seem that we're pretty much stopped in our tracks<br />
 
 ---
 
@@ -327,12 +323,19 @@ So now what? Are we stuck? Nope, but we will have to look outside the Elixir Eco
 
 ---
 
+# [fit] BUT
+# [fit] **WHERE?**
+
+^
+But where?
+
+---
+
 ![left 50%](https://www.dropbox.com/s/8q03qum3zzursmm/python-logo-no-text.png?dl=1)
 ![right 50%](https://www.dropbox.com/s/9sg30zgqr7dbuz8/cpp_logo.png?dl=1)
 
 ^
-The most fully-featured Bitcoin libraries are written in Python and C++, or at
-least I'm assuming they are...
+The most fully-featured Bitcoin libraries are written in Python and C++, or at least I'm assuming they are...
 
 ---
 [.hide-footer]
@@ -379,11 +382,10 @@ Let's kick it off with a new mix project we'll call `bitcoin_address`, and take 
 
 ![fit](https://www.dropbox.com/s/8q03qum3zzursmm/python-logo-no-text.png?dl=1)
 
-# [fit] Pybitcointools
-# [fit] **https://github.com/vbuterin/pybitcointools**
-<br />
+# [fit] **Pybitcointools**
+- https://github.com/vbuterin/pybitcointools
 
-# [fit] `$ pip install bitcoin`
+# [fit] **`$ pip install bitcoin`**
 
 ^
 Now, Python has a library of Bitcoin tools called pybitcointools
@@ -423,7 +425,7 @@ So, here in our `create_bitcoin_public_key` function, we do the following:
 
 # [fit] **Python Code**
 
-```python, [.highlight: 4]
+```python, [.highlight: 1, 4]
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
@@ -441,7 +443,7 @@ Use the `bitcoin` library to decode the private key from a hex string into an in
 
 # [fit] **Python Code**
 
-```python, [.highlight: 5]
+```python, [.highlight: 1, 5]
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
@@ -495,7 +497,7 @@ We then determine how the public key should be prefixed depending on whether the
 
 # [fit] **Python Code**
 
-```python, [.highlight: 8]
+```python, [.highlight: 1, 8]
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
@@ -529,3 +531,590 @@ And that gives us our Bitcoin public key, with us using 3 functions and 1 consta
 So, how do we talk to this file from Elixir?
 
 ---
+
+![fit left](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
+
+# [fit] **Export**
+
+- https://github.com/fazibear/export
+
+^
+With Export, a hex package that wraps around...
+
+---
+
+![fit right](https://www.dropbox.com/s/lxj6zl1ah0n846k/erlang-logo-transparent.png?dl=1)
+
+# [fit] **Erlport**
+
+- https://github.com/hdima/erlport
+
+^
+Erlport, which is an Erlang library that enables you to talk to both...
+
+---
+
+![inline](https://www.dropbox.com/s/lxj6zl1ah0n846k/erlang-logo-transparent.png?dl=1)
+![inline](https://www.dropbox.com/s/8q03qum3zzursmm/python-logo-no-text.png?dl=1) ![inline](https://www.dropbox.com/s/h70uzfm6j6qqhd9/ruby-logo.png?dl=1)
+
+^
+Python and Ruby code. So that looks exactly what we want.
+
+---
+
+# [fit] **Install**
+
+```elixir
+  defp deps do
+    [
+      # Erlport wrapper for Elixir to interface with Python code
+      {:export, "~> 0.1.0"}
+    ]
+  end
+```
+
+^
+To use Export, we'll first add it to our mix file and run `mix deps.get`.<br />
+And now, let's make a module for the Python integration.
+
+---
+
+```elixir
+defmodule BitcoinAddress.Python do
+  use Export.Python
+
+  @python_path :bitcoin_address |> :code.priv_dir() |> Path.basename()
+  @python_file "bitcoin_address"
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <- create_bitcoin_public_key(pid, private_key) do
+      IO.puts("Private key: #{inspect(private_key)}")
+      IO.puts("Public key: #{inspect(bitcoin_public_key)}")
+      Python.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_public_key(pid, private_key) do
+    pid
+    |> Python.call(@python_file, "create_bitcoin_public_key", [private_key])
+    |> to_string()
+  end
+end
+```
+
+^
+This is quite a lot of code for a single slide, so let's take a closer look
+at each chunk.
+
+---
+
+```elixir
+defmodule BitcoinAddress.Python do
+  use Export.Python
+
+  @python_path :bitcoin_address
+               |> :code.priv_dir()
+               |> Path.basename()
+  @python_file "bitcoin_address"
+
+  # ...
+end
+```
+
+^
+First thing that we need to do is...
+
+---
+
+```elixir, [.highlight: 4-6]
+defmodule BitcoinAddress.Python do
+  use Export.Python
+
+  @python_path :bitcoin_address
+               |> :code.priv_dir()
+               |> Path.basename()
+  @python_file "bitcoin_address"
+
+  # ...
+end
+```
+
+^
+...tell export which directory to go and look for Python files (just as an aside, using the `:code.priv_dir()` was a TIL for me: it returns the path to your project `priv` directory)...
+
+---
+
+```elixir, [.highlight: 7]
+defmodule BitcoinAddress.Python do
+  use Export.Python
+
+  @python_path :bitcoin_address
+               |> :code.priv_dir()
+               |> Path.basename()
+  @python_file "bitcoin_address"
+
+  # ...
+end
+```
+
+^
+...and we also need to specify the specifically what the file name is, without the .py extension
+
+---
+
+```elixir
+defmodule BitcoinAddress.Python do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key) do
+      # ...
+      Python.stop(pid)
+    end
+  end
+
+  # ...
+end
+```
+
+^
+From there, we'll add in a generate() function to kick off the bitcoin address generation, and in it, we'll do the following:
+
+---
+
+```elixir, [.highlight: 5]
+defmodule BitcoinAddress.Python do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key) do
+      # ...
+      Python.stop(pid)
+    end
+  end
+
+  # ...
+end
+```
+
+^
+We will call Python.start to spawn off a process to the Python directory that we specified, which gives us back its process ID
+
+---
+
+```elixir, [.highlight: 6-7]
+defmodule BitcoinAddress.Python do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key) do
+      # ...
+      Python.stop(pid)
+    end
+  end
+
+  # ...
+end
+```
+
+^
+...which we then pass to the create_bitcoin_public_key function, along with the
+  private_key we want to create a Bitcoin public key for.
+
+---
+
+```elixir, [.highlight: 6-7, 12-17]
+defmodule BitcoinAddress.Python do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key) do
+      # ...
+      Python.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_public_key(pid, priv_key) do
+    pid
+    |> Python.call(@python_file, "create_bitcoin_public_key", [priv_key])
+    |> to_string()
+  end
+end
+```
+
+^
+There, we run Python.call send to the Python file the name of the function we want to call, (in this case the function in Python that we also called "create_bitcoin_public_key"), and a list of parameters<br />
+Since the response that we get back from Python will be a binary, we cast it back into a string.
+
+---
+
+```elixir, [.highlight: 8-10]
+defmodule BitcoinAddress.Python do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key) do
+      IO.puts("Private key: #{inspect(private_key)}")
+      IO.puts("Public key: #{inspect(bitcoin_public_key)}")
+      Python.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_public_key(pid, priv_key) do
+    # ...
+  end
+end
+```
+
+^
+And from there, we just print out the private key and bitcoin public key to standard output, and stop the Python process.
+
+---
+
+# [fit] Bitcoin Public key :white_check_mark:
+
+```elixir
+defmodule BitcoinAddress.Python do
+  use Export.Python
+
+  @python_path :bitcoin_address |> :code.priv_dir() |> Path.basename()
+  @python_file "bitcoin_address"
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <- create_bitcoin_public_key(pid, private_key) do
+      IO.puts("Private key: #{inspect(private_key)}")
+      IO.puts("Public key: #{inspect(bitcoin_public_key)}")
+      Python.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_public_key(pid, priv_key) do
+    pid
+    |> Python.call(@python_file, "create_bitcoin_public_key", [priv_key])
+    |> to_string()
+  end
+end
+```
+
+^
+So, that takes care of bitcoin public key, but what about the bitcoin address?<br />
+
+---
+
+<br />
+# [fit] `bitcoin.pubkey_to_address`
+
+^
+pybitcointools has a function called `bitcoin.pubkey_to_address`, that we can call directly through Export, without having to write any more Python code...
+
+---
+
+```elixir
+defmodule BitcoinAddress.Python do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key),
+         bitcoin_address <-
+           create_bitcoin_address(pid, bitcoin_public_key) do
+      # ...
+    end
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    pid
+    |> Python.call(@python_file, "bitcoin.pubkey_to_address", [pub_key])
+    |> to_string()
+  end
+end
+```
+
+^
+...so let's add in a new Elixir function that will wrap around that.
+
+---
+
+```elixir, [.highlight: 8-9, 14-18]
+defmodule BitcoinAddress.Python do
+  # ...
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key),
+         bitcoin_address <-
+           create_bitcoin_address(pid, bitcoin_public_key) do
+      # ...
+    end
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    pid
+    |> Python.call(@python_file, "bitcoin.pubkey_to_address", [pub_key])
+    |> to_string()
+  end
+end
+```
+
+^
+As you can see, after we get back the bitcoin public key, we pass it into the `create_bitcoin_address` function and send it off to Python again, but notice how we are not calling a function that we created on the Python side, but calling a function on the Bitcoin library directly. Let's compare the two functions briefly:
+
+---
+
+```elixir
+  defp create_bitcoin_public_key(pid, priv_key) do
+    pid
+    |> Python.call(@python_file, "create_bitcoin_public_key", [priv_key])
+    |> to_string()
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    pid
+    |> Python.call(@python_file, "bitcoin.pubkey_to_address", [pub_key])
+    |> to_string()
+  end
+```
+
+^
+Here they both are, pretty much the same...
+
+---
+
+```elixir, [.highlight: 3, 9]
+  defp create_bitcoin_public_key(pid, priv_key) do
+    pid
+    |> Python.call(@python_file, "create_bitcoin_public_key", [priv_key])
+    |> to_string()
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    pid
+    |> Python.call(@python_file, "bitcoin.pubkey_to_address", [pub_key])
+    |> to_string()
+  end
+```
+
+^
+...except that create_bitcoin_public_key is our wrapper function, and bitcoin.pubkey_to_address is the Bitcoin library's, and we have the flexibility in our message sending to Python to call either type of function.<br />
+
+---
+
+```elixir, [.highlight: 7-11, 16]
+defmodule BitcoinAddress.Python do
+  # ...
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <-
+           create_bitcoin_public_key(pid, private_key),
+         bitcoin_address <-
+           create_bitcoin_address(pid, bitcoin_public_key) do
+      IO.puts("Private key: #{inspect(private_key)}")
+      IO.puts("Public key: #{inspect(bitcoin_public_key)}")
+      IO.puts("Bitcoin address: #{inspect(bitcoin_address)}")
+      Python.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    pid
+    |> Python.call(@python_file, "bitcoin.pubkey_to_address", [pub_key])
+    |> to_string()
+  end
+end
+```
+
+^
+So, once we've got the Bitcoin address back, along with the Bitcoin public key, we'll just print it to standard output as well.<br />
+
+---
+
+```elixir
+defmodule BitcoinAddress.Python do
+  use Export.Python
+
+  @python_path :bitcoin_address |> :code.priv_dir() |> Path.basename()
+  @python_file "bitcoin_address"
+
+  def generate(private_key) do
+    with {:ok, pid} <- Python.start(python_path: @python_path),
+         bitcoin_public_key <- create_bitcoin_public_key(pid, private_key),
+         bitcoin_address <- create_bitcoin_address(pid, bitcoin_public_key) do
+      IO.puts("Private key: #{inspect(private_key)}")
+      IO.puts("Public key: #{inspect(bitcoin_public_key)}")
+      IO.puts("Bitcoin address: #{inspect(bitcoin_address)}")
+      Python.stop(pid)
+    end
+  end
+
+  defp create_bitcoin_public_key(pid, priv_key) do
+    call_python(pid, "create_bitcoin_public_key", [priv_key])
+  end
+
+  defp create_bitcoin_address(pid, pub_key) do
+    call_python(pid, "bitcoin.pubkey_to_address", [pub_key])
+  end
+
+  defp call_python(pid, function, args) do
+    pid
+    |> Python.call(@python_file, function, args)
+    |> to_string()
+  end
+end
+```
+
+^
+Awesome, that should give us what we need, and now with slight refactoring here, the only thing left would be to try it out in an iex terminal:
+
+---
+
+# [fit] **`iex -S mix`**
+
+```elixir
+iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
+"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+```
+
+^
+We first generate a 256 bit (or 32 byte) private key using Erlang's crypto module and encode it into a hex string...
+
+---
+
+# [fit] **`iex -S mix`**
+
+```elixir
+iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
+"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+iex(2)> BitcoinAddress.Python.generate(private_key)
+Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
+Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
+```
+
+^
+...then we pass it over to Python, and as you can see, we have our
+Base58 Bitcoin address, ready to receive all the crypto!<br />
+So, as far as we know, the address has been generated correctly. We're assuming that the pybitcointools generated it correctly. So, to sanity check...
+
+---
+
+![fit](https://www.dropbox.com/s/9sg30zgqr7dbuz8/cpp_logo.png?dl=1)
+
+^
+...let's get C++ to do the same thing and see if we get back the same result.<br />
+As you would probably expect, doing this is quite a lot more involved, and we'll need a bit of guidance getting things set up...
+
+---
+
+![fit left](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
+
+# [fit] **Cure**
+
+- https://github.com/luc-tielen/Cure
+
+^
+so let's get the Cure hex package to help us out with talking to C from Elixir.
+
+---
+
+<br />
+# [fit] `$ brew install libbitcoin`
+
+^
+First, though, we'll need to install the necessary C++ Bitcoin libraries we'll be calling, in this case libbitcoin, and we can do this simply with Homebrew.
+
+---
+
+# [fit] **Install**
+
+```elixir
+  defp deps do
+    [
+      # Interface C-code with Erlang/Elixir using Ports
+      {:cure, "~> 0.4.0"},
+      # Erlport wrapper for Elixir to interface with Python code
+      {:export, "~> 0.1.0"}
+    ]
+  end
+```
+
+^
+Then, add Cure to the mix file and run mix deps.get.
+
+---
+
+<br />
+# [fit] `$ mix cure.bootstrap`
+
+^
+Once that's done, we need to get Cure to generate the necessary base files to communicate between C++ and Elixir.<br />
+
+---
+
+# [fit] **Cure Bootstrap**
+
+```
+c_src
+├── Makefile
+├── main.c
+└── main.h
+```
+
+^
+This command will add the following files to a top-level `c_src` directory which is Erlang convention for the location of C source code since compiled C executables will be what goes in the `priv` directory.<br />
+So what we have here is:
+
+---
+
+# [fit] **Cure Bootstrap**
+
+```, [.highlight: 2]
+c_src
+├── Makefile
+├── main.c
+└── main.h
+```
+
+^
+`Makefile`: a template to automatically build a C++ executable including Cure's libraries. We'll leave this for now, but get back to it later on.
+
+---
+
+# [fit] **Cure Bootstrap**
+
+```, [.highlight: 3]
+c_src
+├── Makefile
+├── main.c
+└── main.h
+```
+
+^
+`main.c`: Cure's base C file to communicate between C/C++ and Elixir.
+
+---
+
+# [fit] **Cure Bootstrap**
+
+```, [.highlight: 4]
+c_src
+├── Makefile
+├── main.c
+└── main.h
+```
+
+^
+And `main.h`: The header file for `main.c`
