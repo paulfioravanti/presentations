@@ -55,10 +55,9 @@ I think that pretty much covers the fundamentals, so the question now is how can
 ![fit](https://www.dropbox.com/s/d1ama4a83avuq63/my-bitcoin-address.png?dl=1)
 
 ^
-Well, you need a Bitcoin address, which looks something like this.<br />
-Don't worry about the QR code (unless you want to point your phone wallet software camera at it to send me some Lambocoin), but notice the string of characters below it.<br />
-That is a Bitcoin address, which represents a possible destination for a Bitcoin payment.<br />
-It is a type of public key, so that's why I can freely share mine with you, and I can use my secret private key to prove or verify that I have the authority to spend any funds that are sent to this Bitcoin address.  
+Well, you need a Bitcoin address, which is a Base58-encoded string of characters, that you can see below the QR code.<br />
+It represents a possible destination for a Bitcoin payment, and is a type of public key, so that's why I can freely share mine with you<br />
+I can use my secret private key to prove or verify that I have the authority to spend any funds that are sent to this Bitcoin address.
 
 ---
 
@@ -113,18 +112,7 @@ But, these libraries do not know anything about Bitcoin, so they will not be abl
 # [fit] Address
 
 ^
-In order to generate a Bitcoin Address...
-
----
-[.slidenumbers: false]
-
-![right](https://www.dropbox.com/s/d1ama4a83avuq63/my-bitcoin-address.png?dl=1)
-# [fit] **Generate**
-# [fit] Bitcoin
-# [fit] Address
-
-^
-...there are a couple of steps that we will need help with:
+In order to generate a Bitcoin Address, there are a couple of steps that we will need help with:
 
 ---
 
@@ -161,7 +149,7 @@ We will need a private key...
 # *- Bitcoin Address*
 
 ^
-So, we need these three elements.
+So, here's our checklist. Let's see how far we can go in Elixir.
 
 ---
 
@@ -249,7 +237,7 @@ I will leave looking into the details of Elliptic Curves as an exercise for the 
 
 ^
 ...an {x,y} coordinate on the Elliptic Curve.<br />
-This graph here depicts curve points possible if mapped over the prime number of 17. Imagine, if you can, what it would look like mapped over massive prime numbers.  
+This graph here depicts curve points possible if mapped over the prime number of 17. Imagine, if you can, what it would look like mapped over a prime number with millions of digits.
 
 ---
 
@@ -318,16 +306,7 @@ Neither have a function for our middle step to convert a private key to a Bitcoi
 # [fit] WHAT?
 
 ^
-So now what?
-
----
-[.hide-footer]
-[.slidenumbers: false]
-
-![](https://www.dropbox.com/s/16n1vvscjxlczhg/thats-all-folks.png?dl=1)
-
-^
-Are we stuck now? Is that it?
+So now what?  Are we stuck now? Is that it?
 
 ---
 
@@ -346,11 +325,10 @@ But, we will have to look outside the Elixir Ecosystem for help.
 
 ---
 
-# [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
 # [fit] **WHERE?**
 
 ^
-But where?
+But where, you may ask?
 
 ---
 
@@ -543,7 +521,7 @@ def create_bitcoin_public_key(private_key):
 ```
 
 ^
-...and then concatenate the prefix with the hex value of the public key x coordinate to get our return value.
+...and then concatenate the prefix with the hex value of the public key x coordinate to get our return value, with the y value essentially being discarded.
 
 ---
 
