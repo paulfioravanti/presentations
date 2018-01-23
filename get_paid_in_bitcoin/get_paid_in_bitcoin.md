@@ -46,8 +46,7 @@ And the only time you should ever spend Bitcoin is when you have enough to buy a
 ![](https://www.dropbox.com/s/wlsiee5mwq8bxq8/bitcoin-lambo.jpg?dl=1)
 
 ^
-I think that pretty much covers the fundamentals, so the question now is how can
-you get some Bitcoin for your own lambo?
+I think that pretty much covers the fundamentals, so the question now is how can you get some Bitcoin for your own lambo?
 
 ---
 [.hide-footer]
@@ -66,8 +65,7 @@ It is a type of public key, so that's why I can freely share mine with you, and 
 ![fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
 ^
-In Elixir, there are a few hex packages that can help you deal with generating
-public and private keypairs...
+In Elixir, there are a few hex packages that can help you deal with generating public and private keypairs...
 
 ---
 [.hide-footer]
@@ -92,7 +90,7 @@ like ExCrypto which wraps around Erlang's :crypto module, or...
 
 ^
 ...rsa-ex, which focuses on key generation with RSA algorithms and delegates out to your system's OpenSSL libraries to generate keys<br />
-So, these are the kinds of keys you would use to, say...
+So, these are the kinds of keys you would, say...
 
 ---
 
@@ -236,7 +234,7 @@ ECDSA, and Bitcoin uses a specific type of Elliptic Curve algorithm called...
 
 ^
 secp256k1, I believe because it's easy to remember.
-I will leave looking into the details of Elliptic Curves as an exercise for the listener cause its maths hurts my brain, suffice to say that a Bitcoin public key ends up being...
+I will leave looking into the details of Elliptic Curves as an exercise for the audience cause its maths hurts my brain, suffice to say that a Bitcoin public key ends up being...
 
 ---
 [.slidenumbers: false]
@@ -394,6 +392,8 @@ So, we're going to have a look at solving the Bitcoin address generation problem
 ...cause we are in it for the technology and the learning, as well as the lambos.
 
 ---
+
+![](https://www.dropbox.com/s/ng06dpq5hzvy6ic/lambo-aventador.jpg?dl=1)
 
 # [fit] **New project!**
 # `$ mix new bitcoin_address`
@@ -1757,7 +1757,7 @@ end
 ```
 
 ^
-we need to tell Cure where to look for the C++ executable file (generation of which we'll look at in just a moment, suffice to say that even though C code itself lives in the `c_src` directory, the executable will get compiled out to the priv directory where the Python code lives)
+we need to tell Cure where to look for the C++ executable file (generation of which we'll look at in just a moment, suffice to say that even though C code itself lives in the `c_src` directory, the executable will get compiled out to the priv directory.
 
 ---
 
@@ -1986,7 +1986,7 @@ void process_command(byte* buffer, int bytes_read) {
 ```
 
 ^
-...we will also need to modify the process command function, mapping this function to the integer 2.<br />
+...we will also need to modify the `process_command` function, adding a case to the switch statement that calls the `create_bitcoin_address` function when the function is the integer value 2.<br />
 So, you can see now why a switch statement was called for in the first place.
 
 ---
@@ -2223,7 +2223,7 @@ end
 ```
 
 ^
-perhaps independently add their compilation to your mix test.watch pipeline via the `mix compile.cure` command.
+...perhaps independently add their compilation to your `mix test.watch` pipeline via the `mix compile.cure` command.
 
 ---
 
@@ -2337,6 +2337,7 @@ Ironically enough, while preparing this presentation, I actually figured out how
 with more knowledge about Bitcoin addresses, you are now one step closer to your own lambo, so make sure you give me a ride in it sometime when you get it.
 
 ---
+[.hide-footer]
 [.slidenumbers: false]
 
 ![right](https://www.dropbox.com/s/5w770gu31uw33l9/nekobus_headshot.jpeg?dl=1)
