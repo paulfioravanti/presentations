@@ -106,8 +106,7 @@ So, these are the kinds of keys you would use to, say...
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
 
 ^
-But, these libraries do not know anything about Bitcoin, so they will not be
-able to help us in this case.
+But, these libraries do not know anything about Bitcoin, so they will not be able to help us in this case.
 
 ---
 
@@ -144,7 +143,7 @@ We will need a private key...
 # [fit] **_\(from private key\)_**
 
 ^
-...we will need to generate a Bitcoin public key from that private key...
+...and we will then need to generate a Bitcoin public key from that private key...
 
 ---
 
@@ -153,7 +152,7 @@ We will need a private key...
 # [fit] **_\(from Bitcoin public key\)_**
 
 ^
-...and we will need to generate a Bitcoin address from that Bitcoin public key.
+...and then we will need to generate a Bitcoin address from that Bitcoin public key.
 
 ---
 
@@ -225,7 +224,7 @@ Elliptic Curve Digital Signature Algorithm or...
 # [fit] **A**lgorithm
 
 ^
-ECDSA, and using a specific type of Elliptic Curve algorithm called...
+ECDSA, and Bitcoin uses a specific type of Elliptic Curve algorithm called...
 
 ---
 [.slidenumbers: false]
@@ -256,6 +255,8 @@ This graph here depicts curve points possible if mapped over the prime number of
 
 ---
 
+<br />
+<br />
 # [fit] **_Anyway..._**
 
 ^
@@ -319,11 +320,35 @@ Neither have a function for our middle step to convert a private key to a Bitcoi
 # [fit] WHAT?
 
 ^
-So now what? Are we stuck? Nope, but we will have to look outside the Elixir Ecosystem for help.
+So now what?
+
+---
+[.hide-footer]
+[.slidenumbers: false]
+
+![](https://www.dropbox.com/s/16n1vvscjxlczhg/thats-all-folks.png?dl=1)
+
+^
+Are we stuck now? Is that it?
 
 ---
 
-# [fit] BUT
+<br />
+# [fit] **NOPE!**
+
+^
+Nope...
+
+---
+
+# [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
+
+^
+But, we will have to look outside the Elixir Ecosystem for help.
+
+---
+
+# [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
 # [fit] **WHERE?**
 
 ^
@@ -335,7 +360,7 @@ But where?
 ![right 50%](https://www.dropbox.com/s/9sg30zgqr7dbuz8/cpp_logo.png?dl=1)
 
 ^
-The most fully-featured Bitcoin libraries are written in Python and C++, or at least I'm assuming they are...
+Well, the most fully-featured Bitcoin libraries are written in Python and C++, or at least I'm assuming they are...
 
 ---
 [.hide-footer]
@@ -366,7 +391,7 @@ So, we're going to have a look at solving the Bitcoin address generation problem
 ![fit](https://www.dropbox.com/s/c61ctinlmkjyjmd/in-it-for-the-technology.jpg?dl=1)
 
 ^
-cause we are in it for the technology and the learning, as well as the lambos.
+...cause we are in it for the technology and the learning, as well as the lambos.
 
 ---
 
@@ -388,9 +413,8 @@ Let's kick it off with a new mix project we'll call `bitcoin_address`, and take 
 # [fit] **`$ pip install bitcoin`**
 
 ^
-Now, Python has a library of Bitcoin tools called pybitcointools
-so the first thing you will need to do is install python via your method of choice if you don't have it
-already, and then use Python's package manager pip to install pybitcointools.
+Now, Python has a library of Bitcoin tools called pybitcointools.<br />
+So, the first thing you will need to do if you haven't already is install python via your method of choice, and then use Python's package manager pip to install pybitcointools.
 
 ---
 
@@ -398,21 +422,21 @@ already, and then use Python's package manager pip to install pybitcointools.
 # [fit] `priv/bitcoin_address.py`
 
 ^
-In an Elixir project, the `priv` directory is reserved for artifacts that you
-need alongside your Elixir code, so that's where we'll put the python code, which
-we'll call `bitcoin_address.py`. First, we need a function that will create
-a Bitcoin public key from a private key, so we'll write it like this:
+In an Elixir project, the `priv` directory is reserved for artifacts that you need alongside your Elixir code, so that's where we'll put the python code, which we'll call `bitcoin_address.py`.<br />
+First, we need a function that will create a Bitcoin public key from a private key, so we'll write it like this:
 
 ---
 
-# [fit] **Python Code**
+# **bitcoin_address.py**
 
 ```python
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
-  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
-  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  decoded_private_key =
+    bitcoin.decode_privkey(private_key, "hex")
+  public_key =
+    bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
   (public_key_x, public_key_y) = public_key
   compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
   return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
@@ -423,32 +447,36 @@ So, here in our `create_bitcoin_public_key` function, we do the following:
 
 ---
 
-# [fit] **Python Code**
+# **bitcoin_address.py**
 
-```python, [.highlight: 1, 4]
+```python, [.highlight: 1, 4-5]
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
-  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
-  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  decoded_private_key =
+    bitcoin.decode_privkey(private_key, "hex")
+  public_key =
+    bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
   (public_key_x, public_key_y) = public_key
   compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
   return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
 ```
 
 ^
-Use the `bitcoin` library to decode the private key from a hex string into an integer
+Use the `bitcoin` library to decode a private key from a hex string into an integer.
 
 ---
 
-# [fit] **Python Code**
+# **bitcoin_address.py**
 
-```python, [.highlight: 1, 5]
+```python, [.highlight: 1, 6-7]
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
-  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
-  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  decoded_private_key =
+    bitcoin.decode_privkey(private_key, "hex")
+  public_key =
+    bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
   (public_key_x, public_key_y) = public_key
   compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
   return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
@@ -459,14 +487,16 @@ We then use the `bitcoin` library's `fast_multiply` function, which calculates a
 
 ---
 
-# [fit] **Python Code**
+# **bitcoin_address.py**
 
-```python, [.highlight: 6]
+```python, [.highlight: 8]
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
-  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
-  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  decoded_private_key =
+    bitcoin.decode_privkey(private_key, "hex")
+  public_key =
+    bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
   (public_key_x, public_key_y) = public_key
   compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
   return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
@@ -477,32 +507,36 @@ def create_bitcoin_public_key(private_key):
 
 ---
 
-# [fit] **Python Code**
+# **bitcoin_address.py**
 
-```python, [.highlight: 7]
+```python, [.highlight: 9]
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
-  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
-  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  decoded_private_key =
+    bitcoin.decode_privkey(private_key, "hex")
+  public_key =
+    bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
   (public_key_x, public_key_y) = public_key
   compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
   return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
 ```
 
 ^
-We then determine how the public key should be prefixed depending on whether the public key y value is even or odd, which is a specific Bitcoin
+We then determine how the public key should be prefixed depending on whether the public key y value is even or odd, which is something specific to Bitcoin...
 
 ---
 
-# [fit] **Python Code**
+# **bitcoin_address.py**
 
-```python, [.highlight: 1, 8]
+```python, [.highlight: 1, 10]
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
-  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
-  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  decoded_private_key =
+    bitcoin.decode_privkey(private_key, "hex")
+  public_key =
+    bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
   (public_key_x, public_key_y) = public_key
   compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
   return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
@@ -513,14 +547,16 @@ def create_bitcoin_public_key(private_key):
 
 ---
 
-# [fit] **Python Code**
+# **bitcoin_address.py**
 
 ```python
 import bitcoin
 
 def create_bitcoin_public_key(private_key):
-  decoded_private_key = bitcoin.decode_privkey(private_key, "hex")
-  public_key = bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
+  decoded_private_key =
+    bitcoin.decode_privkey(private_key, "hex")
+  public_key =
+    bitcoin.fast_multiply(bitcoin.G, decoded_private_key)
   (public_key_x, public_key_y) = public_key
   compressed_prefix = "02" if (public_key_y % 2) == 0 else "03"
   return compressed_prefix + bitcoin.encode(public_key_x, 16, 64)
@@ -558,7 +594,7 @@ Erlport, which is an Erlang library that enables you to talk to both...
 ![inline](https://www.dropbox.com/s/8q03qum3zzursmm/python-logo-no-text.png?dl=1) ![inline](https://www.dropbox.com/s/h70uzfm6j6qqhd9/ruby-logo.png?dl=1)
 
 ^
-Python and Ruby code. So that looks exactly what we want.
+Python and Ruby code. So that looks like exactly what we want.
 
 ---
 
@@ -604,8 +640,7 @@ end
 ```
 
 ^
-This is quite a lot of code for a single slide, so let's take a closer look
-at each chunk.
+This is quite a lot of code for a single slide, so let's take a closer look at each chunk.
 
 ---
 
@@ -641,7 +676,7 @@ end
 ```
 
 ^
-...tell export which directory to go and look for Python files (just as an aside, using the `:code.priv_dir()` was a TIL for me: it returns the path to your project `priv` directory)...
+...tell export which directory to go and look for Python files (just as an aside, using the `:code.priv_dir()` was a TIL for me: it returns the path to your project's `priv` directory)...
 
 ---
 
@@ -659,7 +694,7 @@ end
 ```
 
 ^
-...and we also need to specify the specifically what the file name is, without the .py extension
+...and we also need to specify the file name of the python file we're going to talk to, without the .py extension
 
 ---
 
@@ -681,7 +716,7 @@ end
 ```
 
 ^
-From there, we'll add in a generate() function to kick off the bitcoin address generation, and in it, we'll do the following:
+From there, we'll add in a generate() function to do all the work, and in it, we'll do the following:
 
 ---
 
@@ -703,7 +738,7 @@ end
 ```
 
 ^
-We will call Python.start to spawn off a process to the Python directory that we specified, which gives us back its process ID
+We will call Python.start to spawn off a process to the Python directory that we specified, which gives us back its process ID...
 
 ---
 
@@ -725,8 +760,7 @@ end
 ```
 
 ^
-...which we then pass to the create_bitcoin_public_key function, along with the
-  private_key we want to create a Bitcoin public key for.
+...which we then pass to a `create_bitcoin_public_key` function, along with the `private_key` we want to create a Bitcoin public key for.
 
 ---
 
@@ -752,7 +786,7 @@ end
 ```
 
 ^
-There, we run Python.call send to the Python file the name of the function we want to call, (in this case the function in Python that we also called "create_bitcoin_public_key"), and a list of parameters<br />
+There, we run Python.call to send the Python file the name of the function we want to call, (so, in this case it's the function in Python that we also called `create_bitcoin_public_key`), and a list of parameters<br />
 Since the response that we get back from Python will be a binary, we cast it back into a string.
 
 ---
@@ -814,6 +848,8 @@ So, that takes care of bitcoin public key, but what about the bitcoin address?<b
 ---
 
 <br />
+<br />
+<br />
 # [fit] `bitcoin.pubkey_to_address`
 
 ^
@@ -871,7 +907,7 @@ end
 ```
 
 ^
-As you can see, after we get back the bitcoin public key, we pass it into the `create_bitcoin_address` function and send it off to Python again, but notice how we are not calling a function that we created on the Python side, but calling a function on the Bitcoin library directly. Let's compare the two functions briefly:
+As you can see, after we get the bitcoin public key back from Python, we pass it into the `create_bitcoin_address` function and send it off to Python again, but notice how we are not calling a function that we created on the Python side, but calling a function directly on the Bitcoin library. Let's compare the two functions briefly:
 
 ---
 
@@ -909,7 +945,8 @@ Here they both are, pretty much the same...
 ```
 
 ^
-...except that create_bitcoin_public_key is our wrapper function, and bitcoin.pubkey_to_address is the Bitcoin library's, and we have the flexibility in our message sending to Python to call either type of function.<br />
+...except that `create_bitcoin_public_key` is our Python wrapper function, and `bitcoin.pubkey_to_address` belongs to the Python Bitcoin library.<br />
+So, we have the flexibility in our message sending to Python to call either type of function.
 
 ---
 
@@ -1007,7 +1044,30 @@ Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
 ^
 ...then we pass it over to Python, and as you can see, we have our
 Base58 Bitcoin address, ready to receive all the crypto!<br />
-So, as far as we know, the address has been generated correctly. We're assuming that the pybitcointools generated it correctly. So, to sanity check...
+
+---
+[.hide-footer]
+
+![fit](https://www.dropbox.com/s/71257p9phk3kx3g/explaining-bitcoin.jpg?dl=1)
+
+^
+Hopefully that makes sense. This is all quite new to me, too, but get ready to go deeper cause...
+
+---
+
+# [fit] **`iex -S mix`**
+
+```elixir
+iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
+"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+iex(2)> BitcoinAddress.Python.generate(private_key)
+Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
+Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
+Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
+```
+
+^
+So, as far as we know, the address has been generated correctly. We're trusting that the pybitcointools library did it properly. So, to sanity check...
 
 ---
 
@@ -1026,10 +1086,12 @@ As you would probably expect, doing this is quite a lot more involved, and we'll
 - https://github.com/luc-tielen/Cure
 
 ^
-so let's get the Cure hex package to help us out with talking to C from Elixir.
+...so let's get the Cure hex package to help us out with talking to C from Elixir.
 
 ---
 
+<br />
+<br />
 <br />
 # [fit] `$ brew install libbitcoin`
 
@@ -1057,10 +1119,13 @@ Then, add Cure to the mix file and run mix deps.get.
 ---
 
 <br />
+<br />
+<br />
 # [fit] `$ mix cure.bootstrap`
 
 ^
 Once that's done, we need to get Cure to generate the necessary base files to communicate between C++ and Elixir.<br />
+This command will add the following files...
 
 ---
 
@@ -1074,7 +1139,7 @@ c_src
 ```
 
 ^
-This command will add the following files to a top-level `c_src` directory which is Erlang convention for the location of C source code since compiled C executables will be what goes in the `priv` directory.<br />
+...to a top-level `c_src` directory which is Erlang convention for the location of C source code since compiled C executables will be what goes in the `priv` directory.<br />
 So what we have here is:
 
 ---
@@ -1163,7 +1228,8 @@ int main(void) {
 ```
 
 ^
-...while loop, where messages will be explicitly read in from Elixir via the read_msg function, and we send messages back to Elixir via the send_msg function, and when we eventually terminate the Cure process from Elixir
+...while loop, where messages will be explicitly read in from Elixir via the `read_msg` function, and we send messages back to Elixir via the `send_msg` function.<br />
+And when we eventually terminate the Cure process from Elixir...
 
 ---
 
@@ -1185,7 +1251,7 @@ int main(void) {
 ```
 
 ^
-we break out of the while loop, and the C code finishes running.
+...we break out of the while loop, and the C code finishes running.
 
 ---
 
@@ -1236,7 +1302,7 @@ std::string create_bitcoin_public_key(std::string priv_key);
 ```
 
 ^
-Next, we'll get to implementing a create_bitcoin_public_key function, same name as the Python file for consistency, which will look something like this. First define the function in the header file...
+Next, we'll get to implementing a `create_bitcoin_public_key` function, same name as the Python file for consistency, which will look something like this. First define the function in the header file...
 
 ---
 
@@ -1401,7 +1467,7 @@ Unlike Export, where we are able to send messages to any Python library directly
 # [fit] **private key?**
 
 ^
-In order to call the create_bitcoin_public_key function...
+In order to call the `create_bitcoin_public_key` function...
 
 ---
 
@@ -1416,8 +1482,7 @@ In order to call the create_bitcoin_public_key function...
 # [fit] Send **Flag** :checkered_flag:!
 
 ^
-We'll need to send a flag along as well, that will allow the C++ program to
-determine what function to be called, and the easiest type of flag in this case...
+We'll need to send a flag along as well, that will allow the C++ program to determine what function is to be called, and the easiest type of flag in this case...
 
 ---
 
@@ -1426,7 +1491,7 @@ determine what function to be called, and the easiest type of flag in this case.
 # [fit] `const int CREATE_BITCOIN_PUBLIC_KEY = 1;`
 
 ^
-...is an integer, so, let's say that the integer 1 stands for generating a bitcoin public key, and we want to be able to extract that as the first byte of the message from Elixir.<br />
+...is an integer, so, let's say that the integer 1 stands for creating a bitcoin public key, and we want to be able to extract that as the first byte of the message from Elixir.<br />
 We will need a function that processes a message that includes information about what command is to be called...
 
 ---
@@ -1533,7 +1598,7 @@ void process_command(byte* buffer, int bytes_read) {
 ```
 
 ^
-...and then we declare the function argument arg to be a pointer at the second byte of the buffer and cast it to a string, which for our purposes is equivalent to assigning the contents of the buffer, minus the first function name byte to the `arg` variable (being able to do this is something that I learned about C++).
+...and then we declare the function argument `arg` to be a pointer at the second byte of the buffer and cast it to a string, which for our purposes is equivalent to assigning the contents of the buffer, minus the first function name byte to the `arg` variable (being able to do this is something that I learned about C++).
 
 ---
 
@@ -1554,8 +1619,7 @@ void process_command(byte* buffer, int bytes_read) {
 ```
 
 ^
-From there, we take the function integer, switch on it, call the function that
-maps to it, and assign it to a `result` string.
+From there, we take the function integer, switch on it, call the function that maps to it, and assign it to a `result` string.
 
 ---
 
@@ -1576,7 +1640,7 @@ void process_command(byte* buffer, int bytes_read) {
 ```
 
 ^
-We then overwrite the contents of the current buffer with the result calling the create_bitcoin_public_key with this `memcpy` incantation...
+We then overwrite the contents of the current buffer with the result of calling the `create_bitcoin_public_key` function with this `memcpy` incantation...
 
 ---
 
@@ -1732,7 +1796,7 @@ end
 ```
 
 ^
-From there, we'll add in a generate() function to kick off the bitcoin address generation, and in it, we'll do the following:
+From there, we'll add in a generate() function to do all the work, and in it, we'll do the following:
 
 ---
 
@@ -1754,7 +1818,7 @@ end
 ```
 
 ^
-We then call Cure.start_link to spawn off a process to the executable which gives us back its process ID
+We call `Cure.start_link` to spawn off a process to the executable which gives us back its process ID
 
 ---
 
@@ -1776,7 +1840,7 @@ end
 ```
 
 ^
-Which we then pass to the create_bitcoin_public_key function, along with the private_key we want to create a Bitcoin public key for. This is probably starting to sound familiar by now.
+Which we then pass to the `create_bitcoin_public_key` function, along with the `private_key` we want to create a Bitcoin public key for. This is probably starting to sound familiar by now.
 
 ---
 
@@ -1804,7 +1868,7 @@ end
 ```
 
 ^
-There, using the power of Elixir binaries that allow us to tinker with the innards of a sequence of bytes, we use Cure.send_data send a binary to the C++ executable consisting of the integer for the function we want to call, ("create_bitcoin_public_key"), and the rest of the message payload, in this case the private key, and the atom `:once` to indicate that we only want a single message back from Cure and we don't need to listen for any other returned messages.<br />
+There, using the power of Elixir binaries that allow us to tinker with the innards of a sequence of bytes, we use `Cure.send_data` to send a binary to the C++ executable consisting of the integer for the function we want to call, (`create_bitcoin_public_key`), and the rest of the message payload, in this case the private key, and the atom `:once` to indicate that we only want a single message back from Cure and we don't need to listen for any other returned messages.<br />
 Cure returns the response from C++ to our process mailbox with the `:cure_data` atom, which we receive and simply return back...
 
 ---
@@ -1840,8 +1904,8 @@ end
 ```
 
 ^
-...and output to standard output.<br />
-So now we have the Bitcoin public key, what about the address? Let's add that in to the C++ file as a function called `create_bitcoin_address`, that takes in a Bitcoin public key, and returns a Base58 Bitcoin address.
+...and print to standard output.<br />
+So now we have the Bitcoin public key, but what about the address? Let's add that in to the C++ file as a function called `create_bitcoin_address`, that takes in a Bitcoin public key, and returns a Base58 Bitcoin address.
 
 ---
 
@@ -1922,7 +1986,8 @@ void process_command(byte* buffer, int bytes_read) {
 ```
 
 ^
-we will also need to modify the process command method to be able to call it, so let's do that, mapping this function to the integer 2, so you can see now why a switch statement was called for in the first place.
+...we will also need to modify the process command function, mapping this function to the integer 2.<br />
+So, you can see now why a switch statement was called for in the first place.
 
 ---
 
@@ -2012,7 +2077,7 @@ end
 ```
 
 ^
-and add an Elixir create_bitcoin_address function that will send the function flag and bitcoin_public_key to C++ and return the response.
+and add an Elixir `create_bitcoin_address` function that will send the function flag and `bitcoin_public_key` to C++ and return the response.
 
 ---
 
@@ -2064,8 +2129,17 @@ Now we have what we need, with slight refactoring here, the only thing left woul
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
 
 ^
-But, before we can attempt to run this, we still have the C++ executable compilation issue to deal with and that Makefile from earlier on.<br />
-Makefiles are not something that I write at all, and the Makefile and Cure comes with out of the box didn't work at all with any of my code, so I had to create my own incantations from scratch, and this is what I came up with.
+But, before we can attempt to run this, we still have the C++ executable compilation issue to deal with and that...
+
+---
+
+<br />
+<br />
+# [fit] **Makefile**
+
+^
+...Makefile from earlier on.<br />
+Makefiles are not something that I write at all, and the Makefile that comes out of the box with Cure didn't work at all with any of my code, so I had to create my own incantations from scratch, and this is what I came up with.
 
 ---
 
@@ -2106,8 +2180,8 @@ $(EXECUTABLES): %: %.cpp
 ```
 
 ^
-...takes any .cpp files that are in the project c_src/ directory, and compile executables for them into the project priv/ directory.<br />
-But, the killer feature of having this is that it enables me to be able to run compilation via the `mix compile.cure` command. And this can now be done from within mix, you can do things like...
+...takes any .cpp files that are in the project c_src/ directory, and compiles executables for them into the project priv/ directory.<br />
+But, the killer feature of having this is that it enables you to be able to run compilation via `mix`. So, you can do things like...
 
 ---
 
@@ -2149,10 +2223,12 @@ end
 ```
 
 ^
-perhaps independently add their compilation to your mix test.watch pipeline.
+perhaps independently add their compilation to your mix test.watch pipeline via the `mix compile.cure` command.
 
 ---
 
+<br />
+<br />
 # [fit] **_Anyway..._**
 
 ^
@@ -2219,9 +2295,7 @@ So, what we've learned here is if you find that Elixir does not yet have the lib
 - https://paulfioravanti.com/blog/2017/12/13/using-c-plus-plus-bitcoin-libraries-in-elixir/
 
 ^
-So, I've written up two blog posts about using Python and C++ Bitcoin libraries
-in Elixir that should hopefully give you all the details that were potentially
-absent from this presentation.<br />
+So, I've written up two blog posts about using Python and C++ Bitcoin libraries in Elixir that should hopefully give you all the details that were potentially absent from this presentation.<br />
 Both got picked up by Elixir Weekly so that means they're totally worth reading.
 
 ---
@@ -2235,6 +2309,8 @@ The code used in this presentation is contained in its own bitcoin_address repo 
 
 ---
 
+<br />
+<br />
 <br />
 # [fit] *Ironically enough...*
 
