@@ -76,7 +76,6 @@ I can use my secret private key to prove or verify that I have the authority to 
 In Elixir, there are a few hex packages that can help you deal with generating public and private keypairs...
 
 ---
-[.hide-footer]
 
 ![fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
@@ -87,7 +86,6 @@ In Elixir, there are a few hex packages that can help you deal with generating p
 like ExCrypto which wraps around Erlang's :crypto module, or...
 
 ---
-[.hide-footer]
 
 ![fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
@@ -108,6 +106,8 @@ So, these are the kinds of keys you would, say...
 ...add to your Github account so you can verify your commits.
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
 ![](https://www.dropbox.com/s/xzgr57qerl2fkun/lambo-centario.png?dl=1)
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
@@ -293,6 +293,8 @@ Bitcoin-Elixir...
 ...and Bitcoin-Ex
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
 ![](https://www.dropbox.com/s/dr9js7skak9ezda/lambo-huracan.png?dl=1)
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
@@ -328,6 +330,8 @@ So now what?  Are we to remain lambo-less?
 Nope...
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
 ![](https://www.dropbox.com/s/44k8slqs0iiptkr/lambo-carbon.png?dl=1)
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
@@ -1023,29 +1027,19 @@ end
 Awesome, so that should give us what we need, so the only thing left would be to try it out in an iex terminal:
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
-# [fit] **`iex -S mix`**
-
-```elixir
-iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
-"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-```
+![fit](https://www.dropbox.com/s/707ubht13uf5ytz/mix-public-key.png?dl=1)
 
 ^
 So, like we saw before, we'll first generate a 32 byte private key...
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
-# [fit] **`iex -S mix`**
-
-```elixir
-iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
-"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-iex(2)> BitcoinAddress.Python.generate(private_key)
-Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
-Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
-```
+![fit](https://www.dropbox.com/s/d7hj9tr5d3ikfay/mix-python.png?dl=1)
 
 ^
 ...then we pass it over to Python, and as you can see, we have our
@@ -1060,17 +1054,10 @@ Base58 Bitcoin address, ready to receive all the crypto!<br />
 Hopefully that makes sense. This is all quite new to me, too, but get ready to go deeper cause...
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
-# [fit] **`iex -S mix`**
-
-```elixir
-iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
-"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-iex(2)> BitcoinAddress.Python.generate(private_key)
-Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
-Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
-```
+![fit](https://www.dropbox.com/s/d7hj9tr5d3ikfay/mix-python.png?dl=1)
 
 ^
 So, as far as we know, the address has been generated correctly. We're trusting that the pybitcointools library did it properly. So, to sanity check...
@@ -1089,17 +1076,19 @@ As you would probably expect, doing this is quite a lot more involved, and we'll
 
 # [fit] **Cure**
 
-- https://github.com/luc-tielen/Cure
+- **https://github.com/luc-tielen/Cure**
 
 ^
 ...so let's get the Cure hex package to help us out with talking to C from Elixir.
 
 ---
 
+![fit](https://www.dropbox.com/s/9sg30zgqr7dbuz8/cpp_logo.png?dl=1)
+
 <br />
 <br />
 <br />
-# [fit] `$ brew install libbitcoin`
+# [fit] **`$ brew install libbitcoin`**
 
 ^
 First, though, we'll need to install the necessary C++ Bitcoin libraries we'll be calling, in this case libbitcoin, and we can do this simply with Homebrew.
@@ -1113,8 +1102,6 @@ First, though, we'll need to install the necessary C++ Bitcoin libraries we'll b
     [
       # Interface C-code with Erlang/Elixir using Ports
       {:cure, "~> 0.4.0"},
-      # Erlport wrapper for Elixir to interface with Python code
-      {:export, "~> 0.1.0"}
     ]
   end
 ```
@@ -2123,7 +2110,10 @@ end
 Now we have what we need, with slight refactoring here, the only thing left would be to try it out in an iex terminal and see if we get the same values back from both Python and C++.
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
+![fit](https://www.dropbox.com/s/5i9tl0whoeny4an/lambo-aventador-blue.png?dl=1)
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
 
 ^
@@ -2233,40 +2223,22 @@ end
 Anyway...how about that testing to see if it works thing...?
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
-# [fit] **`iex -S mix`**
-
-```elixir
-iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
-"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-iex(2)> BitcoinAddress.Python.generate(private_key)
-Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
-Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
-```
+![fit](https://www.dropbox.com/s/d7hj9tr5d3ikfay/mix-python.png?dl=1)
 
 ^
 Okay, so we've got our private key and Python solution, so let's test C++...
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
-# [fit] **`iex -S mix`**
-
-```elixir
-iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
-"1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-iex(2)> BitcoinAddress.Python.generate(private_key)
-Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
-Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
-iex(3)> BitcoinAddress.CPlusPlus.generate(private_key)
-Private key: "1542BC5E590628E5C3A1C355869B1B773B055EDF57A633D58F9C0938BA2CDE0B"
-Public key: "022dc34a77f936876375190971e31f152a68d2ff7687985b33822f36a78b4eab15"
-Bitcoin address: "1Amc3fz6ZmiwqEDbEZwm7eVJZH8ApXBAqY"
-```
+![fit](https://www.dropbox.com/s/l8drhlqgk5c4it7/mix-cplusplus.png?dl=1)
 
 ^
-And, it's the same, so it works! I'll actually bring this up in a console and run it for real in a bit, but for now...
+And, it's the same, so it works! The same Bitcoin address via two different languages.
 
 ---
 [.hide-footer]
@@ -2289,8 +2261,8 @@ So, what we've learned here is if you find that Elixir does not yet have the lib
 
 # [fit] **Self-Promotion**
 
-- https://paulfioravanti.com/blog/2017/12/04/using-pythons-bitcoin-libraries-in-elixir/
-- https://paulfioravanti.com/blog/2017/12/13/using-c-plus-plus-bitcoin-libraries-in-elixir/
+- **https://paulfioravanti.com/blog/2017/12/04/using-pythons-bitcoin-libraries-in-elixir/**
+- **https://paulfioravanti.com/blog/2017/12/13/using-c-plus-plus-bitcoin-libraries-in-elixir/**
 
 ^
 So, I've written up two blog posts about using Python and C++ Bitcoin libraries in Elixir that should hopefully give you all the details that were potentially absent from this presentation.<br />
@@ -2299,8 +2271,8 @@ Both got picked up by Elixir Weekly so that means they're totally worth reading.
 ---
 
 # [fit] **Github Repos**
-- https://github.com/paulfioravanti/bitcoin_address
-- https://github.com/paulfioravanti/mastering_bitcoin
+- **https://github.com/paulfioravanti/bitcoin_address**
+- **https://github.com/paulfioravanti/mastering_bitcoin**
 
 ^
 The code used in this presentation is contained in its own bitcoin_address repo listed here, and it was based on the repo that I made to port the code examples from Mastering Bitcoin over to Elixir.
@@ -2313,7 +2285,16 @@ The code used in this presentation is contained in its own bitcoin_address repo 
 # [fit] *Ironically enough...*
 
 ^
-Ironically enough, while preparing this presentation, I actually figured out how to generate Bitcoin public keys directly in Elixir...
+Ironically enough, while preparing this presentation...
+
+---
+[.hide-footer]
+[.slidenumbers: false]
+
+![fit](https://www.dropbox.com/s/sen4lee55f7bne5/mix-elixir.png?dl=1)
+
+^
+I actually figured out how to generate Bitcoin public keys directly in Elixir as well (which you can find in the bitcoin_address repo), so there's no need to call out to any other language's library for this particular use case...
 
 ---
 
@@ -2323,7 +2304,7 @@ Ironically enough, while preparing this presentation, I actually figured out how
 # [fit] :muscle:
 
 ^
-(which you can find in the bitcoin_address repo), so there's no need to call out to any other language's library for this particular use case, but hopefully if you're ever called upon to integrate with libraries from other languages, you're now armed with enough information about your options to know how to start, but more importantly...
+...but hopefully if you're ever called upon to integrate with libraries from other languages, you're now armed with enough information about your options to know how to start, but more importantly...
 
 ---
 [.hide-footer]
