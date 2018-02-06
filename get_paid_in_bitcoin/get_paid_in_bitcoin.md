@@ -26,16 +26,25 @@ Bitcoin is magical internet money, which you should buy lots of...
 ![fit](https://www.dropbox.com/s/uta0gl3yqtgw7ej/hodl.jpg?dl=1)
 
 ^
-...and then keep holding on to it, because its value will always go up.
+...and then keep holding on to it, because its value will always go up...
 
 ---
 [.hide-footer]
 [.slidenumbers: false]
 
-![fit](https://www.dropbox.com/s/wlsiee5mwq8bxq8/bitcoin-lambo.jpg?dl=1)
+![](https://www.dropbox.com/s/226fusb96mmfmyg/Bitcoin-trading-down.jpg?dl=1)
 
 ^
-And the only time you should ever spend Bitcoin is when you have enough to buy a Lamborghini.
+...unless of course it doesn't...
+
+---
+[.hide-footer]
+[.slidenumbers: false]
+
+![110%](https://www.dropbox.com/s/wlsiee5mwq8bxq8/bitcoin-lambo.jpg?dl=1)
+
+^
+...and the only time you should ever spend Bitcoin is when you have enough to buy a Lamborghini.
 
 ---
 [.hide-footer]
@@ -104,7 +113,7 @@ So, these are the kinds of keys you would, say...
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
 
 ^
-But, these libraries do not know anything about Bitcoin, so they will not be able to help us in this case.
+But, these libraries do not know anything about Bitcoin, so they will not be able to help us get a lambo.
 
 ---
 
@@ -255,7 +264,7 @@ Anyway...
 ![right fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
 ^
-What we want is an Elixir library or libraries to get that job done, and surely there are Elixir libraries specifically for Bitcoin that can do this, right?<br />
+What we want is an Elixir library or libraries to get that job done for us. Surely they exist, right?<br />
 Well, there are some, most being works in progress like...
 
 ---
@@ -308,7 +317,7 @@ Neither have a function for our middle step to convert a private key to a Bitcoi
 # [fit] WHAT?
 
 ^
-So now what?  Are we stuck now? Is that it?
+So now what?  Are we to remain lambo-less?
 
 ---
 
@@ -391,7 +400,7 @@ Let's kick it off with a new mix project we'll call `bitcoin_address`, and take 
 ![fit](https://www.dropbox.com/s/8q03qum3zzursmm/python-logo-no-text.png?dl=1)
 
 # [fit] **Pybitcointools**
-- https://github.com/vbuterin/pybitcointools
+- **https://github.com/vbuterin/pybitcointools**
 
 # [fit] **`$ pip install bitcoin`**
 
@@ -446,7 +455,7 @@ def create_bitcoin_public_key(private_key):
 ```
 
 ^
-Use the `bitcoin` library to decode a private key from a hex string into an integer.
+Use the `bitcoin` library to decode a hex string private key into an integer.
 
 ---
 
@@ -546,7 +555,7 @@ def create_bitcoin_public_key(private_key):
 ```
 
 ^
-And that gives us our Bitcoin public key, with us using 3 functions and 1 constant from the bitcoin library.
+And that gives us our Bitcoin public key, with us using 3 functions and 1 constant from the Python bitcoin library.
 So, how do we talk to this file from Elixir?
 
 ---
@@ -555,7 +564,7 @@ So, how do we talk to this file from Elixir?
 
 # [fit] **Export**
 
-- https://github.com/fazibear/export
+- **https://github.com/fazibear/export**
 
 ^
 With Export, a hex package that wraps around...
@@ -566,7 +575,7 @@ With Export, a hex package that wraps around...
 
 # [fit] **Erlport**
 
-- https://github.com/hdima/erlport
+- **https://github.com/hdima/erlport**
 
 ^
 Erlport, which is an Erlang library that enables you to talk to both...
@@ -593,7 +602,7 @@ Python and Ruby code. So that looks like exactly what we want.
 ```
 
 ^
-To use Export, we'll first add it to our mix file and run `mix deps.get`.<br />
+To use Export, we'll first add it to our dependencies.<br />
 And now, let's make a module for the Python integration.
 
 ---
@@ -970,9 +979,11 @@ end
 ```
 
 ^
-So, once we've got the Bitcoin address back, along with the Bitcoin public key, we'll just print it to standard output as well.<br />
+So, once we've got the Bitcoin address back, we'll just print it to standard output, along with the Private and Public key.<br />
 
 ---
+
+# [fit] Bitcoin Address :white_check_mark:
 
 ```elixir
 defmodule BitcoinAddress.Python do
@@ -1009,7 +1020,7 @@ end
 ```
 
 ^
-Awesome, that should give us what we need, and now with slight refactoring here, the only thing left would be to try it out in an iex terminal:
+Awesome, so that should give us what we need, so the only thing left would be to try it out in an iex terminal:
 
 ---
 
@@ -1021,7 +1032,7 @@ iex(1)> private_key = :crypto.strong_rand_bytes(32) |> Base.encode16()
 ```
 
 ^
-We first generate a 256 bit (or 32 byte) private key using Erlang's crypto module and encode it into a hex string...
+So, like we saw before, we'll first generate a 32 byte private key...
 
 ---
 
@@ -1126,12 +1137,10 @@ This command will add the following files...
 
 # [fit] **Cure Bootstrap**
 
-```
-c_src
-├── Makefile
-├── main.c
-└── main.h
-```
+# [fit] `c_src`
+# [fit] **├─** `Makefile`
+# [fit] **├─** `main.c`
+# [fit] **└─** `main.h`
 
 ^
 ...to a top-level `c_src` directory which is Erlang convention for the location of C source code since compiled C executables will be what goes in the `priv` directory.<br />
@@ -1141,12 +1150,10 @@ So what we have here is:
 
 # [fit] **Cure Bootstrap**
 
-```, [.highlight: 2]
-c_src
-├── Makefile
-├── main.c
-└── main.h
-```
+# [fit] `c_src`
+# [fit] **├─** **`Makefile`**
+# [fit] **├─** `main.c`
+# [fit] **└─** `main.h`
 
 ^
 `Makefile`: a template to automatically build a C++ executable including Cure's libraries. We'll leave this for now, but get back to it later on.
@@ -1155,12 +1162,10 @@ c_src
 
 # [fit] **Cure Bootstrap**
 
-```, [.highlight: 3]
-c_src
-├── Makefile
-├── main.c
-└── main.h
-```
+# [fit] `c_src`
+# [fit] **├─** `Makefile`
+# [fit] **├─** **`main.c`**
+# [fit] **└─** `main.h`
 
 ^
 `main.c`: Cure's base C file to communicate between C/C++ and Elixir.
@@ -1169,12 +1174,10 @@ c_src
 
 # [fit] **Cure Bootstrap**
 
-```, [.highlight: 4]
-c_src
-├── Makefile
-├── main.c
-└── main.h
-```
+# [fit] `c_src`
+# [fit] **├─** `Makefile`
+# [fit] **├─** `main.c`
+# [fit] **└─** **`main.h`**
 
 ^
 And `main.h`: The header file for `main.c`<br />
