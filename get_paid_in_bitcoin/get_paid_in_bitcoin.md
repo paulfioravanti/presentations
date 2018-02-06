@@ -100,6 +100,7 @@ So, these are the kinds of keys you would, say...
 
 ---
 
+![](https://www.dropbox.com/s/xzgr57qerl2fkun/lambo-centario.png?dl=1)
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
 
 ^
@@ -263,7 +264,7 @@ Well, there are some, most being works in progress like...
 ![right fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
 # [fit] **bitcoin-elixir**
-- https://github.com/comboy/bitcoin-elixir
+- **https://github.com/comboy/bitcoin-elixir**
 
 ^
 Bitcoin-Elixir...
@@ -274,16 +275,17 @@ Bitcoin-Elixir...
 ![right fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
 # [fit] **bitcoin-elixir**
-- https://github.com/comboy/bitcoin-elixir
+- **https://github.com/comboy/bitcoin-elixir**
 
 # [fit] **Bitcoin-Ex**
-- https://github.com/justinlynn/bitcoin-ex
+- **https://github.com/justinlynn/bitcoin-ex**
 
 ^
 ...and Bitcoin-Ex
 
 ---
 
+![](https://www.dropbox.com/s/dr9js7skak9ezda/lambo-huracan.png?dl=1)
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
 
 ^
@@ -318,6 +320,7 @@ Nope...
 
 ---
 
+![](https://www.dropbox.com/s/44k8slqs0iiptkr/lambo-carbon.png?dl=1)
 # [fit] ![inline](https://www.dropbox.com/s/btoe37205iqvoun/bitcoin-logo-b.png?dl=1)ut
 
 ^
@@ -891,13 +894,19 @@ As you can see, after we get the bitcoin public key back from Python, we pass it
 
 ---
 
+<br />
+
 ```elixir
   defp create_bitcoin_public_key(pid, priv_key) do
     pid
     |> Python.call(@python_file, "create_bitcoin_public_key", [priv_key])
     |> to_string()
   end
+```
 
+<br />
+
+```elixir
   defp create_bitcoin_address(pid, pub_key) do
     pid
     |> Python.call(@python_file, "bitcoin.pubkey_to_address", [pub_key])
@@ -910,13 +919,19 @@ Here they both are, pretty much the same...
 
 ---
 
-```elixir, [.highlight: 3, 9]
+<br />
+
+```elixir, [.highlight: 3]
   defp create_bitcoin_public_key(pid, priv_key) do
     pid
     |> Python.call(@python_file, "create_bitcoin_public_key", [priv_key])
     |> to_string()
   end
+```
 
+<br />
+
+```elixir, [.highlight: 3]
   defp create_bitcoin_address(pid, pub_key) do
     pid
     |> Python.call(@python_file, "bitcoin.pubkey_to_address", [pub_key])
