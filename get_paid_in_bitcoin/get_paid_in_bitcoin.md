@@ -1495,7 +1495,7 @@ We will need a function that processes a message that includes information about
 
 # **`bitcoin_address.cpp`**
 
-```cpp
+```cpp, [.highlight: 8]
 const int CREATE_BITCOIN_PUBLIC_KEY = 1;
 
 int main(void) {
@@ -1511,6 +1511,26 @@ int main(void) {
 
 ^
 ...so let's call that `process_command`.<br />
+
+---
+
+# **`bitcoin_address.cpp`**
+
+```cpp
+const int CREATE_BITCOIN_PUBLIC_KEY = 1;
+
+int main(void) {
+  int bytes_read;
+  byte buffer[MAX_BUFFER_SIZE];
+
+  while((bytes_read = read_msg(buffer)) > 0) {
+    process_command(buffer, bytes_read);
+  }
+  return 0;
+}
+```
+
+^
 After declaring the `process_command` function in the header file, let's have a look at what its details could look like.
 
 ---
@@ -1574,7 +1594,7 @@ void process_command(byte* buffer, int bytes_read) {
 ```
 
 ^
-...and from the buffer we extract the first byte to determine which function to call. This will be the integer specified previously.
+...and from the buffer we extract the first byte to determine which function to call. This will be the function name integer: number 1 for `create_bitcoin_public_key`.
 
 ---
 
@@ -1595,7 +1615,8 @@ void process_command(byte* buffer, int bytes_read) {
 ```
 
 ^
-...and then we declare the function argument `arg` to be a pointer at the second byte of the buffer, which for our purposes is equivalent to assigning the contents of the buffer, minus the first function name integer, to the `arg` variable (being able to do this is something that I learned about C++).
+We then take the rest of the buffer minus the function name integer and assign it as the argument to the function we want to call in C++.<br />
+So, we've essentially divided up the buffer into two chunks, the function integer, and the function argument, which we're assuming takes up the rest of the buffer.
 
 ---
 
@@ -1754,7 +1775,7 @@ end
 ```
 
 ^
-we need to tell Cure where to look for the C++ executable file (generation of which we'll look at in just a moment, suffice to say that even though C code itself lives in the `c_src` directory, the executable will get compiled out to the priv directory.
+we need to tell Cure where to look for the C++ executable file (generation of which we'll look at in just a moment, suffice to say that even though C code itself lives in the `c_src` directory, the executable will get compiled out to the priv directory).
 
 ---
 
@@ -1870,8 +1891,6 @@ Cure returns the response from C++ to our process mailbox with the `:cure_data` 
 
 ---
 
-# [fit] Bitcoin Public key :white_check_mark:
-
 ```elixir
 defmodule BitcoinAddress.CPlusPlus do
   alias Cure.Server, as: Cure
@@ -1902,6 +1921,16 @@ end
 
 ^
 ...and print to standard output.<br />
+
+---
+
+# [fit] **Checklist**
+
+# *- Private Key* :white_check_mark:
+# *- Bitcoin Public Key* :white_check_mark:
+# *- Bitcoin Address*
+
+^
 So now we have the Bitcoin public key, but what about the address? Let's add that in to the C++ file as a function called `create_bitcoin_address`, that takes in a Bitcoin public key, and returns a Base58 Bitcoin address.
 
 ---
@@ -2074,7 +2103,7 @@ end
 ```
 
 ^
-and add an Elixir `create_bitcoin_address` function that will send the function flag and `bitcoin_public_key` to C++ and return the response.
+and add an Elixir `create_bitcoin_address` function that will send the function flag and `bitcoin_public_key` to C++...
 
 ---
 
@@ -2117,9 +2146,19 @@ defmodule BitcoinAddress.CPlusPlus do
   end
 end
 ```
+^
+...and return the response.
+
+---
+
+# [fit] **Checklist**
+
+# *- Private Key* :white_check_mark:
+# *- Bitcoin Public Key* :white_check_mark:
+# *- Bitcoin Address* :white_check_mark:
 
 ^
-Now we have what we need, with slight refactoring here, the only thing left would be to try it out in an iex terminal and see if we get the same values back from both Python and C++.
+Now we have what we need, the only thing left would be to try it out in an iex terminal and see if we get the same values back from both Python and C++.
 
 ---
 [.hide-footer]
@@ -2322,7 +2361,7 @@ I actually figured out how to generate Bitcoin public keys directly in Elixir as
 [.hide-footer]
 [.slidenumbers: false]
 
-![fit](https://www.dropbox.com/s/d1ama4a83avuq63/my-bitcoin-address.png?dl=1)
+![fit](https://www.dropbox.com/s/9pcrnme4ogjvg3g/lambo-gallardo.png?dl=1)
 
 ^
 with more knowledge about Bitcoin addresses, you are now one step closer to your own lambo, so make sure you give me a ride in it sometime when you get it.
