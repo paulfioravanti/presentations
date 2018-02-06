@@ -356,7 +356,7 @@ Well, the most fully-featured Bitcoin libraries are written in Python and C++, o
 ![fit](https://www.dropbox.com/s/ykcfun5zlcu7aw1/masteringbitcoin_cover.jpg?dl=1)
 
 ^
-...Mastering Bitcoin, used those languages in all its code examples, which I then attempted to re-write to Elixir. For functionality where I did not have Elixir equivalents...
+...Mastering Bitcoin, used those languages in all its code examples, which I then attempted to re-write to Elixir. For functionality where I did not have Elixir equivalents, I would ask libraries in Python and C++ to do the work for me by calling out to them via...
 
 ---
 
@@ -364,7 +364,7 @@ Well, the most fully-featured Bitcoin libraries are written in Python and C++, o
 ![right 190%](https://www.dropbox.com/s/k4nu401otgdqe4z/port.png?dl=1)
 
 ^
-...I would ask libraries in Python and C++ to do the work for me by calling out to them via Elixir ports.
+...Elixir ports.
 
 ---
 
@@ -831,7 +831,7 @@ end
 ```
 
 ^
-...and stop the Python process.
+...and, finally, stop the Python process.
 
 ---
 
@@ -852,7 +852,7 @@ So, that takes care of the public key, but what about the Bitcoin Address? Well.
 # [fit] `bitcoin.pubkey_to_address`
 
 ^
-...pybitcointools has a function called `bitcoin.pubkey_to_address`, that we can call directly through Export, without having to write any more Python code...
+...pybitcointools has a function called `bitcoin.pubkey_to_address`, that we can call directly through Export, without having to write any more Python code that wraps around calls to pybitcointools libraries...
 
 ---
 
@@ -1155,7 +1155,7 @@ So what we have here is:
 # [fit] **└─** `main.h`
 
 ^
-`Makefile`: a template to automatically build a C executable including Cure's libraries. We'll leave this for now, but get back to it later on.
+`Makefile`: a template to automatically build a C executable. We'll leave this for now, but get back to it later on.
 
 ---
 
@@ -1322,7 +1322,7 @@ std::string create_bitcoin_public_key(std::string priv_key) {
 ```
 
 ^
-...and then the implementation.  Similar to the Python code, this function...
+...and then here is the implementation.  Similar to the Python code, this function...
 
 ---
 
@@ -1488,7 +1488,7 @@ We'll need to send a flag along as well, that will allow the C++ program to dete
 # [fit] `const int CREATE_BITCOIN_PUBLIC_KEY = 1;`
 
 ^
-...is an integer, so, let's say that the integer 1 stands for creating a bitcoin public key, and we want to be able to extract that as the first byte of the message from Elixir.<br />
+...is an integer. So, let's say that the integer 1 stands for creating a bitcoin public key, and we want to be able to extract that as the first byte of the message from Elixir.<br />
 We will need a function that processes a message that includes information about what command is to be called...
 
 ---
@@ -1775,7 +1775,7 @@ end
 ```
 
 ^
-we need to tell Cure where to look for the C++ executable file (generation of which we'll look at in just a moment, suffice to say that even though C code itself lives in the `c_src` directory, the executable will get compiled out to the priv directory).
+we need to tell Cure where to look for the C++ executable file, so in this case, the priv directory.
 
 ---
 
@@ -1886,7 +1886,7 @@ end
 ```
 
 ^
-There, using the power of Elixir binaries that allow us to tinker with the innards of a sequence of bytes, we use `Cure.send_data` to send a binary to the C++ executable consisting of the integer for the function we want to call, (`create_bitcoin_public_key`), and the rest of the message payload, in this case the private key, and the atom `:once` to indicate that we only want a single message back from Cure and we don't need to listen for any other returned messages.<br />
+There, using the power of Elixir binaries, that allow us to tinker with the innards of a sequence of bytes, we use `Cure.send_data` to send a binary consisting of the integer for the function we want to call, (`create_bitcoin_public_key`), and the rest of the message payload, in this case the private key, along with the atom `:once` to indicate that we only want a single message back from C-land and we don't need to listen for any other returned messages.<br />
 Cure returns the response from C++ to our process mailbox with the `:cure_data` atom, which we receive and simply return back...
 
 ---
@@ -1931,7 +1931,7 @@ end
 # *- Bitcoin Address*
 
 ^
-So now we have the Bitcoin public key, but what about the address? Let's add that in to the C++ file as a function called `create_bitcoin_address`, that takes in a Bitcoin public key, and returns a Base58 Bitcoin address.
+So now we have the Bitcoin public key, but what about the address? Let's add that in to the C++ file as a function called `create_bitcoin_address`.
 
 ---
 
@@ -2355,7 +2355,8 @@ I actually figured out how to generate Bitcoin public keys directly in Elixir as
 # [fit] :muscle:
 
 ^
-...but hopefully if you're ever called upon to integrate with libraries from other languages, you're now armed with enough information about your options to know how to start, but more importantly...
+...but hopefully if you're ever called upon to integrate with libraries from other languages, you're now armed with enough information about your options to know how to start.<br />
+But more importantly, with more knowledge about Bitcoin addresses...
 
 ---
 [.hide-footer]
@@ -2364,7 +2365,7 @@ I actually figured out how to generate Bitcoin public keys directly in Elixir as
 ![fit](https://www.dropbox.com/s/9pcrnme4ogjvg3g/lambo-gallardo.png?dl=1)
 
 ^
-with more knowledge about Bitcoin addresses, you are now one step closer to your own lambo, so make sure you give me a ride in it sometime when you get it.
+...you are now one step closer to your own lambo, so make sure you give me a ride in it sometime when you get it.
 
 ---
 [.hide-footer]
