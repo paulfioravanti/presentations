@@ -356,15 +356,7 @@ Well, the most fully-featured Bitcoin libraries are written in Python and C++, o
 ![fit](https://www.dropbox.com/s/ykcfun5zlcu7aw1/masteringbitcoin_cover.jpg?dl=1)
 
 ^
-...Mastering Bitcoin, used those languages in all its code examples, which I then attempted to re-write to Elixir. For functionality where I did not have Elixir equivalents, I would ask libraries in Python and C++ to do the work for me by calling out to them via...
-
----
-
-![left fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
-![right 190%](https://www.dropbox.com/s/k4nu401otgdqe4z/port.png?dl=1)
-
-^
-...Elixir ports.
+...Mastering Bitcoin, used those languages in all its code examples, which I then attempted to re-write to Elixir. For functionality where I did not have Elixir equivalents, I would ask libraries in Python and C++ to do the work for me by calling out to them via Elixir ports.
 
 ---
 
