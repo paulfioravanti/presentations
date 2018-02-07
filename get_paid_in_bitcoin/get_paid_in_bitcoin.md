@@ -189,8 +189,7 @@ Let's move on to the next item, a Bitcoin Public Key.
 # [fit] Public Key
 
 ^
-What is a Bitcoin public key and what makes it different from other public keys that you may be used to using?<br />
-Well, public keys used in Bitcoin are created not using an algorithm like RSA, but using a specific kind of algorithm called an...
+Now, a Bitcoin public key is a bit different from other public keys you may be used to using as it is created not using an algorithm like RSA, but using a specific kind of algorithm called an...
 
 ---
 
@@ -260,7 +259,7 @@ Anyway...
 ![right fit](https://www.dropbox.com/s/j5wvcl4knahsbmj/elixir-drop.png?dl=1)
 
 ^
-What we want is an Elixir library or libraries to get that job done for us. Surely they exist, right?<br />
+What we want is an Elixir library or libraries to get these jobs done for us. Surely they exist, right?<br />
 Well, there are some, most being works in progress like...
 
 ---
@@ -356,7 +355,7 @@ Well, the most fully-featured Bitcoin libraries are written in Python and C++, o
 ![fit](https://www.dropbox.com/s/ykcfun5zlcu7aw1/masteringbitcoin_cover.jpg?dl=1)
 
 ^
-...Mastering Bitcoin, used those languages in all its code examples, which I then attempted to re-write to Elixir. For functionality where I did not have Elixir equivalents, I would ask libraries in Python and C++ to do the work for me by calling out to them via Elixir ports.
+...Mastering Bitcoin, used those languages in all its code examples, which I then attempted to port over to Elixir. For functionality where I did not have Elixir equivalents, I would ask libraries in Python and C++ to do the work for me by calling out to them via Elixir ports.
 
 ---
 
@@ -1453,6 +1452,7 @@ Unlike Export, where we are able to send messages to any Python library directly
 ---
 
 # [fit] Just send
+# [fit] **function name &**
 # [fit] **private key?**
 
 ^
@@ -1461,17 +1461,19 @@ In order to call the `create_bitcoin_public_key` function...
 ---
 
 # [fit] Just send
+# [fit] **function name &**
 # [fit] **private key?** :x:
 
 ^
-...we can't just send the private key from Elixir and expect that C++ will know what to do with it.
+...we can't just send a function name and the private key argument from Elixir, because a function name string could take up any number of bytes in the buffer that gets read in on the C++ side.
 
 ---
 
 # [fit] Send **Flag** :checkered_flag:!
 
 ^
-We'll need to send a flag along as well, that will allow the C++ program to determine what function is to be called, and the easiest type of flag in this case...
+Instead, we'll need to send a flag that will only take up a single byte of the buffer, which will allow the C++ program to easily extract it to determine what function is to be called.<br />
+And the easiest type of flag in this case...
 
 ---
 
@@ -1480,7 +1482,7 @@ We'll need to send a flag along as well, that will allow the C++ program to dete
 # [fit] `const int CREATE_BITCOIN_PUBLIC_KEY = 1;`
 
 ^
-...is an integer. So, let's say that the integer 1 stands for creating a bitcoin public key, and we want to be able to extract that as the first byte of the message from Elixir.<br />
+...is a single digit integer. So, let's say that the integer 1 stands for creating a bitcoin public key, and we want to be able to extract that as the first byte of the message from Elixir.<br />
 We will need a function that processes a message that includes information about what command is to be called...
 
 ---
@@ -1527,6 +1529,8 @@ After declaring the `process_command` function in the header file, let's have a 
 
 ---
 
+**__`bitcoin_address.cpp`__**
+
 ```cpp
 void process_command(byte* buffer, int bytes_read) {
   int function = buffer[0];
@@ -1547,6 +1551,8 @@ void process_command(byte* buffer, int bytes_read) {
 Something like this.
 
 ---
+
+**__`bitcoin_address.cpp`__**
 
 ```cpp, [.highlight: 1]
 void process_command(byte* buffer, int bytes_read) {
@@ -1569,6 +1575,8 @@ We take the buffer and number of bytes read as arguments...
 
 ---
 
+**__`bitcoin_address.cpp`__**
+
 ```cpp, [.highlight: 2]
 void process_command(byte* buffer, int bytes_read) {
   int function = buffer[0];
@@ -1589,6 +1597,8 @@ void process_command(byte* buffer, int bytes_read) {
 ...and from the buffer we extract the first byte to determine which function to call. This will be the function name integer: number 1 for `create_bitcoin_public_key`.
 
 ---
+
+**__`bitcoin_address.cpp`__**
 
 ```cpp, [.highlight: 3]
 void process_command(byte* buffer, int bytes_read) {
@@ -1612,6 +1622,8 @@ So, we've essentially divided up the buffer into two chunks, the function intege
 
 ---
 
+**__`bitcoin_address.cpp`__**
+
 ```cpp, [.highlight: 4-10]
 void process_command(byte* buffer, int bytes_read) {
   int function = buffer[0];
@@ -1632,6 +1644,8 @@ void process_command(byte* buffer, int bytes_read) {
 From there, we take the function integer, switch on it, call the function that maps to it, and assign it to a `result` string.
 
 ---
+
+**__`bitcoin_address.cpp`__**
 
 ```cpp, [.highlight: 11]
 void process_command(byte* buffer, int bytes_read) {
@@ -1654,6 +1668,8 @@ We then overwrite the contents of the current buffer with the result of calling 
 
 ---
 
+**__`bitcoin_address.cpp`__**
+
 ```cpp, [.highlight: 12]
 void process_command(byte* buffer, int bytes_read) {
   int function = buffer[0];
@@ -1674,6 +1690,8 @@ void process_command(byte* buffer, int bytes_read) {
 and then send it back to Elixir via the `send_msg` function provided by Cure.
 
 ---
+
+**__`bitcoin_address.cpp`__**
 
 ```cpp
 void process_command(byte* buffer, int bytes_read) {
