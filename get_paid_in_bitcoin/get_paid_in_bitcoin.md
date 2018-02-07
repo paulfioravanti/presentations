@@ -2113,7 +2113,7 @@ end
 ```
 
 ^
-and add an Elixir `create_bitcoin_address` function that will send the function flag and `bitcoin_public_key` to C++...
+and add an Elixir `create_bitcoin_address` function that will send the function integer and `bitcoin_public_key` to C++...
 
 ---
 
