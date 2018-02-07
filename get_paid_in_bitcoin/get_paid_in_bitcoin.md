@@ -1133,7 +1133,7 @@ This command will add the following files...
 # [fit] **└─** `main.h`
 
 ^
-...to a top-level `c_src` directory which is Erlang convention for the location of C source code since compiled C executables will be what goes in the `priv` directory.<br />
+...to a top-level `c_src` directory which is Erlang convention for the location of C source code (and hence Elixir also follows it) since compiled C executables will be what goes in the `priv` directory.<br />
 So what we have here is:
 
 ---
