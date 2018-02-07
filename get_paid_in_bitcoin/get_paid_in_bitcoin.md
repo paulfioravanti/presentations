@@ -1785,7 +1785,7 @@ end
 ```
 
 ^
-we need to tell Cure where to look for the C++ executable file, so in this case, the priv directory.
+we need to tell Cure the location of the C++ executable file, so in this case, inside the priv directory.
 
 ---
 
@@ -1930,7 +1930,7 @@ end
 ```
 
 ^
-...and print to standard output.<br />
+...and print to standard output, and then stop the Cure process.<br />
 
 ---
 
