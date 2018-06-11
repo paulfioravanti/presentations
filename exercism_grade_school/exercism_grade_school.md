@@ -106,7 +106,7 @@ end
 
 ---
 [.background-color: #D81D4E]
-[.header: #FFFFFF, alignment(center), text-scale(1.5), Helvetica Neue Medium]
+[.header: #FFFFFF, alignment(center), text-scale(1.5), Source Code Pro Bold]
 
 ![](https://www.dropbox.com/s/x5csw1msl6zz6k7/teaching-earth-day.jpg?dl=1)
 
@@ -248,7 +248,7 @@ end
 
 ---
 [.background-color: #D81D4E]
-[.header: #FFFFFF, alignment(center), text-scale(1.5), Helvetica Neue Medium]
+[.header: #FFFFFF, alignment(center), text-scale(1.25), Source Code Pro Bold]
 
 ![](https://www.dropbox.com/s/h0sqw1562az6csx/guitar-class.jpg?dl=1)
 
@@ -371,7 +371,7 @@ end
 
 ---
 [.background-color: #D81D4E]
-[.header: #FFFFFF, alignment(center), text-scale(1.5), Helvetica Neue Medium]
+[.header: #FFFFFF, alignment(center), text-scale(1.20), Source Code Pro Bold]
 
 ![](https://www.dropbox.com/s/uxmb6wz8bkbhslg/english-class.jpg?dl=1)
 
@@ -504,7 +504,7 @@ end
 
 ![inline 80%](https://www.dropbox.com/s/bun32vwuffb98za/exercism-logo.png?dl=1)
 
-# DONE!
+# Done!
 
 ---
 [.background-color: #D81D4E]
@@ -512,7 +512,7 @@ end
 
 ![inline 80%](https://www.dropbox.com/s/bun32vwuffb98za/exercism-logo.png?dl=1)
 
-# DONE?
+# Done?
 
 ---
 [.background-color: #D81D4E]
@@ -565,7 +565,7 @@ end
 - Methods are kind of long...
 - Is the naming right...?
 - There's code repetition...
-- Doesn't _feel_ Ruby-ish...
+- Something doesn't _feel_ right...
 
 ---
 [.background-color: #D81D4E]
@@ -761,7 +761,7 @@ end
 
 ---
 [.background-color: #D81D4E]
-[.header: #FFFFFF, alignment(center), text-scale(1.5), Helvetica Neue Medium]
+[.header: #FFFFFF, alignment(center), text-scale(1.5), Source Code Pro Bold]
 
 ![](https://www.dropbox.com/s/t4eujehrsmcvpyg/kids-in-seats.jpg?dl=1)
 
@@ -895,7 +895,7 @@ end
 
 ---
 [.background-color: #D81D4E]
-[.header: #FFFFFF, alignment(left), text-scale(3.5), Helvetica Neue Medium]
+[.header: #FFFFFF, alignment(left), text-scale(3.5), Source Code Pro Bold]
 
 ![](https://www.dropbox.com/s/8v3bljsi7l090fu/surprised-boy.jpg?dl=1)
 
@@ -953,28 +953,28 @@ end
 
 ---
 [.background-color: #D81D4E]
-[.header: #FFFFFF, alignment(center), text-scale(1.5), Helvetica Neue Medium]
+[.header: #FFFFFF, alignment(center), text-scale(1.25), Source Code Pro Medium]
 
-# You'll rarely get it right
-# the first time
+# You'll rarely get it
+# right the first time
 
 ---
 [.background-color: #FFFFFF]
-[.header: #D81D4E, alignment(center), text-scale(1.5), Helvetica Neue Medium]
+[.header: #D81D4E, alignment(center), text-scale(1.5), Source Code Pro Medium]
 
 # Submit often,
 # get feedback
 
 ---
 [.background-color: #D81D4E]
-[.header: #FFFFFF, alignment(center), text-scale(1.5), Helvetica Neue Medium]
+[.header: #FFFFFF, alignment(center), text-scale(1.5), Source Code Pro Medium]
 
 # Read other
 # people's code
 
 ---
 [.background-color: #FFFFFF]
-[.header: #D81D4E, alignment(center), text-scale(1.5), Helvetica Neue Medium]
+[.header: #D81D4E, alignment(center), text-scale(1.5), Source Code Pro Medium]
 
 # Refactor until
 # you're happy
