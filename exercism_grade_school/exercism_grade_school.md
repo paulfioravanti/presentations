@@ -1062,8 +1062,7 @@ end
 
 ![inline 80%](https://www.dropbox.com/s/bun32vwuffb98za/exercism-logo.png?dl=1)
 
-- `http://exercism.io/teams/rorosyd/streams/tracks/ruby/exercises/grade-school`
-- `https://github.com/paulfioravanti/exercism`
+# [fit] `github.com/paulfioravanti/exercism`
 
 ---
 [.background-color: #D81D4E]
