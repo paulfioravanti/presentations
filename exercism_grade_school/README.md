@@ -22,4 +22,4 @@ be used in [Deckset][], and is best viewed in Raw form.
 [ROROSyd Grade School solutions]: http://exercism.io/teams/rorosyd/streams/tracks/ruby/exercises/grade-school
 [My Exercism Github repo]: https://github.com/paulfioravanti/exercism
 [roro-meetup]: https://www.meetup.com/Ruby-On-Rails-Oceania-Sydney/events/rxmjspyxjbqb/
-[speakerdeck]: https://speakerdeck.com/paulfioravanti/
+[speakerdeck]: https://speakerdeck.com/paulfioravanti/exercism-grade-school
