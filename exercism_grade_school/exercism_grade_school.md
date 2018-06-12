@@ -10,6 +10,9 @@
 
 ![](https://www.dropbox.com/s/ypcpk03m2gyxg8t/bart-exercism.png?dl=1)
 
+^
+This month's lines of code are in service of creating a...
+
 ---
 [.background-color: #D81D4E]
 [.header: #FFFFFF, Source Code Pro Medium]
@@ -27,6 +30,9 @@
 
 # [fit] School Roster
 <br />
+
+^
+In order to complete the exercise, you need to be able to do the following...
 
 ---
 [.background-color: #D81D4E]
@@ -69,6 +75,9 @@
 # :clapper:
 ## Take 1
 
+^
+So, here's my first take...
+
 ---
 [.background-color: #FFFFFF]
 [.header: #D81D4E, alignment(left), text-scale(1.5), Helvetica Neue Medium]
@@ -88,6 +97,9 @@ class School
 end
 ```
 
+^
+`@roster` is an array because we are expecting to fill it..
+
 ---
 [.background-color: #FFFFFF]
 [.header: #D81D4E, alignment(left), text-scale(1.5), Helvetica Neue Medium]
@@ -103,6 +115,9 @@ end
      { grade: 3, students: ["Cath", "RobH"]) }
    ]
 ```
+
+^
+...with hashes representing student enrollments by grade.
 
 ---
 [.background-color: #D81D4E]
@@ -496,6 +511,8 @@ end
 [.background-color: #D81D4E]
 [.header: #FFFFFF, alignment(center), text-scale(1.5), Helvetica Neue Medium]
 
+![inline 80%](https://www.dropbox.com/s/bun32vwuffb98za/exercism-logo.png?dl=1)
+
 # [fit] `exercism submit grade_school.rb`
 
 ---
@@ -610,10 +627,15 @@ end
    ]
 ```
 
+^
+- In order to output a roster, do we need to keep this array of hashes within our object state?<br />
+- I would say no, and that we can simplify this to be...
+
 ---
 [.background-color: #FFFFFF]
 [.header: #D81D4E, alignment(left), text-scale(1.5), Helvetica Neue Medium]
 [.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(1.5)]
+
 
 # [fit] Simplify to a Hash of Enrollments
 
@@ -625,6 +647,9 @@ end
      3 => ["Cath", "RobH"]
    }
 ```
+
+^
+...a hash of enrollments. And we can use this information to build a roster when we need to.
 
 ---
 [.background-color: #FFFFFF]
@@ -644,6 +669,9 @@ class School
   attr_reader :enrollments
 end
 ```
+
+^
+- So, we've changed the scope of responsibilities of our School class: it keeps tabs not on a roster, but now just on enrollments.
 
 ---
 [.background-color: #FFFFFF]
@@ -827,6 +855,11 @@ class School
 end
 ```
 
+^
+- The block specifies how we want to handle default values for when we attempt to access a key that isn't included in the hash.<br />
+- In this case, what we're doing is creating an entry in the hash for the key, and giving it an empty array as its value.<br />
+- So, if I ask for the list of students in grade 1, and we don't already have student enrollments for grade 1, rather than returning `nil`, we create a new enrollments entry for grade 1 containing an empty array of students.
+
 ---
 [.background-color: #FFFFFF]
 [.header: #D81D4E, alignment(left), text-scale(1.5), Helvetica Neue Medium]
@@ -899,9 +932,6 @@ end
 
 ![](https://www.dropbox.com/s/8v3bljsi7l090fu/surprised-boy.jpg?dl=1)
 
-# OMG
-<br />
-
 ---
 [.background-color: #FFFFFF]
 [.header: #D81D4E, alignment(left), text-scale(1.5), Helvetica Neue Medium]
@@ -935,6 +965,51 @@ def students_by_grade
   end
 end
 ```
+---
+[.background-color: #FFFFFF]
+[.header: #D81D4E, alignment(left), text-scale(1.5), Helvetica Neue Medium]
+[.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(1.5)]
+
+# [fit] Get sorted list of students in all grades
+
+```ruby, [.highlight: 2]
+def students_by_grade
+  enrollments.sort.map do |grade, students|
+    { grade: grade, students: students.sort }
+  end
+end
+```
+
+---
+[.background-color: #FFFFFF]
+[.header: #D81D4E, alignment(left), text-scale(1.5), Helvetica Neue Medium]
+[.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(1.5)]
+
+# [fit] Get sorted list of students in all grades
+
+```ruby, [.highlight: 3]
+def students_by_grade
+  enrollments.sort.map do |grade, students|
+    { grade: grade, students: students.sort }
+  end
+end
+```
+
+---
+[.background-color: #FFFFFF]
+[.header: #D81D4E, alignment(left), text-scale(1.5), Helvetica Neue Medium]
+[.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(1.5)]
+
+# [fit] Get sorted list of students in all grades
+
+```ruby
+def students_by_grade
+  enrollments.sort.map do |grade, students|
+    { grade: grade, students: students.sort }
+  end
+end
+```
+
 ---
 [.background-color: #FFFFFF]
 [.header: #D81D4E, alignment(left), text-scale(1.5), Helvetica Neue Medium]
