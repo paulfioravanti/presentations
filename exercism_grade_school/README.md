@@ -1,6 +1,7 @@
 # Exercism: Grade School
 
-A presentation about the [Grade School][] problem on [Exercism][].
+A presentation about my solution to the [Grade School][] problem on
+[Exercism][].
 
 Presented at:
 
