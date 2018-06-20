@@ -1022,6 +1022,15 @@ subscriptions model =
 ...and write a subscriptions function that says if the language menu is open, whenever a mouse is clicked, send that `CloseAvailableLanguages` message to close the menu.
 
 ---
+[.slidenumbers: false]
+[.hide-footer]
+
+![fit](https://www.dropbox.com/s/2hhdtblb3slepie/dropdown-open-close.gif?dl=1)
+
+^
+So, at this point, our menu would be functioning like this, with us being able to open and close the menu, as well as being able to click outside of it to close it.
+
+---
 [.slidenumber-style: #FFFFFF]
 
 # [fit] *Language*
@@ -1484,6 +1493,15 @@ update msg model =
 Once the translations have been fetched, we store them if the fetch was successful, and for now we'll just hand-wave over any file reading failures.
 
 ---
+[.slidenumber-style: #FFFFFF]
+
+# [fit] Dynamic
+# [fit] *Values*
+
+^
+At this stage, we're nearly at the expected functionality, but we're still using the original static values for the language display and the available languages list for the menu, so let's change that now.
+
+---
 
 ```elm
 module Language exposing (availableLanguages, langToString)
@@ -1509,22 +1527,159 @@ langToString language =
             "日本語"
 ```
 
+^
+First, we will create a Language module that will have some helper functions around generating the string value for a language...
+
+---
+
+```elm, [.highlight: 11-21]
+module Language exposing (availableLanguages, langToString)
+
+import Translations exposing (Lang(En, It, Ja))
+
+
+availableLanguages : List Lang
+availableLanguages =
+    [ En, It, Ja ]
+
+
+langToString : Lang -> String
+langToString language =
+    case language of
+        En ->
+            "English"
+
+        It ->
+            "Italiano"
+
+        Ja ->
+            "日本語"
+```
+
+^
+For example "English" should always be displayed as "English", regardless of what the current language is), and keeping a static list of available languages so we can display them in the dropdown menu.
+
+---
+
+```elm, [.highlight: 6-8]
+module Language exposing (availableLanguages, langToString)
+
+import Translations exposing (Lang(En, It, Ja))
+
+
+availableLanguages : List Lang
+availableLanguages =
+    [ En, It, Ja ]
+
+
+langToString : Lang -> String
+langToString language =
+    case language of
+        En ->
+            "English"
+
+        It ->
+            "Italiano"
+
+        Ja ->
+            "日本語"
+```
+
+^
+And we'll also keeping a static list of available languages in the app to use as a basis when we populate the dropdown menu.<br />
+Unfortunately, there is no way to generate a list of type values from a type (eg [En, It, Ja] from the Lang type), so this has to be a separate definition.
+
 ---
 
 ```elm
+module Language exposing (availableLanguages, langToString)
+
+import Translations exposing (Lang(En, It, Ja))
+
+
+availableLanguages : List Lang
+availableLanguages =
+    [ En, It, Ja ]
+
+
+langToString : Lang -> String
+langToString language =
+    case language of
+        En ->
+            "English"
+
+        It ->
+            "Italiano"
+
+        Ja ->
+            "日本語"
+```
+
+^
+Now that we have our language data setup, let's go back to the view code and get the page to start displaying it.
+
+---
+
+```elm
+module LanguageDropdown exposing (view)
+
 view : Model -> Html Msg
 view { currentLanguage, showAvailableLanguages } =
     let
         selectableLanguages =
-            List.filter
-                (\language -> language /= currentLanguage)
-                Language.availableLanguages
+            Language.availableLanguages
+                |> List.filter (\language -> language /= currentLanguage)
     in
         div [ class Styles.dropdownContainer ]
             [ currentSelection currentLanguage showAvailableLanguages
             , dropdownList showAvailableLanguages selectableLanguages
             ]
 ```
+
+^
+First, in the LanguageDropdown module, we'll create a list of...
+
+---
+
+```elm, [.highlight: 6-8]
+module LanguageDropdown exposing (view)
+
+view : Model -> Html Msg
+view { currentLanguage, showAvailableLanguages } =
+    let
+        selectableLanguages =
+            Language.availableLanguages
+                |> List.filter (\language -> language /= currentLanguage)
+    in
+        div [ class Styles.dropdownContainer ]
+            [ currentSelection currentLanguage showAvailableLanguages
+            , dropdownList showAvailableLanguages selectableLanguages
+            ]
+```
+
+^
+...selectable languages, which will be the list of availableLanguages that we just created in the Language module, minus the current language
+
+---
+
+```elm, [.highlight: 11-14]
+module LanguageDropdown exposing (view)
+
+view : Model -> Html Msg
+view { currentLanguage, showAvailableLanguages } =
+    let
+        selectableLanguages =
+            Language.availableLanguages
+                |> List.filter (\language -> language /= currentLanguage)
+    in
+        div [ class Styles.dropdownContainer ]
+            [ currentSelection currentLanguage showAvailableLanguages
+            , dropdownList showAvailableLanguages selectableLanguages
+            ]
+```
+
+^
+...and we'll give that to the dropdown list function.
 
 ---
 
@@ -1541,6 +1696,28 @@ currentSelection currentLanguage showAvailableLanguages =
             [ text "▾" ]
         ]
 ```
+
+^
+The currentSelection function looks pretty much the same as before except...
+
+---
+
+```elm, [.highlight: 2, 8]
+currentSelection : Lang -> Bool -> Html Msg
+currentSelection currentLanguage showAvailableLanguages =
+    p
+        [ class (Styles.currentSelection showAvailableLanguages)
+        , onClick ShowAvailableLanguages
+        ]
+        [ span []
+            [ text (Language.langToString currentLanguage) ]
+        , span [ class Styles.caret ]
+            [ text "▾" ]
+        ]
+```
+
+^
+...we're now receiving the current language as a parameter and displaying it next to the caret, rather than the hard-coded "English" string that we had before.
 
 ---
 
@@ -1562,11 +1739,55 @@ dropdownListItem language =
         ]
 ```
 
----
-[.slidenumbers: false]
-[.hide-footer]
+^
+Similarly with the code for the dropdown list code...
 
-![fit](https://www.dropbox.com/s/2hhdtblb3slepie/dropdown-open-close.gif?dl=1)
+---
+
+```elm, [.highlight: 1-2]
+dropdownList : Bool -> List Lang -> Html Msg
+dropdownList showAvailableLanguages selectableLanguages =
+    ul [ class (Styles.dropdownList showAvailableLanguages) ]
+        (List.map dropdownListItem selectableLanguages)
+
+
+dropdownListItem : Lang -> Html Msg
+dropdownListItem language =
+    li
+        [ class Styles.dropdownListItem
+        , onClick (ChangeLanguage language)
+        ]
+        [ span []
+            [ text (Language.langToString language) ]
+        ]
+```
+
+^
+We're now taking in the selectableLanguages as a parameter...
+
+---
+
+```elm, [.highlight: 14]
+dropdownList : Bool -> List Lang -> Html Msg
+dropdownList showAvailableLanguages selectableLanguages =
+    ul [ class (Styles.dropdownList showAvailableLanguages) ]
+        (List.map dropdownListItem selectableLanguages)
+
+
+dropdownListItem : Lang -> Html Msg
+dropdownListItem language =
+    li
+        [ class Styles.dropdownListItem
+        , onClick (ChangeLanguage language)
+        ]
+        [ span []
+            [ text (Language.langToString language) ]
+        ]
+```
+
+^
+...and displaying the stringified version of the language in the dropdown list item.
+
 
 ---
 [.slidenumbers: false]
@@ -1574,12 +1795,13 @@ dropdownListItem language =
 
 ![fit](https://www.dropbox.com/s/lblajfbfphsq8vu/language-change-on-back-end.png?dl=1)
 
+^
+At this point, if you select a new language from the dropdown menu, you will see the current language display change on the menu, and if you open the Elm debugger, you will see that the language of the application is actually changing, and the translations for the language are being loaded into the application.<br />
+So, that's all well and good, but now let's get that translated message showing on the page by letting the content know what translations it is supposed to be displaying
+
 ---
 
 ```elm
-import Translations exposing (Lang)
-
-
 view : Model -> Html Msg
 view model =
     main_ [ class Styles.main_ ]
@@ -1601,11 +1823,107 @@ heading translations =
         [ text (I18Next.t translations "verticallyCenteringInCssIsEasy")]
 ```
 
+^
+Back in the main view...
+
+---
+
+```elm, [.highlight: 5]
+view : Model -> Html Msg
+view model =
+    main_ [ class Styles.main_ ]
+        [ LanguageDropdown.view
+        , content model.translations
+        ]
+
+
+content : Translations -> Html Msg
+content translations =
+    article [ class Styles.article ]
+        [ div [ class Styles.articleContainer ]
+            [ heading translations ]
+        ]
+
+heading : Translations -> Html Msg
+heading translations =
+    h1 [ class Styles.heading ]
+        [ text (I18Next.t translations "verticallyCenteringInCssIsEasy")]
+```
+
+^
+...we pass the model translations into the content function...
+
+---
+
+```elm, [.highlight: 5, 10, 13]
+view : Model -> Html Msg
+view model =
+    main_ [ class Styles.main_ ]
+        [ LanguageDropdown.view
+        , content model.translations
+        ]
+
+
+content : Translations -> Html Msg
+content translations =
+    article [ class Styles.article ]
+        [ div [ class Styles.articleContainer ]
+            [ heading translations ]
+        ]
+
+heading : Translations -> Html Msg
+heading translations =
+    h1 [ class Styles.heading ]
+        [ text (I18Next.t translations "verticallyCenteringInCssIsEasy")]
+```
+
+^
+...which passes them straight to the heading function...
+
+---
+
+```elm, [.highlight: 5, 10, 13, 17, 19]
+view : Model -> Html Msg
+view model =
+    main_ [ class Styles.main_ ]
+        [ LanguageDropdown.view
+        , content model.translations
+        ]
+
+
+content : Translations -> Html Msg
+content translations =
+    article [ class Styles.article ]
+        [ div [ class Styles.articleContainer ]
+            [ heading translations ]
+        ]
+
+heading : Translations -> Html Msg
+heading translations =
+    h1 [ class Styles.heading ]
+        [ text (I18Next.t translations "verticallyCenteringInCssIsEasy")]
+```
+
+^
+...where they are used by the I18Next module to look for the "verticallyCenteringInCssIsEasy" key...
+
+---
+[.slidenumbers: false]
+[.hide-footer]
+
+![fit](https://www.dropbox.com/s/gtaonxu7a318tmd/japanese-display.png?dl=1)
+
+^
+...and then display on the screen. That covers the main functionality of language switching, but there is still more we can do.
+
 ---
 [.slidenumber-style: #FFFFFF]
 
 # [fit] Detect
 # [fit] *User Language*
+
+^
+Currently, the application language is set to English by default when it starts, but it would be nice if we at least tried to set the application to initially display in the user's preferred language. To simplify the idea of a "preferred language" (because this is not universal amongst browsers), we will consider it to be the language of the browser being used. How do we get that?
 
 ---
 [.header: text-scale(2.0)]
@@ -1615,6 +1933,9 @@ heading translations =
 
 - **_`navigator.language`_**
 - **_`navigator.userLanguage`_** (IE)
+
+^
+In Javascript, we can use navigator.language, and navigator.userLanguage, which is IE specific. So, let's grab that information and pass it into Elm as a flag...
 
 ---
 
@@ -1632,6 +1953,9 @@ function getLanguage() {
   return navigator.language || navigator.userLanguage
 }
 ```
+
+^
+In the index.js file where we embed our Elm app...
 
 ---
 
@@ -1650,6 +1974,9 @@ function getLanguage() {
 }
 ```
 
+^
+We pass in a language flag that is the result of calling the getLanguage function...
+
 ---
 
 ```js, [.highlight: 10-12]
@@ -1666,6 +1993,9 @@ function getLanguage() {
   return navigator.language || navigator.userLanguage
 }
 ```
+
+^
+Which we define here, and we attempt to get the language using the two ways we know how.
 
 ---
 
@@ -1684,11 +2014,12 @@ function getLanguage() {
 }
 ```
 
+^
+Now, to take in this flag, we'll have to go back to our Elm app and add a definition for Flags...
+
 ---
 
 ```elm
-module Model exposing (Flags, Model, init)
-
 import Json.Decode as Decode exposing (Value)
 
 
@@ -1697,11 +2028,12 @@ type alias Flags =
 
 ```
 
+^
+...like this, and because we do not trust any information passed in from Javascript, we will decode the flag to ensure that we are getting a string.
+
 ---
 
 ```elm
-module Model exposing (Flags, Model, init)
-
 import Language
 
 
@@ -1721,10 +2053,38 @@ init flags =
         )
 ```
 
+^
+This will change the init function slightly, as we'll now take the Flags in as a parameter...
+
+---
+
+```elm, [.highlight: 7-10]
+import Language
+
+
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    let
+        language =
+            flags.language
+                |> Decode.decodeValue Decode.string
+                |> Language.langFromFlag
+    in
+        ( { currentLanguage = language
+          , showAvailableLanguages = False
+          , translations = I18Next.initialTranslations
+          }
+        , Cmd.fetchTranslations language
+        )
+```
+
+^
+...and parse it first through a JSON string decoder, and then through the langFromFlag function...
+
 ---
 
 ```elm
-module Language exposing (availableLanguages, langFromFlag, langToString)
+module Language exposing (..)
 
 
 langFromFlag : Result String String -> Lang
@@ -1737,6 +2097,9 @@ langFromFlag language =
             En
 ```
 
+^
+...which will delegate out to the Translations module to get a Language type, or if there was an issue with the language flag, only then will we default the language to English.
+
 ---
 [.slidenumber-style: #FFFFFF]
 [.header: text-scale(1.4)]
@@ -1744,10 +2107,13 @@ langFromFlag language =
 # [fit] Store
 # [fit] *Language Preference*
 
+^
+Now, having a default language is nice, but if you switch languages and then refresh the page, the application will revert back to the language set in the browser. Plenty of people want to read content in a different language than their system settings, and it would be nice to be able to save their language preference for this application. So, let’s then use the browser's localStorage to help us do exactly that.
+
 ---
 
 ```elm
-port module Cmd exposing (fetchTranslations, storeLanguage)
+port module Main exposing (..)
 
 
 port storeLanguageInLocalStorage : String -> Cmd msg
@@ -1760,6 +2126,49 @@ storeLanguage language =
         |> String.toLower
         |> storeLanguageInLocalStorage
 ```
+
+^
+Sending Elm data to Javscript requires us to use Elm Ports, so that's what we'll do now. Here...
+
+---
+
+```elm, [.highlight: 7-12]
+port module Main exposing (..)
+
+
+port storeLanguageInLocalStorage : String -> Cmd msg
+
+
+storeLanguage : Lang -> Cmd msg
+storeLanguage language =
+    language
+        |> toString
+        |> String.toLower
+        |> storeLanguageInLocalStorage
+```
+
+^
+...we have created a storeLanguage command function that takes in a Lang type, stringifies it, and sends it off to Javascript via the...
+
+---
+
+```elm, [.highlight: 4]
+port module Main exposing (..)
+
+
+port storeLanguageInLocalStorage : String -> Cmd msg
+
+
+storeLanguage : Lang -> Cmd msg
+storeLanguage language =
+    language
+        |> toString
+        |> String.toLower
+        |> storeLanguageInLocalStorage
+```
+
+^
+...storeLanguageInLocalStorage port
 
 ---
 
@@ -1779,20 +2188,90 @@ function getLanguage() {
 }
 ```
 
+^
+On the Javascript side...
+
+---
+
+```js, [.highlight: 4-6]
+if (appContainer) {
+  const app = Main.embed(appContainer, { language: getLanguage() })
+
+  app.ports.storeLanguageInLocalStorage.subscribe((language) => {
+    localStorage.setItem("elm-i18n-example-language", language)
+  })
+}
+
+function getLanguage() {
+  return localStorage.getItem("elm-i18n-example-language") ||
+    navigator.language ||
+    navigator.userLanguage
+}
+```
+
+^
+...we subscribe to the storeLangugageInLocalStorage port, and store the string that we get passed into localStorage.
+
+---
+
+```js, [.highlight: 9-13]
+if (appContainer) {
+  const app = Main.embed(appContainer, { language: getLanguage() })
+
+  app.ports.storeLanguageInLocalStorage.subscribe((language) => {
+    localStorage.setItem("elm-i18n-example-language", language)
+  })
+}
+
+function getLanguage() {
+  return localStorage.getItem("elm-i18n-example-language") ||
+    navigator.language ||
+    navigator.userLanguage
+}
+```
+
+^
+While we're here, we can now ensure that the getLanguage function goes and checks localStorage for a preferred language first before checking browser settings when the application first starts.
+
+---
+
+```js
+if (appContainer) {
+  const app = Main.embed(appContainer, { language: getLanguage() })
+
+  app.ports.storeLanguageInLocalStorage.subscribe((language) => {
+    localStorage.setItem("elm-i18n-example-language", language)
+  })
+}
+
+function getLanguage() {
+  return localStorage.getItem("elm-i18n-example-language") ||
+    navigator.language ||
+    navigator.userLanguage
+}
+```
+
+^
+By the way, there is no particular reason behind the "elm-i18n-example-language" named key; it could have been named anything, but I think it is best to have it as unique as possible, since many different applications will likely be making use of localStorage
+
 ---
 
 ```elm
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        -- ...
         ChangeLanguage language ->
             ( { model | currentLanguage = language }
             , Cmd.batch
-                [ Cmd.fetchTranslations language
-                , Cmd.storeLanguage language
+                [ fetchTranslations language
+                , storeLanguage language
                 ]
             )
 ```
+
+^
+Okay, we've got the pathway to Javascript set up, now we need to make sure that the command is run every time the language is changed (ie the ChangeLanguage message is sent), so we make that addition in the update function to say that when the language is changed, fire off two commands, one to fetch the translations, and one to store the selected language in localStorage.
 
 ---
 [.slidenumbers: false]
@@ -1800,11 +2279,26 @@ update msg model =
 
 ![fit](https://www.dropbox.com/s/xf1d9samofpki37/language-stored.png?dl=1)
 
+^
+Now, you should be able to switch languages, and have it stored in localStorage. Open up the Javascript console in your browser's developer tools to confirm this with the localStorage.getItem() command.
+
+---
+[.slidenumber-style: #FFFFFF]
+[.header: text-scale(5.0)]
+
+# :+1:
+
+^
+Okay, awesome! We're pretty much feature complete.
+
 ---
 [.slidenumber-style: #FFFFFF]
 
 # [fit] Lingering
 # [fit] *Issues*
+
+^
+However, there are still a few potential issues that would be worthy of a bit more investigation.
 
 ---
 [.header: text-scale(2.0)]
@@ -1814,11 +2308,17 @@ update msg model =
 
 - Translation key visible on refresh
 
+^
+If you refresh the page, you may see the translation key "verticallyCenteringInCssIsEasy" briefly flash before the translation is shown.
+
 ---
 [.slidenumbers: false]
 [.hide-footer]
 
 ![fit](https://www.dropbox.com/s/equhawf4pclwbrw/refresh-issue.gif?dl=1)
+
+^
+This is particularly noticeable on the Japanese translation. Perhaps the translations are being loaded too slowly...?
 
 ---
 [.header: text-scale(2.0)]
@@ -1828,6 +2328,9 @@ update msg model =
 
 - Translation key visible on refresh
 - **_`I18Next.t translations "thisKeyDoesNotExist"`_**
+
+^
+If you accidentally make a typo when requesting a translation by key in a view (like "thisKeyDoesNotExist"), then no error is raised: the key is simply displayed on the page, which may not be what you want
 
 ---
 
@@ -1840,21 +2343,34 @@ update msg model =
 - **_`I18Next.t translations "thisKeyDoesNotExist"`_**
 - Missed translations and typos ignored
 
+^
+If you accidentally do not provide a translation for a particular key for a known available language, or make a typo in the translation file (eg delete the translations.ja.json file or change its key name), then, again, no error is raised, and the requested key is displayed on the page as-is.<br />
+Elm programmers are spoiled by the Elm compiler always looking over our shoulder and helping us avoid these kinds of mistakes. If you are confident about manually handling the issues outlined or they are not important to you, then all is good and you need not go any further. But, if want Elm to cast more of an eye over your i18n development, what options are available to you?
+
 ---
 [.slidenumber-style: #FFFFFF]
 
 # [fit] Type-Safe
 # [fit] *Translations*
 
+^
+Glad you asked! Since we have our translation files as JSON, we can use...
+
 ---
 [.slidenumber-style: #FFFFFF]
 
 # [fit] `npm install -g elm-i18n-gen`
 
+^
+...a package called Elm i18n Gen to generate a Translations module containing one function for every translation in the JSON files. You install it via npm as you can see here...
+
 ---
 [.slidenumber-style: #FFFFFF]
 
 # [fit] `elm-i18n-gen public/locale src/Translations.elm`
+
+^
+...and you can generate a new Translations module for the app with the following command, that will contain the following functions...
 
 ---
 
@@ -1876,23 +2392,53 @@ verticallyCenteringInCssIsEasy lang =
             "CSSで垂直センタリングは簡単だよ！"
 ```
 
+^
+We only have one translation key in our JSON files, so elm-i18n-gen created just one function for us that covers translations for all our languages. The full module looks like this...
+
+---
+
+```elm
+module Translations exposing (..)
+
+
+type Lang
+    = En
+    | It
+    | Ja
+
+
+getLnFromCode : String -> Lang
+getLnFromCode code =
+    -- ...
+
+
+verticallyCenteringInCssIsEasy : Lang -> String
+verticallyCenteringInCssIsEasy lang =
+    case lang of
+        En ->
+            "Vertically centering things in css is easy!"
+
+        It ->
+            "Centrare verticalmente con css è facile!"
+
+        Ja ->
+            "CSSで垂直センタリングは簡単だよ！"
+```
+
+^
+...including a Lang type and a getLnFromCode function, which is why I adopted the sort-of-awkward naming conventions in advance.<br />
+Anyway, now that we have our function, let’s use it in the view:
+
 ---
 
 ```elm
 view : Model -> Html Msg
 view model =
-    main_ [ class Styles.main_ ]
-        [ LanguageDropdown.view
-        , content model.translations
-        ]
-
+    -- ...
 
 content : Translations -> Html Msg
 content translations =
-    article [ class Styles.article ]
-        [ div [ class Styles.articleContainer ]
-            [ heading translations ]
-        ]
+    -- ...
 
 heading : Translations -> Html Msg
 heading translations =
@@ -1900,29 +2446,28 @@ heading translations =
         [ text (I18Next.t translations "verticallyCenteringInCssIsEasy")]
 ```
 
+^
+We go from using I18Next and a set of translations...
+
 ---
 
 ```elm
 view : Model -> Html Msg
 view model =
-    main_ [ class Styles.main_ ]
-        [ LanguageDropdown.view
-        , content model.currentLanguage
-        ]
-
+    -- ...
 
 content : Lang -> Html Msg
 content language =
-    article [ class Styles.article ]
-        [ div [ class Styles.articleContainer ]
-            [ heading language ]
-        ]
+    -- ...
 
 heading : Lang -> Html Msg
 heading language =
     h1 [ class Styles.heading ]
         [ text (Translations.verticallyCenteringInCssIsEasy language) ]
 ```
+
+^
+...to using a simple function, passing in the language to switch on. The effects of this one change mean that...
 
 ---
 [.header: text-scale(1.8)]
@@ -1931,6 +2476,9 @@ heading language =
 # [fit] Type-Safe Translations
 
 - No need to fetch translations
+
+^
+There is now no need to fetch any translations, and consequently the FetchTranslations Msg, the fetchTranslations function in the Cmd module, the translations entry in the Model, and any trace of the I18Next and Http packages, can now be safely removed
 
 ---
 [.header: text-scale(1.8)]
@@ -1940,6 +2488,10 @@ heading language =
 
 - No need to fetch translations
 - No translation key visible
+
+^
+
+The issue of a translation key displaying before the translation is loaded has consequently gone away since we are now just calling a function
 
 ---
 [.header: text-scale(1.8)]
@@ -1951,6 +2503,9 @@ heading language =
 - No translation key visible
 - Compiler errors if translation not provided
 
+^
+Elm will raise a compiler error if a translation is not provided for all languages. Those are some pretty good benefits! I'm not sure about any downsides to this, aside from maybe having a single module with potentially hundreds of functions in it for any given large JSON translation file. But, I would guess the overhead for maintainability of that module would be the same for the JSON file.
+
 ---
 [.slidenumber-style: #FFFFFF]
 
@@ -1960,11 +2515,17 @@ heading language =
 
 ![70%](https://www.dropbox.com/s/kdgb81yii0vmqh7/thinkception.png?dl=1)
 
+^
+Even after all this, I'm still not really sure what to think when it comes to an ideal solution for I18n in Elm, but I'm planning on continuing to use these methods for the time being...
+
 ---
 [.slidenumbers: false]
 [.hide-footer]
 
 ![fit](https://www.dropbox.com/s/54w4rydk19ff20c/elm-i18n-runtime-pr.png?dl=1)
+
+^
+...or at least until the elm-i18n package merges the currently open PR for runtime language switching.
 
 ---
 [.header: text-scale(2.0)]
@@ -1974,6 +2535,9 @@ heading language =
 
 - `https://github.com/paulfioravanti/elm-i18n-example`
 - `https://paulfioravanti.com/blog/2018/05/11/runtime-language-switching-in-elm/`
+
+^
+The code for the example app in this talk is located in my Github repo, so if you would like to take a closer look at this example, it's there for the taking. I also wrote a blog post about this very topic which I re-purposed for this talk, so if you want more information and the ability to go through all this at your own pace, please go and check it out.
 
 ---
 [.slidenumbers: false]
