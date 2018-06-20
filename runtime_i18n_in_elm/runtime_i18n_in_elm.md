@@ -67,7 +67,7 @@ I have been using Tachyons, a CSS utilities framework, a lot lately for styling,
 ![fit](https://www.dropbox.com/s/l2irsat3sbow78d/Tachyons-full-screen-component-documentation.png?dl=1)
 
 ^
-I'd like to use the Full Screen Centered Title component documentation page from Tachyons' website as a base and take it from this, to...
+...I'm going to use the Full Screen Centered Title component documentation page from Tachyons' website as a base and take it from this, to...
 
 ---
 [.slidenumbers: false]
@@ -87,7 +87,7 @@ I'd like to use the Full Screen Centered Title component documentation page from
 - Provide translations in JSON
 
 ^
-On the back end, we provide some translations for the page in JSON format, and allow the dropdown menu to switch the language.
+On the back end, we will provide some translations for the page in JSON format, and allow the dropdown menu to switch the current language of the app.
 
 ---
 [.header: text-scale(2.0)]
@@ -99,7 +99,7 @@ On the back end, we provide some translations for the page in JSON format, and a
 - Store selected language in **_`localStorage`_**
 
 ^
-Store the selected language in localStorage so that any selected language persists through page refreshes and different sessions.
+We will then store the selected language in localStorage so that any selected language persists through page refreshes and different sessions.
 
 ---
 [.header: text-scale(2.0)]
@@ -112,13 +112,16 @@ Store the selected language in localStorage so that any selected language persis
 - Explore type safety options
 
 ^
-And later on, explore generating Elm modules from the JSON translation files in order to give the translations some type safety
+And later on, we'll explore generating Elm modules from the JSON translation files in order to give the translations some type safety
 
 ---
 [.slidenumbers: false]
 [.hide-footer]
 
 ![fit](https://www.dropbox.com/s/l2irsat3sbow78d/Tachyons-full-screen-component-documentation.png?dl=1)
+
+^
+First up, we will start with the current state of play, which is a re-creation of the Tachyons page in Elm.
 
 ---
 
@@ -143,6 +146,9 @@ heading =
         [ text "Vertically centering things in css is easy!" ]
 ```
 
+^
+Behind the scenes..., we have a view function that contains the page content..
+
 ---
 
 ```elm, [.highlight: 1-4]
@@ -165,6 +171,9 @@ heading =
     h1 [ class Styles.heading ]
         [ text "Vertically centering things in css is easy!" ]
 ```
+
+^
+...we have a view function that contains the page content, and the styles for each one of these functions come from a Styles module containing Tachyons classes, which look like...
 
 ---
 
@@ -183,6 +192,9 @@ main_ =
         |> String.join " "
 ```
 
+^
+...this. I think that putting Tachyons classes in lists like this makes them easier to scan and maintain, but it also has the side effect of making function definitions really long if you leave them inline with view code, so in order to spare room on these slides, all the styles are out in a Styles module.
+
 ---
 
 ```elm, [.highlight: 1-4]
@@ -205,6 +217,9 @@ heading =
     h1 [ class Styles.heading ]
         [ text "Vertically centering things in css is easy!" ]
 ```
+
+^
+So, you can assume that any time you see `class Styles.whatever`, there is a function that contains a list of Tachyons utility classes.
 
 ---
 
@@ -229,6 +244,9 @@ heading =
         [ text "Vertically centering things in css is easy!" ]
 ```
 
+^
+Anyway, the content wraps the heading in article and div tags...
+
 ---
 
 ```elm, [.highlight: 15-18]
@@ -252,6 +270,9 @@ heading =
         [ text "Vertically centering things in css is easy!" ]
 ```
 
+^
+...and the heading itself consists of just the `h1` tag letting you know that vertically centering things in CSS is easy with Tachyons.
+
 ---
 
 ```elm
@@ -275,6 +296,9 @@ heading =
         [ text "Vertically centering things in css is easy!" ]
 ```
 
+^
+So, from here, what we now want to add is the...
+
 ---
 [.slidenumber-style: #FFFFFF]
 
@@ -282,7 +306,7 @@ heading =
 # [fit] Dropdown
 
 ^
-From here, let's add a language dropdown.
+Language dropdown, and what we want it to do is...
 
 ---
 [.header: text-scale(2.0)]
@@ -293,7 +317,7 @@ From here, let's add a language dropdown.
 - Show current language on menu
 
 ^
-The current language should be shown on the menu by default
+...show the current language on the menu by default
 
 ---
 [.header: text-scale(2.0)]
@@ -303,6 +327,9 @@ The current language should be shown on the menu by default
 
 - Show current language on menu
 - Reveal available languages
+
+^
+When you click the menu, it should open, revealing any other available languages aside from the current language
 
 ---
 [.header: text-scale(2.0)]
@@ -313,6 +340,24 @@ The current language should be shown on the menu by default
 - Show current language on menu
 - Reveal available languages
 - Change language
+
+^
+And when you click on a menu item, it should change the current language of the application.
+
+---
+[.header: text-scale(2.0)]
+[.text: text-scale(1.25)]
+
+# [fit] Language Dropdown
+
+- Show current language on menu
+- Reveal available languages
+- Change language
+- Close on "blur"
+
+^
+We also want to make sure that if you open the menu and then click anywhere else on the page, the menu will consider itself "blurred", and will close<br />
+Most of these requirements sound like they would be best served in their own module...
 
 ---
 
@@ -333,6 +378,9 @@ currentSelection =
         , span [ Styles.caret ] [ text "▾" ]
         ]
 ```
+
+^
+...so let's create one called LanguageDropdown.elm, and start with rendering just the current language selection so we can get the menu positioning right. Nothing too surprising here...
 
 ---
 
@@ -354,6 +402,9 @@ currentSelection =
         ]
 ```
 
+^
+...we have a div dropdown container that wraps the currently selected language...
+
 ---
 
 ```elm, [.highlight: 10-15]
@@ -374,6 +425,9 @@ currentSelection =
         ]
 ```
 
+^
+...and the current selection, or what will look like the menu face on the browser, is a styled `p` tag with some text and a caret to encourage people to click on it.
+
 ---
 
 ```elm
@@ -394,9 +448,14 @@ currentSelection =
         ]
 ```
 
+^
+Next, we have to import the language dropdown code...
+
 ---
 
 ```elm
+module Main exposing (main)
+
 import LanguageDropdown
 
 
@@ -408,6 +467,28 @@ view model =
         ]
 ```
 
+^
+...into the Main module...
+
+---
+
+```elm, [.highlight: 9]
+module Main exposing (main)
+
+import LanguageDropdown
+
+
+view : Model -> Html Msg
+view model =
+    main_ [ class Styles.main_ ]
+        [ LanguageDropdown.view
+        , content
+        ]
+```
+
+^
+...and place it above the content
+
 ---
 [.slidenumbers: false]
 [.hide-footer]
@@ -415,7 +496,16 @@ view model =
 ![fit](https://www.dropbox.com/s/x1p8k83m0fatv34/menu-with-current-selection.png?dl=1)
 
 ^
-The "menu" here (yes, it is currently just a p tag), currently does nothing, but we can at least confirm that it looks like it is in a good spot on the page. Now, let's actually give it a dropdownList under the currentSelection.
+The p-tag "menu" here currently does nothing, but we can at least confirm that it looks like it is in a good spot on the page.
+
+---
+[.slidenumber-style: #FFFFFF]
+
+# [fit] Language Dropdown
+# [fit] *List*
+
+^
+Now, let's actually give it a list of languages
 
 ---
 
@@ -441,6 +531,9 @@ dropdownListItem language =
     li [ class Styles.dropdownListItem ]
         [ span [] [ text language ] ]
 ```
+
+^
+First...
 
 ---
 
@@ -467,6 +560,9 @@ dropdownListItem language =
         [ span [] [ text language ] ]
 ```
 
+^
+... we add the dropdownList under the currentSelection.
+
 ---
 
 ```elm, [.highlight: 8-15]
@@ -491,6 +587,10 @@ dropdownListItem language =
     li [ class Styles.dropdownListItem ]
         [ span [] [ text language ] ]
 ```
+
+^
+For the dropdown list itself, we are shoving a HTML unordered list (ul) right underneath the p tag, simulating a menu opening.<br />
+For now, we're manually feeding the list of selectable languages, and we'll fix that later, but we take each selectable language and map it to...
 
 ---
 
@@ -517,6 +617,9 @@ dropdownListItem language =
         [ span [] [ text language ] ]
 ```
 
+^
+...a dropdownListItem, that will display the language.
+
 ---
 
 ```elm
@@ -542,17 +645,26 @@ dropdownListItem language =
         [ span [] [ text language ] ]
 ```
 
+^
+This results in...
+
 ---
 [.slidenumbers: false]
 [.hide-footer]
 
 ![fit](https://www.dropbox.com/s/egb6vlob8mxolx2/menu-with-open-selection.png?dl=1)
 
+^
+...a permanently open menu. So, what we want next is to be able to...
+
 ---
 [.slidenumber-style: #FFFFFF]
 
 # [fit] Show/Hide
 # [fit] *Available Languages*
+
+^
+Show and hide the available languages as the menu opens that closes. What that is going to entail is...
 
 ---
 [.header: text-scale(1.5)]
@@ -561,6 +673,9 @@ dropdownListItem language =
 # [fit] Show/Hide Available Languages
 
 - Flag to **_`showAvailableLanguages`_** in model
+
+^
+...a flag in the model to indicate whether the available languages should be shown or not...
 
 ---
 [.header: text-scale(1.5)]
@@ -570,6 +685,9 @@ dropdownListItem language =
 
 - Flag to **_`showAvailableLanguages`_** in model
 - Toggle dropdown list visibility (**_`ShowAvailableLanguages`_**)
+
+^
+...an appropriate message that will enable toggling of that value...
 
 ---
 [.header: text-scale(2.0)]
@@ -579,16 +697,14 @@ dropdownListItem language =
 
 - Flag to **_`showAvailableLanguages`_** in model
 - Toggle dropdown list visibility (**_`ShowAvailableLanguages`_**)
-- Hide dropdown list on blur (**_`CloseAvailableLanguages`_**)
+- Hide dropdown list on "blur" (**_`CloseAvailableLanguages`_**)
+
+^
+...and the ability to hide the dropdown list on "blur" if we click it open and then click anywhere aside from the dropdown menu.
 
 ---
 
 ```elm
-module Model exposing (Model, init)
-
-import Msg exposing (Msg)
-
-
 type alias Model =
     { showAvailableLanguages : Bool }
 
@@ -598,16 +714,22 @@ init =
     ( { showAvailableLanguages = False }, Cmd.none )
 ```
 
+^
+So, first thing's first: we add the showAvailableLanguages boolean flag to the model and initialise it to false
+
 ---
+[.code: text-scale(1.5)]
+
+<br />
 
 ```elm
-module Msg exposing (Msg(..))
-
-
 type Msg
     = CloseAvailableLanguages
     | ShowAvailableLanguages
 ```
+
+^
+We'll then add the CloseAvailableLanguages and ShowAvailableLanguages messages to our message union type...
 
 ---
 
@@ -628,6 +750,9 @@ update msg model =
             , Cmd.none
             )
 ```
+
+^
+...and add some handlers for those messages in our update function...
 
 ---
 
@@ -649,6 +774,9 @@ update msg model =
             )
 ```
 
+^
+When we get the closeAvailableLanguages message, we simply set the showAvailableLanguages flag to false...
+
 ---
 
 ```elm, [.highlight: 9-15]
@@ -669,6 +797,9 @@ update msg model =
             )
 ```
 
+^
+and when we get the showAvailableLanguages message, we toggle it.
+
 ---
 
 ```elm
@@ -689,6 +820,9 @@ update msg model =
             )
 ```
 
+^
+Now, we have to send these messages from the view, so...
+
 ---
 
 ```elm
@@ -708,12 +842,38 @@ currentSelection showAvailableLanguages =
         [ span [] [ text "English" ]
         , span [ class Styles.caret ] [ text "▾" ]
         ]
-
 ```
+
+^
+...in the view we'll pass the value of the showAvailableLanguages flag into our other functions.
 
 ---
 
-```elm
+```elm, [.highlight: 8-16]
+view : Model -> Html msg
+view { showAvailableLanguages } =
+    div [ class Styles.dropdownContainer ]
+        [ currentSelection showAvailableLanguages
+        , dropdownList showAvailableLanguages
+        ]
+
+currentSelection : Bool -> Html Msg
+currentSelection showAvailableLanguages =
+    p
+        [ class (Styles.currentSelection showAvailableLanguages)
+        , onClick ShowAvailableLanguages
+        ]
+        [ span [] [ text "English" ]
+        , span [ class Styles.caret ] [ text "▾" ]
+        ]
+```
+
+^
+Clicking the currently selected language will toggle the menu's visibility (and as you can see we're also passing the flag into the Styles module so we can add or remove Tachyons classes as needed).
+
+---
+
+```elm, [.highlight: 8-15]
 view : Model -> Html msg
 view { showAvailableLanguages } =
     div [ class Styles.dropdownContainer ]
@@ -729,14 +889,121 @@ dropdownList showAvailableLanguages =
     in
         ul [ class (Styles.dropdownList showAvailableLanguages) ]
             (List.map dropdownListItem selectableLanguages)
-
 ```
+
+^
+And in the dropdown list, not much has changed aside from passing the showAvailableLanguages flag off to its styling class, which just for clarity's sake, looks like this...
+
+---
+
+```elm
+dropdownList : Bool -> String
+dropdownList showAvailableLanguages =
+    let
+        displayClasses =
+            if showAvailableLanguages then
+                [ "flex", "flex-column" ]
+            else
+                [ "dn" ]
+    in
+        [ "absolute"
+        , "b--white"
+        , -- ...
+        ]
+            ++ displayClasses
+            |> String.join " "
+```
+
+^
+What we have here is...
+
+---
+
+```elm, [.highlight: 4-8]
+dropdownList : Bool -> String
+dropdownList showAvailableLanguages =
+    let
+        displayClasses =
+            if showAvailableLanguages then
+                [ "flex", "flex-column" ]
+            else
+                [ "dn" ]
+    in
+        [ "absolute"
+        , "b--white"
+        , -- ...
+        ]
+            ++ displayClasses
+            |> String.join " "
+```
+
+^
+...displayClasses being created as a separate list of either display as flex column or "display none" ("dn")
+
+---
+
+```elm, [.highlight: 10-15]
+dropdownList : Bool -> String
+dropdownList showAvailableLanguages =
+    let
+        displayClasses =
+            if showAvailableLanguages then
+                [ "flex", "flex-column" ]
+            else
+                [ "dn" ]
+    in
+        [ "absolute"
+        , "b--white"
+        , -- ...
+        ]
+            ++ displayClasses
+            |> String.join " "
+```
+
+^
+...which then gets concatenated to the here-abbreviated list of tachyons classes, before being joined together to get the string needed for the classes.
+
+---
+
+```elm
+dropdownList : Bool -> String
+dropdownList showAvailableLanguages =
+    let
+        displayClasses =
+            if showAvailableLanguages then
+                [ "flex", "flex-column" ]
+            else
+                [ "dn" ]
+    in
+        [ "absolute"
+        , "b--white"
+        , -- ...
+        ]
+            ++ displayClasses
+            |> String.join " "
+```
+
+^
+Right, so now we have our menu display down, in order to get some interactivity, we need to be able to...
 
 ---
 [.slidenumber-style: #FFFFFF]
 
 # [fit] Subscribe to
 # [fit] *Mouse Clicks*
+
+^
+...subscribe to mouse clicks.
+
+---
+[.header: text-scale(2.0), alignment(center)]
+[.code: alignment(center)]
+
+# :mouse:
+# [fit] `elm-package install -y elm-lang/mouse`
+
+^
+which, unsurprisingly enough, means we need to install Elm's mouse package...
 
 ---
 
@@ -751,11 +1018,17 @@ subscriptions model =
         Sub.none
 ```
 
+^
+...and write a subscriptions function that says if the language menu is open, whenever a mouse is clicked, send that `CloseAvailableLanguages` message to close the menu.
+
 ---
 [.slidenumber-style: #FFFFFF]
 
 # [fit] *Language*
 # [fit] Switching
+
+^
+Right, now we finally come to the meat of our panino: Language Switching.
 
 ---
 
@@ -765,6 +1038,9 @@ subscriptions model =
 elm-package install -y ChristophP/elm-i18next
 elm-package install -y elm-lang/http
 ```
+
+^
+We'll be using the `elm-i18next` package since it's the only package that we can do runtime switching with, so after getting that installed...
 
 ---
 [.code: text-scale(1.5)]
@@ -778,6 +1054,9 @@ elm-package install -y elm-lang/http
     translations.it.json
     translations.ja.json
 ```
+
+^
+...we need to create some JSON files that contain the translations for the app, in this case for English, Italian, and Japanese.
 
 ---
 
@@ -798,6 +1077,9 @@ elm-package install -y elm-lang/http
   "verticallyCenteringInCssIsEasy": "CSSで垂直センタリングは簡単だよ！"
 }
 ```
+
+^
+The content for each of the files will be just the one key and value for the CSS message.
 
 ---
 
@@ -827,11 +1109,49 @@ getLnFromCode code =
             En
 ```
 
+^
+Next, we'll create a Translations module where we will define...
+
 ---
+[.code: text-scale(2.0)]
 
 ```elm
-module Msg exposing (Msg(..))
+type Lang
+    = En
+    | It
+    | Ja
+```
 
+^
+...the type for a language, and then...
+
+---
+[.code: text-scale(1.5)]
+
+```elm
+getLnFromCode : String -> Lang
+getLnFromCode code =
+    case code of
+        "en" ->
+            En
+
+        "it" ->
+            It
+
+        "ja" ->
+            Ja
+
+        _ ->
+            En
+```
+
+^
+...provide a helper function to convert a string language code into a language.
+
+---
+[.code: text-scale(1.5)]
+
+```elm
 import Http exposing (Error)
 import I18Next exposing (Translations)
 import Translations exposing (Lang)
@@ -844,127 +1164,159 @@ type Msg
     | ShowAvailableLanguages
 ```
 
----
-
-```elm
-module Cmd exposing (fetchTranslations)
-
-import I18Next
-import Msg exposing (Msg(FetchTranslations))
-import Translations exposing (Lang)
-
-
-fetchTranslations : Lang -> Cmd Msg
-fetchTranslations language =
-    language
-        |> toTranslationsUrl
-        |> I18Next.fetchTranslations FetchTranslations
-
-
-toTranslationsUrl : Lang -> String
-toTranslationsUrl language =
-    let
-        translationLanguage =
-            language
-                |> toString
-                |> String.toLower
-    in
-        "/locale/translations." ++ translationLanguage ++ ".json"
-```
+^
+We'll then add two new messages to our Message union type:
 
 ---
+[.code: text-scale(1.5)]
 
-```elm, [.highlight: 8-12]
-module Cmd exposing (fetchTranslations)
-
-import I18Next
-import Msg exposing (Msg(FetchTranslations))
-import Translations exposing (Lang)
-
-
-fetchTranslations : Lang -> Cmd Msg
-fetchTranslations language =
-    language
-        |> toTranslationsUrl
-        |> I18Next.fetchTranslations FetchTranslations
-
-
-toTranslationsUrl : Lang -> String
-toTranslationsUrl language =
-    let
-        translationLanguage =
-            language
-                |> toString
-                |> String.toLower
-    in
-        "/locale/translations." ++ translationLanguage ++ ".json"
-```
-
----
-
-```elm, [.highlight: 15-23]
-module Cmd exposing (fetchTranslations)
-
-import I18Next
-import Msg exposing (Msg(FetchTranslations))
-import Translations exposing (Lang)
-
-
-fetchTranslations : Lang -> Cmd Msg
-fetchTranslations language =
-    language
-        |> toTranslationsUrl
-        |> I18Next.fetchTranslations FetchTranslations
-
-
-toTranslationsUrl : Lang -> String
-toTranslationsUrl language =
-    let
-        translationLanguage =
-            language
-                |> toString
-                |> String.toLower
-    in
-        "/locale/translations." ++ translationLanguage ++ ".json"
-```
-
----
-
-```elm
-module Cmd exposing (fetchTranslations)
-
-import I18Next
-import Msg exposing (Msg(FetchTranslations))
-import Translations exposing (Lang)
-
-
-fetchTranslations : Lang -> Cmd Msg
-fetchTranslations language =
-    language
-        |> toTranslationsUrl
-        |> I18Next.fetchTranslations FetchTranslations
-
-
-toTranslationsUrl : Lang -> String
-toTranslationsUrl language =
-    let
-        translationLanguage =
-            language
-                |> toString
-                |> String.toLower
-    in
-        "/locale/translations." ++ translationLanguage ++ ".json"
-```
-
----
-
-```elm
-module Model exposing (Model, init)
-
-import Cmd
+```elm, [.highlight: 3, 7]
+import Http exposing (Error)
 import I18Next exposing (Translations)
-import Msg exposing (Msg)
-import Translations exposing (Lang(En))
+import Translations exposing (Lang)
+
+
+type Msg
+    = ChangeLanguage Lang
+    | CloseAvailableLanguages
+    | FetchTranslations (Result Error Translations)
+    | ShowAvailableLanguages
+```
+
+^
+ChangeLanguage, that takes in one of our languages as its parameter...
+
+---
+[.code: text-scale(1.5)]
+
+```elm, [.highlight: 1-2, 9]
+import Http exposing (Error)
+import I18Next exposing (Translations)
+import Translations exposing (Lang)
+
+
+type Msg
+    = ChangeLanguage Lang
+    | CloseAvailableLanguages
+    | FetchTranslations (Result Error Translations)
+    | ShowAvailableLanguages
+```
+
+^
+...and FetchTranslations, which will hold the result type of attempting to read in the translations for a particular language.
+
+---
+
+```elm
+import I18Next
+
+
+fetchTranslations : Lang -> Cmd Msg
+fetchTranslations language =
+    language
+        |> toTranslationsUrl
+        |> I18Next.fetchTranslations FetchTranslations
+
+
+toTranslationsUrl : Lang -> String
+toTranslationsUrl language =
+    let
+        translationLanguage =
+            language
+                |> toString
+                |> String.toLower
+    in
+        "/locale/translations." ++ translationLanguage ++ ".json"
+```
+
+^
+That result is fetched via the fetchTranslations function, which first...
+
+---
+
+```elm, [.highlight: 11-19]
+import I18Next
+
+
+fetchTranslations : Lang -> Cmd Msg
+fetchTranslations language =
+    language
+        |> toTranslationsUrl
+        |> I18Next.fetchTranslations FetchTranslations
+
+
+toTranslationsUrl : Lang -> String
+toTranslationsUrl language =
+    let
+        translationLanguage =
+            language
+                |> toString
+                |> String.toLower
+    in
+        "/locale/translations." ++ translationLanguage ++ ".json"
+```
+
+^
+...interpolates the stringified language into the path for a JSON translation file...
+
+---
+
+```elm, [.highlight: 4-8]
+import I18Next
+
+
+fetchTranslations : Lang -> Cmd Msg
+fetchTranslations language =
+    language
+        |> toTranslationsUrl
+        |> I18Next.fetchTranslations FetchTranslations
+
+
+toTranslationsUrl : Lang -> String
+toTranslationsUrl language =
+    let
+        translationLanguage =
+            language
+                |> toString
+                |> String.toLower
+    in
+        "/locale/translations." ++ translationLanguage ++ ".json"
+```
+
+^
+...and then calls the I18Next's fetchTranslations function to do the actual fetchhing work.
+
+---
+
+```elm
+import I18Next
+
+
+fetchTranslations : Lang -> Cmd Msg
+fetchTranslations language =
+    language
+        |> toTranslationsUrl
+        |> I18Next.fetchTranslations FetchTranslations
+
+
+toTranslationsUrl : Lang -> String
+toTranslationsUrl language =
+    let
+        translationLanguage =
+            language
+                |> toString
+                |> String.toLower
+    in
+        "/locale/translations." ++ translationLanguage ++ ".json"
+```
+
+^
+Now that we have the ability to fetch translations, we need the app to provide a place to store them, so, back to the model...
+
+---
+
+```elm
+import I18Next exposing (Translations)
 
 
 type alias Model =
@@ -980,9 +1332,90 @@ init =
       , showAvailableLanguages = False
       , translations = I18Next.initialTranslations
       }
-    , Cmd.fetchTranslations En
+    , fetchTranslations En
     )
 ```
+
+^
+Here, along with the showAvailableLanguages flag...
+
+---
+
+```elm, [.highlight: 4-8]
+import I18Next exposing (Translations)
+
+
+type alias Model =
+    { currentLanguage : Lang
+    , showAvailableLanguages : Bool
+    , translations : Translations
+    }
+
+
+init : ( Model, Cmd Msg )
+init =
+    ( { currentLanguage = En
+      , showAvailableLanguages = False
+      , translations = I18Next.initialTranslations
+      }
+    , fetchTranslations En
+    )
+```
+
+^
+...we add in a new value to hold the currentLanguage, as well as the translations for that language.
+
+---
+
+```elm, [.highlight: 11-18]
+import I18Next exposing (Translations)
+
+
+type alias Model =
+    { currentLanguage : Lang
+    , showAvailableLanguages : Bool
+    , translations : Translations
+    }
+
+
+init : ( Model, Cmd Msg )
+init =
+    ( { currentLanguage = En
+      , showAvailableLanguages = False
+      , translations = I18Next.initialTranslations
+      }
+    , fetchTranslations En
+    )
+```
+
+^
+...and we'll initialise those values with a default language of English, and a set of initial translations provided by I18Next, which under the hood is an empty dictionary.
+
+---
+
+```elm
+import I18Next exposing (Translations)
+
+
+type alias Model =
+    { currentLanguage : Lang
+    , showAvailableLanguages : Bool
+    , translations : Translations
+    }
+
+
+init : ( Model, Cmd Msg )
+init =
+    ( { currentLanguage = En
+      , showAvailableLanguages = False
+      , translations = I18Next.initialTranslations
+      }
+    , fetchTranslations En
+    )
+```
+
+^
+Now that we have a place for those values, let's allow them to be updated...
 
 ---
 
@@ -993,7 +1426,7 @@ update msg model =
         -- ...
         ChangeLanguage language ->
             ( { model | currentLanguage = language }
-            , Cmd.fetchTranslations language
+            , fetchTranslations language
             )
 
         FetchTranslations (Ok translations) ->
@@ -1002,6 +1435,53 @@ update msg model =
         FetchTranslations (Err msg) ->
             ( model, Cmd.none )
 ```
+
+^
+When we change a language...
+
+---
+
+```elm, [.highlight: 5-8]
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        -- ...
+        ChangeLanguage language ->
+            ( { model | currentLanguage = language }
+            , fetchTranslations language
+            )
+
+        FetchTranslations (Ok translations) ->
+            ( { model | translations = translations }, Cmd.none )
+
+        FetchTranslations (Err msg) ->
+            ( model, Cmd.none )
+```
+
+^
+...we set the currentLanguage and fire off the command to fetch that language's translations.
+
+---
+
+```elm, [.highlight: 10-14]
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        -- ...
+        ChangeLanguage language ->
+            ( { model | currentLanguage = language }
+            , fetchTranslations language
+            )
+
+        FetchTranslations (Ok translations) ->
+            ( { model | translations = translations }, Cmd.none )
+
+        FetchTranslations (Err msg) ->
+            ( model, Cmd.none )
+```
+
+^
+Once the translations have been fetched, we store them if the fetch was successful, and for now we'll just hand-wave over any file reading failures.
 
 ---
 
