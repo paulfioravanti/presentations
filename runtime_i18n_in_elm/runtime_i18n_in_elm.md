@@ -48,7 +48,7 @@ I have never had to consider the choice of generating application translations a
 
 ^
 To be honest, I still do not know which way of doing things is "best" in an Elm context.<br />
-But, I do know that what I want to have is runtime-switchable languages via a dropdown menu of some sort, which is something I have done when coding up applications in other languages.
+But, I do know that what I typically want to have in multi-lingual apps is runtime-switchable languages via a dropdown menu of some sort, which is something I have done when coding up applications in other languages.
 
 ---
 [.slidenumbers: false]
@@ -58,7 +58,7 @@ But, I do know that what I want to have is runtime-switchable languages via a dr
 ![fit](https://www.dropbox.com/s/vkxqqvstoeztz8a/tachyons-logo.png?dl=1)
 
 ^
-I have been using Tachyons, a CSS utilities framework, a lot lately for styling, and like how it plays with Elm, so for example purposes...
+So, I'm going to frame the example app we'll make by saying that I have been using Tachyons, a CSS utility class framework, a lot lately for styling, and like how it plays with Elm, so...
 
 ---
 [.slidenumbers: false]
@@ -87,7 +87,7 @@ I have been using Tachyons, a CSS utilities framework, a lot lately for styling,
 - Provide translations in JSON
 
 ^
-On the back end, we will provide some translations for the page in JSON format, and allow the dropdown menu to switch the current language of the app.
+To get to this, we will provide some translations for the page in JSON format, and allow the dropdown menu to switch the current language of the app.
 
 ---
 [.header: text-scale(2.0)]
@@ -306,7 +306,7 @@ So, from here, what we now want to add is the...
 # [fit] *Dropdown*
 
 ^
-Language dropdown, and what we want it to do is...
+Language dropdown, and the requirements for this would be to...
 
 ---
 [.header: text-scale(2.0)]
@@ -590,7 +590,7 @@ dropdownListItem language =
 
 ^
 For the dropdown list itself, we are shoving a HTML unordered list (ul) right underneath the p tag, simulating a menu opening.<br />
-For now, we're manually feeding the list of selectable languages, and we'll fix that later, but we take each selectable language and map it to...
+For now, we're manually defining the list of selectable languages, and we'll fix that later, but we take each selectable language and map it to...
 
 ---
 
@@ -655,7 +655,7 @@ This results in...
 ![fit](https://www.dropbox.com/s/egb6vlob8mxolx2/menu-with-open-selection.png?dl=1)
 
 ^
-...a permanently open menu. So, what we want next is to be able to...
+...a permanently open menu. That's a step in the right direction, but what we want next is to be able to...
 
 ---
 [.slidenumber-style: #FFFFFF]
@@ -1284,7 +1284,7 @@ toTranslationsUrl language =
 ```
 
 ^
-...interpolates the stringified language into the path for a JSON translation file...
+...interpolates the stringified language type into the path for a JSON translation file...
 
 ---
 
@@ -1384,7 +1384,7 @@ init =
 ```
 
 ^
-...we add in a new value to hold the currentLanguage, as well as the translations for that language.
+...we add in a new value to hold the currentLanguage, and a new value for to hold the translations for the current language.
 
 ---
 
@@ -1511,7 +1511,7 @@ Once the translations have been fetched, we store them if the fetch was successf
 # [fit] *Values*
 
 ^
-At this stage, we're nearly at the expected functionality, but we're still using static values for the language display as well as the available languages list for the menu, so let's change that now.
+At this stage, we're nearly at the desired functionality for the dropdown, but we're still using static values for the current language display as well as the available languages list for the menu, so let's change that now.
 
 ---
 
@@ -1598,7 +1598,7 @@ langToString language =
 ```
 
 ^
-...and we'll also keeping a static list of available languages in the app to use as a basis when we populate the dropdown menu.<br />
+...and we'll also keep a static list of available languages in the app to use as a basis when we populate the dropdown menu.<br />
 Unfortunately, there is no way to generate a list of type values from a union type (eg [En, It, Ja] from the Lang type), so this has to be a separate definition.
 
 ---
@@ -1808,7 +1808,7 @@ dropdownListItem language =
 ![fit](https://www.dropbox.com/s/lblajfbfphsq8vu/language-change-on-back-end.png?dl=1)
 
 ^
-At this point, if you select a new language from the dropdown menu, you will see the current language display change on the menu, and if you open the Elm debugger, you will see that the language of the application is actually changing, and the translations for the language are being loaded into the application.<br />
+At this point, if you select a new language from the dropdown menu, you will see it reflected on the menu, and if you open the Elm debugger, you will see that the language of the application in the model is actually changing, and the translations for the language are being loaded into the application.<br />
 So, that's all well and good, but now let's get that translated message showing on the page by letting the content know what translations it is supposed to be displaying
 
 ---
@@ -1987,7 +1987,7 @@ function getLanguage() {
 ```
 
 ^
-We pass in a language flag that is the result of calling the getLanguage function...
+We pass in a language flag that contains the result of calling the getLanguage function...
 
 ---
 
@@ -2007,7 +2007,7 @@ function getLanguage() {
 ```
 
 ^
-Which we define here, and we attempt to get the language using the two ways we know how.
+...which we define here, and we attempt to get the language using the two ways we know how.
 
 ---
 
@@ -2085,7 +2085,7 @@ init flags =
 ```
 
 ^
-...and parse it first through a JSON string decoder, and then through the langFromFlag function...
+...extract the language flag, parse it first through a JSON string decoder, and then through the langFromFlag function...
 
 ---
 
@@ -2104,7 +2104,7 @@ langFromFlag language =
 ```
 
 ^
-...which will delegate out to the Translations module to get a Language type, or if there was an issue with the language flag, only then will we default the language to English.
+...which will delegate out to the Translations module to get a Language type if the language flag was valid, or if there was an issue with the language flag, only then will we default the language to English.
 
 ---
 [.slidenumber-style: #FFFFFF]
@@ -2216,7 +2216,7 @@ function getLanguage() {
 ```
 
 ^
-...we subscribe to the storeLangugageInLocalStorage port, and store the string that we get passed into localStorage via its setItem function.
+...we subscribe to the storeLangugageInLocalStorage port, and store the string that we get passed from Elm into localStorage via its setItem function.
 
 ---
 
@@ -2258,7 +2258,7 @@ function getLanguage() {
 ```
 
 ^
-By the way, there is no particular reason behind the "elm-i18n-example-language" named key; it could have been named anything, but I think it is best to have it as unique as possible, since many different applications will likely be making use of localStorage
+By the way, there is no particular reason behind the "elm-i18n-example-language" named key; it could have been named anything, but I think it is best to have it as unique as possible, since many different applications could also make use of localStorage.
 
 ---
 
@@ -2355,7 +2355,7 @@ This is particularly noticeable on the Japanese translation. Perhaps the transla
 - **_`I18Next.t translations "thisKeyDoesNotExist"`_**
 
 ^
-If you accidentally make a typo when requesting a translation by key in a view (like "thisKeyDoesNotExist"), then no error is raised: the key is simply displayed on the page, which may not be what you want
+If you accidentally make a typo when requesting a translation in a view with a key like "thisKeyDoesNotExist" (which does not exist), then no error is raised: the key is simply displayed on the page, which may not be what you want
 
 ---
 
@@ -2379,7 +2379,7 @@ Elm programmers are spoiled by the Elm compiler always looking over our shoulder
 # [fit] *Translations*
 
 ^
-Glad you asked! Since we have our translation files as JSON, we can use...
+Well, adding type safety seems like the appropriate solution here, and since we have our translation files as JSON, we can use...
 
 ---
 [.slidenumber-style: #FFFFFF]
@@ -2451,7 +2451,29 @@ verticallyCenteringInCssIsEasy lang =
 ```
 
 ^
-...including a Lang type and a getLnFromCode function, which is why I adopted the sort-of-awkward naming conventions in advance.<br />
+...including a Lang type and a getLnFromCode function, which is why I adopted the sort-of-awkward naming conventions in advance.
+
+---
+
+```elm
+module Translations exposing (..)
+
+-- ...
+
+verticallyCenteringInCssIsEasy : Lang -> String
+verticallyCenteringInCssIsEasy lang =
+    case lang of
+        En ->
+            "Vertically centering things in css is easy!"
+
+        It ->
+            "Centrare verticalmente con css è facile!"
+
+        Ja ->
+            "CSSで垂直センタリングは簡単だよ！"
+```
+
+^
 Anyway, now that we have our function, let’s use it in the view:
 
 ---
@@ -2528,7 +2550,7 @@ The issue of a translation key displaying before the translation is loaded has c
 - Compiler errors if translation not provided
 
 ^
-Elm will raise a compiler error if a translation is not provided for all languages. Those are some pretty good benefits! I'm not sure about any downsides to this, aside from maybe having a single module with potentially hundreds of functions in it for any given large JSON translation file. But, I would guess the overhead for maintainability of that module would be the same for the JSON file that it is derived from.
+Elm will raise a compiler error if a translation is not provided for all languages. Those are some pretty good benefits! I'm not sure about any downsides to this, aside from maybe having a single module with potentially hundreds of functions in it if you have that many translations in your JSON file. But, I would guess the overhead for maintainability of that module would be the same for the JSON file that it is derived from.
 
 ---
 [.slidenumber-style: #FFFFFF]
@@ -2561,7 +2583,7 @@ Even after all this, I'm still not really sure what to think when it comes to an
 - `https://paulfioravanti.com/blog/2018/05/11/runtime-language-switching-in-elm/`
 
 ^
-The code for the example app in this talk is located in my Github repo, so if you would like to take a closer look at this example, it's there for the taking. I also wrote a blog post about this very topic which I re-purposed for this talk, so if you want more information and the ability to go through all this at your own pace, please go and check it out.
+The code for the example app in this talk is located in my Github repo, so if you would like to take a closer look at this example, it's there for the taking. I also wrote a blog post about this very topic which I re-purposed for this talk, so if you want more information and the ability to go through the evolution of the example at your own pace, please go and check it out.
 
 ---
 [.slidenumbers: false]
