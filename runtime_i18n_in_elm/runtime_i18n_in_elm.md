@@ -147,7 +147,7 @@ heading =
 ```
 
 ^
-Behind the scenes..., we have a view function that contains the page content..
+Behind the scenes...
 
 ---
 
@@ -302,8 +302,8 @@ So, from here, what we now want to add is the...
 ---
 [.slidenumber-style: #FFFFFF]
 
-# [fit] Language
-# [fit] Dropdown
+# [fit] LANGUAGE
+# [fit] *Dropdown*
 
 ^
 Language dropdown, and what we want it to do is...
@@ -487,7 +487,7 @@ view model =
 ```
 
 ^
-...and place it above the content
+...and place it above the content.
 
 ---
 [.slidenumbers: false]
@@ -496,13 +496,13 @@ view model =
 ![fit](https://www.dropbox.com/s/x1p8k83m0fatv34/menu-with-current-selection.png?dl=1)
 
 ^
-The p-tag "menu" here currently does nothing, but we can at least confirm that it looks like it is in a good spot on the page.
+And this is what we get. The p-tag "menu" here currently does nothing, but we can at least confirm that it looks like it is in a good spot on the page.
 
 ---
 [.slidenumber-style: #FFFFFF]
 
-# [fit] Language Dropdown
-# [fit] *List*
+# [fit] *Language*
+# [fit] DROPDOWN LIST
 
 ^
 Now, let's actually give it a list of languages
@@ -660,11 +660,11 @@ This results in...
 ---
 [.slidenumber-style: #FFFFFF]
 
-# [fit] Show/Hide
+# [fit] SHOW/HIDE
 # [fit] *Available Languages*
 
 ^
-Show and hide the available languages as the menu opens that closes. What that is going to entail is...
+Show and hide the available languages as the menu opens and closes. What that is going to entail is...
 
 ---
 [.header: text-scale(1.5)]
@@ -845,7 +845,31 @@ currentSelection showAvailableLanguages =
 ```
 
 ^
-...in the view we'll pass the value of the showAvailableLanguages flag into our other functions.
+...in the view...
+
+---
+
+```elm, [.highlight: 1-6]
+view : Model -> Html msg
+view { showAvailableLanguages } =
+    div [ class Styles.dropdownContainer ]
+        [ currentSelection showAvailableLanguages
+        , dropdownList showAvailableLanguages
+        ]
+
+currentSelection : Bool -> Html Msg
+currentSelection showAvailableLanguages =
+    p
+        [ class (Styles.currentSelection showAvailableLanguages)
+        , onClick ShowAvailableLanguages
+        ]
+        [ span [] [ text "English" ]
+        , span [ class Styles.caret ] [ text "▾" ]
+        ]
+```
+
+^
+...we'll pass the value of the showAvailableLanguages flag into our other functions.
 
 ---
 
@@ -938,7 +962,7 @@ dropdownList showAvailableLanguages =
 ```
 
 ^
-...displayClasses being created as a separate list of either display as flex column or "display none" ("dn")
+...displayClasses being created as a separate list of either flex column display or "display none" ("dn")
 
 ---
 
@@ -984,13 +1008,13 @@ dropdownList showAvailableLanguages =
 ```
 
 ^
-Right, so now we have our menu display down, in order to get some interactivity, we need to be able to...
+Right, so now we have our menu display down, but in order to get some interactivity, we need to be able to...
 
 ---
 [.slidenumber-style: #FFFFFF]
 
-# [fit] Subscribe to
-# [fit] *Mouse Clicks*
+# [fit] *Subscribe to*
+# [fit] MOUSE CLICKS
 
 ^
 ...subscribe to mouse clicks.
@@ -1034,7 +1058,7 @@ So, at this point, our menu would be functioning like this, with us being able t
 [.slidenumber-style: #FFFFFF]
 
 # [fit] *Language*
-# [fit] Switching
+# [fit] SWITCHING
 
 ^
 Right, now we finally come to the meat of our panino: Language Switching.
@@ -1132,7 +1156,7 @@ type Lang
 ```
 
 ^
-...the type for a language, and then...
+...a union type for the set of available languages, and then...
 
 ---
 [.code: text-scale(1.5)]
@@ -1155,7 +1179,7 @@ getLnFromCode code =
 ```
 
 ^
-...provide a helper function to convert a string language code into a language.
+...provide a helper function to convert a string language code into a language type.
 
 ---
 [.code: text-scale(1.5)]
@@ -1217,9 +1241,6 @@ type Msg
 ---
 
 ```elm
-import I18Next
-
-
 fetchTranslations : Lang -> Cmd Msg
 fetchTranslations language =
     language
@@ -1243,10 +1264,7 @@ That result is fetched via the fetchTranslations function, which first...
 
 ---
 
-```elm, [.highlight: 11-19]
-import I18Next
-
-
+```elm, [.highlight: 8-16]
 fetchTranslations : Lang -> Cmd Msg
 fetchTranslations language =
     language
@@ -1270,10 +1288,7 @@ toTranslationsUrl language =
 
 ---
 
-```elm, [.highlight: 4-8]
-import I18Next
-
-
+```elm, [.highlight: 1-5]
 fetchTranslations : Lang -> Cmd Msg
 fetchTranslations language =
     language
@@ -1293,14 +1308,11 @@ toTranslationsUrl language =
 ```
 
 ^
-...and then calls the I18Next's fetchTranslations function to do the actual fetchhing work.
+...and then calls the I18Next's fetchTranslations function to do the actual fetching work.
 
 ---
 
 ```elm
-import I18Next
-
-
 fetchTranslations : Lang -> Cmd Msg
 fetchTranslations language =
     language
@@ -1495,11 +1507,11 @@ Once the translations have been fetched, we store them if the fetch was successf
 ---
 [.slidenumber-style: #FFFFFF]
 
-# [fit] Dynamic
+# [fit] DYNAMIC
 # [fit] *Values*
 
 ^
-At this stage, we're nearly at the expected functionality, but we're still using the original static values for the language display and the available languages list for the menu, so let's change that now.
+At this stage, we're nearly at the expected functionality, but we're still using static values for the language display as well as the available languages list for the menu, so let's change that now.
 
 ---
 
@@ -1557,7 +1569,7 @@ langToString language =
 ```
 
 ^
-For example "English" should always be displayed as "English", regardless of what the current language is), and keeping a static list of available languages so we can display them in the dropdown menu.
+For example "English" should always be displayed as "English", regardless of what the current language is...
 
 ---
 
@@ -1586,8 +1598,8 @@ langToString language =
 ```
 
 ^
-And we'll also keeping a static list of available languages in the app to use as a basis when we populate the dropdown menu.<br />
-Unfortunately, there is no way to generate a list of type values from a type (eg [En, It, Ja] from the Lang type), so this has to be a separate definition.
+...and we'll also keeping a static list of available languages in the app to use as a basis when we populate the dropdown menu.<br />
+Unfortunately, there is no way to generate a list of type values from a union type (eg [En, It, Ja] from the Lang type), so this has to be a separate definition.
 
 ---
 
@@ -1740,7 +1752,7 @@ dropdownListItem language =
 ```
 
 ^
-Similarly with the code for the dropdown list code...
+Similarly, with the code for the dropdown list...
 
 ---
 
@@ -1919,7 +1931,7 @@ heading translations =
 ---
 [.slidenumber-style: #FFFFFF]
 
-# [fit] Detect
+# [fit] DETECT
 # [fit] *User Language*
 
 ^
@@ -2034,9 +2046,6 @@ type alias Flags =
 ---
 
 ```elm
-import Language
-
-
 init : Flags -> ( Model, Cmd Msg )
 init flags =
     let
@@ -2058,10 +2067,7 @@ This will change the init function slightly, as we'll now take the Flags in as a
 
 ---
 
-```elm, [.highlight: 7-10]
-import Language
-
-
+```elm, [.highlight: 4-7]
 init : Flags -> ( Model, Cmd Msg )
 init flags =
     let
@@ -2104,7 +2110,7 @@ langFromFlag language =
 [.slidenumber-style: #FFFFFF]
 [.header: text-scale(1.4)]
 
-# [fit] Store
+# [fit] STORE
 # [fit] *Language Preference*
 
 ^
@@ -2210,7 +2216,7 @@ function getLanguage() {
 ```
 
 ^
-...we subscribe to the storeLangugageInLocalStorage port, and store the string that we get passed into localStorage.
+...we subscribe to the storeLangugageInLocalStorage port, and store the string that we get passed into localStorage via its setItem function.
 
 ---
 
@@ -2271,7 +2277,26 @@ update msg model =
 ```
 
 ^
-Okay, we've got the pathway to Javascript set up, now we need to make sure that the command is run every time the language is changed (ie the ChangeLanguage message is sent), so we make that addition in the update function to say that when the language is changed, fire off two commands, one to fetch the translations, and one to store the selected language in localStorage.
+Okay, we've got the pathway to Javascript set up, now we need to make sure that the command to store the language is run every time the language is changed...
+
+---
+
+```elm, [.highlight: 5-11]
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        -- ...
+        ChangeLanguage language ->
+            ( { model | currentLanguage = language }
+            , Cmd.batch
+                [ fetchTranslations language
+                , storeLanguage language
+                ]
+            )
+```
+
+^
+...(ie the ChangeLanguage message is sent), so we make that addition in the update function to say that when the language is changed, fire off two commands, one to fetch the translations, and one to store the selected language in localStorage.
 
 ---
 [.slidenumbers: false]
@@ -2294,7 +2319,7 @@ Okay, awesome! We're pretty much feature complete.
 ---
 [.slidenumber-style: #FFFFFF]
 
-# [fit] Lingering
+# [fit] LINGERING
 # [fit] *Issues*
 
 ^
@@ -2350,7 +2375,7 @@ Elm programmers are spoiled by the Elm compiler always looking over our shoulder
 ---
 [.slidenumber-style: #FFFFFF]
 
-# [fit] Type-Safe
+# [fit] TYPE-SAFE
 # [fit] *Translations*
 
 ^
@@ -2467,7 +2492,7 @@ heading language =
 ```
 
 ^
-...to using a simple function, passing in the language to switch on. The effects of this one change mean that...
+...to using a simple function, and passing in the language to switch on. The effects of this one change mean that...
 
 ---
 [.header: text-scale(1.8)]
@@ -2478,7 +2503,7 @@ heading language =
 - No need to fetch translations
 
 ^
-There is now no need to fetch any translations, and consequently the FetchTranslations Msg, the fetchTranslations function in the Cmd module, the translations entry in the Model, and any trace of the I18Next and Http packages, can now be safely removed
+There is now no need to fetch any translations, and consequently the FetchTranslations Msg, the fetchTranslations function, the translations entry in the Model, and any trace of the I18Next and Http packages, can now be safely removed
 
 ---
 [.header: text-scale(1.8)]
@@ -2490,7 +2515,6 @@ There is now no need to fetch any translations, and consequently the FetchTransl
 - No translation key visible
 
 ^
-
 The issue of a translation key displaying before the translation is loaded has consequently gone away since we are now just calling a function
 
 ---
@@ -2504,12 +2528,12 @@ The issue of a translation key displaying before the translation is loaded has c
 - Compiler errors if translation not provided
 
 ^
-Elm will raise a compiler error if a translation is not provided for all languages. Those are some pretty good benefits! I'm not sure about any downsides to this, aside from maybe having a single module with potentially hundreds of functions in it for any given large JSON translation file. But, I would guess the overhead for maintainability of that module would be the same for the JSON file.
+Elm will raise a compiler error if a translation is not provided for all languages. Those are some pretty good benefits! I'm not sure about any downsides to this, aside from maybe having a single module with potentially hundreds of functions in it for any given large JSON translation file. But, I would guess the overhead for maintainability of that module would be the same for the JSON file that it is derived from.
 
 ---
 [.slidenumber-style: #FFFFFF]
 
-# [fit] Conclusion
+# [fit] CONCLUSION
 
 ---
 
