@@ -15,6 +15,7 @@ be used in [Deckset][], and is best viewed in Raw form.
 
 - :card_index: [PDF slides on Speaker Deck][speakerdeck]
 - :octocat: [Elm I18n Example Github Repo][]
+- :newspaper: [Runtime Language Switching in Elm][]
 
 [compile time]: https://en.wikipedia.org/wiki/Compile_time
 [Deckset]: https://www.decksetapp.com/
@@ -23,4 +24,5 @@ be used in [Deckset][], and is best viewed in Raw form.
 [elmsyd]: https://www.meetup.com/Sydney-Elm-Meetup/events/pdpzvmyxjbcc/
 [i18n]: https://en.wikipedia.org/wiki/Internationalization_and_localization#Naming
 [run time]: https://en.wikipedia.org/wiki/Run_time_(program_lifecycle_phase)
-[speakerdeck]: https://speakerdeck.com/paulfioravanti
+[Runtime Language Switching in Elm]: https://paulfioravanti.com/blog/2018/05/11/runtime-language-switching-in-elm/
+[speakerdeck]: https://speakerdeck.com/paulfioravanti/runtime-i18n-in-elm
