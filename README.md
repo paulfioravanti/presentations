@@ -14,6 +14,8 @@ under the [Creative Commons Attribution 4.0 license][license-cc],
 and all source code contained in source code files, and within presentation
 materials, is licensed under the [MIT license][license-mit].
 
+SPDX-License-Identifier: MIT AND CC-BY-4.0
+
 ## Social
 
 [![Contact][twitter-badge]][twitter-url]<br />
