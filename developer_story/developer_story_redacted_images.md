@@ -7,17 +7,18 @@ slidecount: true
 [.slidenumbers: false]
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
+[.header: alignment(center), text-scale(8.0)]
 
-# [fit] **_Hello_** :wave:
+<br />
+
+# :wave:
 
 ^
 Hi everyone!
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -30,60 +31,56 @@ Hi everyone!
 My name is Paul and this is what I usually look like on the internet.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
-# [fit] **11** **_years_**
+# [fit] **12** **_years_**
 # [fit] **_in_** **Tech**
 
 ^
-I've been in the IT industry for 11 years so far...
+I've been in the IT industry for 12 years so far...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
-# **- Programmer**
+![](https://www.dropbox.com/s/epcb27v0jkrml6j/programmer.jpg?dl=1)
 
 ^
 During that time I've been a programmer...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
-# **- Programmer**
-# **_- Consultant_**
+![](https://www.dropbox.com/s/i18c09aarjdvmh4/consultant.jpg?dl=1)
 
 ^
 ...a project consultant...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
+[.background-color: #000000]
 
-# **- Programmer**
-# **_- Consultant_**
-# **- Pre-sales**
+![130%](https://www.dropbox.com/s/177rome9g1qxmrg/haha-business.jpg?dl=1)
 
 ^
 ...and a technical pre-sales consultant...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
+![](https://www.dropbox.com/s/cjmoc286fck1zj9/computer-setup.jpg?dl=1)
 # [fit] **Programmer**
 
 ^
 ...before looping back to being a programmer again.
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
 # [fit] Developer
 # [fit] **_story_**
@@ -95,8 +92,10 @@ Hopefully at worst serve as an entertaining distraction before you need to get b
 So, anyway...
 
 ---
+[.header: alignment(center), text-scale(8.0)]
 
-# [fit] Japan :jp:
+<br />
+# [fit] :jp:
 
 ^
 I got into programming when I lived in Japan.
@@ -107,9 +106,12 @@ I got into programming when I lived in Japan.
 
 ^
 I was in charge of this bilingual newsletter called Oi! Kochi.<br />
-Kochi is the name of the prefecture that I lived in at the time, and is located in a rurual part of southern Japan.
+Kochi is the name of the prefecture that I lived in at the time, and is located in a rural part of southern Japan.
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
+[.background-color: #FFFFFF]
 
 ![fit](https://www.dropbox.com/s/7fdk4iyvy1bpuju/keitai.jpg?dl=1)
 
@@ -135,7 +137,6 @@ The thought of people being able to read my newsletter on their phones as well a
 So, I created some static HTML pages for the web version in both English and Japanese...
 
 ---
-
 [.hide-footer]
 
 ![120% left](https://www.dropbox.com/s/b5wfgyzkz03u2jr/oi_kochi_mobile_en.png?dl=1)
@@ -156,17 +157,18 @@ If you're by any chance interested, you can find those pages on my Github accoun
 I actually found them doing some research for this talk and I put them up there to be representative not of code that I'm proud of, but what in hindsight I consider to be cringe-worthy code.<br />
 No one starts writing good code, so I wanted to keep those pages around as a permanent reminder of that, and as a bit of a time capsule of the old guard of Japan's mobile internet.
 
+
 ---
 
 # [fit] Really
 # [fit] **_Enjoyed_**
 
 ^
-So, even though my job was in translation and planning international activities and the like, I really enjoyed doing all that coding stuff and this interest led me to..
+So, even though my job was in translation and planning international activities and the like, I really enjoyed doing all that coding stuff and this interest led me to...
 
 ---
 
-# [fit] **NRT** **_:airplane:_** **ADL** __*:arrow_right:*__ :mortar_board:
+![](https://www.dropbox.com/s/0pycif9o8vk33bw/rundle_mall.jpg?dl=1)
 
 ^
 ...go back to Adelaide, where I'm from, and pursue a formal education in computer science and programming.<br />
@@ -191,8 +193,10 @@ There were many times where I thought I had made the...
 ...wrong decision with pursuing this path as I just wasn't understanding anything, and I'm pretty sure I seriously contemplated dropping out a few times due to feeling like a complete fraud.
 
 ---
+[.hide-footer]
+[.slidenumbers: false]
 
-# [fit] :open_hands: _Help_ :open_hands:
+![](https://www.dropbox.com/s/2wj9rm7gl58jril/hold-hands.jpg?dl=1)
 
 ^
 But, I had some knowledgeable classmates who were able to hold my hand and patiently help me through concepts I didn't understand or took me a while to grasp.
@@ -206,22 +210,24 @@ But, I had some knowledgeable classmates who were able to hold my hand and patie
 Once I pushed through the pain of the initial few months and got more confident at my work, I came to really enjoy the process of coding and problem solving, and finally got that feeling of enthusiasm back of what made me initially interested in this field in the first place.
 
 ---
+[.header: alignment(center), text-scale(7.0)]
 
-# [fit] **Back** **_to_** :japan:
+<br />
+# **:arrow_right:** :japan:
 
 ^
 Once I was done with my course, I wasn't quite finished with Japan at that point and I wanted to give living and working in Tokyo a shot, so I managed to get a job via a friend of a friend with a consultancy company that was very passionate about open source and was one of the first companies to promote adoption of the PostgreSQL database in Japan.
 
 ---
+[.header: alignment(center), text-scale(8.0)]
 
-# [fit] **New**
-# [fit] **_Graduate_**
+<br />
+# :mortar_board:
 
 ^
 I joined the company as a "new graduate" hire, and was a member of the company training class of 2006, along with 25 other people.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -233,7 +239,6 @@ Company training consisted of a 3 month bootcamp that, to me, felt like a compre
 About half of the class didn't come from a computing or quantitative background, so for many of them this was the first time they'd be learning how to use computers at such a low level.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -247,12 +252,13 @@ About half of the class didn't come from a computing or quantitative background,
 So, maybe there may be some resemblance to the bootcamp that you're going through at the moment, maybe not.  Why don't I tell you about what happened and perhaps you can tell me...?
 
 ---
-
 [.hide-footer]
+[.header: #000000]
+[.background-color: #E1E0E5]
 
 ![160% original](https://www.dropbox.com/s/mkqvx6w924kp458/training_timesheet_redacted.png?dl=1)
 
-#### Timesheet
+## Timesheet
 
 ^
 The official work day began at 9:00am and ended at 5:30pm<br />
@@ -260,7 +266,6 @@ We were required to keep a timesheet and fill it out at the end of the day, and 
 Although the end of the official work day was 5:30pm, given the workload that we were expected to get through every day, there were plenty of times where we needed to stay back to get all of our work done.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -271,12 +276,18 @@ However, we did not have permission to just stay late to get our work done.  We 
 Then, we would make an on-the-spot estimate of how much longer the remaining day's work would take...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
+[.header: alignment(center), text-scale(3.5)]
 
 ![](https://www.dropbox.com/s/t7big1jaiyozgln/permission_to_stay_later_redacted.png?dl=1)
 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 # Negotiate
 
 ^
@@ -284,7 +295,6 @@ Then, we would make an on-the-spot estimate of how much longer the remaining day
 Sometimes we'd get all the time that we asked for, sometimes we'd get less and told to report back yet again if the extra time apportioned didn't end up being enough, along with appropriate reasons as to why you didn't think the time given was enough.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -294,18 +304,18 @@ Sometimes we'd get all the time that we asked for, sometimes we'd get less and t
 This pattern repeated until we got our work done for the day and would come up to the front of the room to officially sign ourselves off for the day.
 
 ---
+[.header: #000000, alignment(right), text-scale(1.4)]
+[.background-color: #D5D5D5]
 
 ![fit original](https://www.dropbox.com/s/w1mjg63x8he0hmx/work_report_redacted.png?dl=1)
 
-#### Work
-#### Report
+### Work Report
 
 ^
 We submitted a work report for every day of training and all reports needed to be hand-written with pencils and rulers on company graph paper.<br />
 This is one of my early reports, and you can see that each report got corrected and commented on by the trainers, just like your teachers may have done for you in high school.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -317,7 +327,6 @@ If we thought we were unable to finish writing the report within the 30 minute t
 If you did not let a training supervisor know you needed more time at least 10 minutes before the deadline, it was assumed that you would be completing your report.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -328,7 +337,6 @@ If you failed to do so, you would be required to handwrite a shimatsusho, or let
 During the course of the training, any rule infraction that you made, from arriving late to not locking your computer when you left your seat, would result in you needing to...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -343,7 +351,16 @@ During the course of the training, any rule infraction that you made, from arriv
 There was no guidance given on what a letter of apology should look like, so you were required to search the internet for examples and then attempt a submission to the training supervisors.  In many cases, especially earlier on in the training period, multiple re-writes were common until you got instructor approval.
 
 ---
+[.header: #FDD15E]
 
+![original](https://www.dropbox.com/s/1y87nkh4mrusszf/salaryman.jpg?dl=1)
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 # [fit] Salaryman 101
 
 ^
@@ -351,7 +368,6 @@ This strictness underlined our first round of training that I can only describe 
 The objective of was to assist in breaking any bad habits you may have acquired during university, prepare you for salaryman life, and generally make you a productive member of Japanese society.
 
 ---
-
 [.build-lists: true]
 
 # [fit] Salaryman 101
@@ -365,10 +381,9 @@ The objective of was to assist in breaking any bad habits you may have acquired 
 - _How to speak Japanese in formal and humble forms_<br />
 - Proper phrases for talking on the phone<br />
 - _Etiquette for conversations with clients/higher-ranking colleagues_ due to senior/junior relationships with everyone<br />
-- How to bow properly<br />
+- How to bow properly. The angles of a bow; how long to hold a bow<br />
 
 ---
-
 [.build-lists: true]
 
 # [fit] Salaryman 101
@@ -386,7 +401,6 @@ The objective of was to assist in breaking any bad habits you may have acquired 
 After we'd gotten these culturally specific skills down...
 
 ---
-
 [.hide-footer]
 
 ![fit](https://www.dropbox.com/s/rm14xt1zew8idgo/company_laptop_redacted.png?dl=1)
@@ -397,7 +411,6 @@ Although they came with Windows, we did all our computing work inside a VM runni
 The company owned Turbolinux, so naturally, we were a captive audience to learn how to use it.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -408,6 +421,7 @@ This part of the training consisted of learning various bash shell commands, the
 All coding we did had to be done using the vi editor.<br />
 
 ---
+[.background-color: #FCFCFC]
 
 ![fit](https://www.dropbox.com/s/kmm5zhpi4cx0rda/vim.png?dl=1)
 
@@ -423,7 +437,6 @@ The logic behind this was that every distribution of Linux comes with vi by defa
 There were also extra rules around using vi during training like, "if you are caught using the arrow keys on your keyboard to navigate, instead of HJKL...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -438,25 +451,35 @@ There were also extra rules around using vi during training like, "if you are ca
 To be honest, as soon as training finished, I moved off of vi immediately and didn't get back on to it until I came back to Australia for my first tech job where all my colleagues used it and mocked me relentlessly until I started using it for work, but I'm getting ahead of myself...
 
 ---
+[.header: #000000, alignment(right), text-scale(1.4)]
+[.background-color: #D4D4D4]
 
 ![fit original](https://www.dropbox.com/s/1gesn9jdp5awouv/pseudocode_redacted.png?dl=1)
 
-#### Pseudocode
+<br />
+<br />
+<br />
+# Pseudo Code
 
 ^
 Next, we had an introduction to Algorithms which took us off our computers and back to graph paper again as we learned computing and programming constructs through UML diagrams.<br />
 We learned pseudocode...
 
 ---
+[.header: #000000, text-scale(2.5)]
+[.background-color: #D9D9D9]
 
 ![fit original](https://www.dropbox.com/s/4apd83ga21wdib6/flow_diagram_redacted.png?dl=1)
 
-#### Flow Diagram
+#### Flow
+#### Diagram
 
 ^
 ...flow diagrams...
 
 ---
+[.header: #000000, alignment(right), text-scale(3.0)]
+[.background-color: #D6D6D6]
 
 ![fit original](https://www.dropbox.com/s/zi6o43ct08kyrd2/system_sequence_diagram_redacted.png?dl=1)
 
@@ -468,35 +491,46 @@ We learned pseudocode...
 ...System Sequence Diagrams...
 
 ---
+[.header: #000000, alignment(right), text-scale(1.5)]
+[.background-color: #DCDCDC]
 
 ![fit original](https://www.dropbox.com/s/u7thbyr26iarz5a/use_case_diagram_redacted.png?dl=1)
 
-#### Use Case
-#### Diagram
+<br />
+<br />
+<br />
+# Use Case
+# Diagram
 
 ^
 ...use case diagrams...
 
 ---
+[.header: #000000, alignment(right), text-scale(1.1)]
+[.background-color: #D4D4D4]
 
 ![fit original](https://www.dropbox.com/s/0gt05yqkvpk1dia/specification_document_redacted.png?dl=1)
 
-#### Use Case
-#### Specification
+<br />
+<br />
+<br />
+<br />
+# Use Case
+# Document
 
 ^
 ...and how to write various use case specification and deliverables documents.
 
 ---
+[.background-color: #FFFFFF]
 
-# [fit] Java
+![40%](https://www.dropbox.com/s/63blbmd65oj4pa6/java-logo.png?dl=1)
 
 ^
 We got back on to coding when we started again on Introduction to Java.
 We submitted our exercises to our supervisors using CVS, which is a very old version control software (before svn).<br />
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -507,7 +541,6 @@ Then, they would be graded by the training supervisors who would give you a pass
 The rules around code submission were insanely strict, and each set of exercises had their own coding standards to adhere to.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -517,11 +550,10 @@ The rules around code submission were insanely strict, and each set of exercises
 The level of strictness of these standards reached down to the level of no extraneous tabs, or blank lines allowed, or that code braces and comments must be written a certain way, or variables must be named a certain way.<br />
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
-![](https://www.dropbox.com/s/w1g61an4etl7csu/paul_and_ohori.jpg?dl=1)
+![](https://www.dropbox.com/s/xuwghnv02f6ph45/paul_and_o_redacted.png?dl=1)
 
 # [fit] Hello World
 # [fit] _**Rejected**_
@@ -547,7 +579,6 @@ Once we'd done the Java basics, we had an individual program creation project, w
 My project ended up being a game of Othello. The deliverable for this, of course, included not just code, but all the associated documentation like a schedule, specifications, daily work reports, a user manual, and Javadoc.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -557,7 +588,6 @@ My project ended up being a game of Othello. The deliverable for this, of course
 I won't delve into the specifics of the implementation, but one thing that we had to do which I'm very glad is a relic of the past is...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -587,8 +617,8 @@ Since the company actively promoted PostgreSQL in Japan, we of course had to lea
 The thing that I remember most about it was that the instructor for this section of the course actually ran their terminal of an early-model Playstation 3 that they'd hacked to run Unix on, before all the safeguards were introduced by Sony into the console that made this impossible.
 
 ---
-
 [.hide-footer]
+[.background-color: #EFF6F3]
 
 ![fit](https://www.dropbox.com/s/kwaozrzyb0gycuv/final_presentation_redacted.png?dl=1)
 
@@ -596,7 +626,6 @@ The thing that I remember most about it was that the instructor for this section
 Finally, came our group project, where we implemented a system for an old-timey Japanese candy shop to manage its inventory...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -606,6 +635,7 @@ Finally, came our group project, where we implemented a system for an old-timey 
 ...and then presented it to the rest of the group.
 
 ---
+[.code: #FFFFFF]
 
 # [fit] `</training>`
 
@@ -635,18 +665,17 @@ In Japan, typically...
 ...an employee of the company, and then the company assigns you a position wherever it deems necessary, which can sometimes be completely different to where you would have liked to go, but ultimately you don't really have a choice, especially as a new employee.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
 # [fit] **First**
 # [fit] **_Project_**
 
-
 ^
 When I got my project assignment, I was told that for whatever reason, the client had insisted that this new greenfield project we were going to build be created using this language and framework called...
 
 ---
+[.background-color: #FFFFFF]
 
 ![fit](https://www.dropbox.com/s/cxr5mn0syh15oi2/rails_logo.png?dl=1)
 
@@ -662,9 +691,9 @@ Since this was back in 2006, Rails was at version 1.1.2...
 ...and no one in the company had ever heard of or used it...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
+[.background-color: #F0F0F0]
 
 ![100%](https://www.dropbox.com/s/3vmsra59gccn06b/ruby-book.jpg?dl=1) ![100%](https://www.dropbox.com/s/uf2cjoy17v2p5qw/rails2-book.jpg?dl=1)
 
@@ -674,7 +703,6 @@ Obviously, I hadn't encountered Ruby at all before then and hadn't really done a
 This is me essentially saying that...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -686,9 +714,9 @@ This is me essentially saying that...
 ...I had absolutely no idea what I was doing at all.
 
 ---
+[.background-color: #FFFFFF]
 
-# [fit] **_Drink the_**
-# [fit] **Koolaid**
+![fit](https://www.dropbox.com/s/led1e8uvyr49n1c/kool-aid-man.jpg?dl=1)
 
 ^
 Late nights were spent at the office studying Ruby and Rails and it all resulted in me coming to drink the Rails koolaid and enjoying the Ruby way of doing things, though it would still take years afterwards before I instinctively could determine the boundaries between the Ruby the language and Rails the framework, though since I learned them at the same time.
@@ -702,9 +730,9 @@ The "main" database for Rails at the time was MySQL, but since my company was pi
 To be honest the adapters at the time for Postgres were really painful to use, and I wished we could have just used MySQL (but of course, I use Postgres as my go-to default database choice these days).
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
+[.background-color: #FFFFFF]
 
 ![fit](https://www.dropbox.com/s/e1ar34whs7kvf0g/kengine_screenshot.png?dl=1)
 
@@ -722,14 +750,16 @@ It had a sprinkling of Ajax, with the bulk of the app logic centered around that
 ---
 
 # [fit] **Big**
-# [fit] **Mess**
+# [fit] **_Mess_**
 
 ^
 The team I was in consisted of really just me and one other person, and when our timelines started slipping, some more people were thrown on to the project, and it just ended up a big mess. Honestly, I'd hate to look at the codebase now, assuming that it even exists anymore.
 
 ---
+[.header: alignment(center), text-scale(8.0)]
 
-# [fit] More :yen:
+<br />
+# :yen:
 
 ^
 I was on the Rails project for the entire time I was at the company, which ended up being one and a half years.<br />
@@ -737,7 +767,6 @@ Unfortunately, the rate of pay for a software developer is quite low over in Jap
 Although I was living in subsidised company housing at the time, it was only for a limited time, and I didn't think I'd be able to make rent in Tokyo.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -748,7 +777,6 @@ So, I moved over to an American company and out of software development and into
 Even though I wasn't doing development directly, because I really liked Ruby, I would try and use it as much as possible to do other things tangental to my main work, which usually involved scripts that would automate some workflow that I had.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -758,7 +786,6 @@ Even though I wasn't doing development directly, because I really liked Ruby, I 
 After much stress due to being the go-between for that company and everything Japan-related...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -770,7 +797,6 @@ After much stress due to being the go-between for that company and everything Ja
 ...as well as periods of 22 hour work days where I'd sometimes be falling asleep in meetings without even realising it...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -778,6 +804,16 @@ After much stress due to being the go-between for that company and everything Ja
 
 ^
 ...I quit that company after a year and moved even further away from programming and into pre-sales, which entailed being the person that teams up with a sales person to go and perform product presentations and demos to CEOs and CTOs in hopes they'll give you lots of money.<br />
+
+---
+[.hide-footer]
+[.slidenumbers: false]
+[.header: #707070, alignment(right)]
+
+![original](https://www.dropbox.com/s/wn96p71cr0k28xa/gw_bulgari_redacted.png?dl=1)
+# Ha Ha!
+
+^
 Sometimes, I'd get to go and drink fancy Gin & Tonics in the Bvlgari rooftop bar in Ginza after meetings, so that was fun, too.
 
 ---
@@ -837,7 +873,6 @@ It came down to the question of "Can I get you to agree with me", with a best ca
 After getting tired of working Tokyo hours, I went and lived in Italy for 9 months...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -848,7 +883,6 @@ After getting tired of working Tokyo hours, I went and lived in Italy for 9 mont
 At the time I actually intended to live and work in Italy as a Ruby developer.  I wanted to get back into the swing of development because although I'd learned a lot in my other job types, I'd really missed the creative aspects involved in building things with software, specifically in Ruby.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -858,7 +892,6 @@ At the time I actually intended to live and work in Italy as a Ruby developer.  
 I did manage to secure myself a job as a Ruby dev in Milan, but when I found out how much the company were offering...
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
 
@@ -870,12 +903,19 @@ I did manage to secure myself a job as a Ruby dev in Milan, but when I found out
 ...it was less than what I was getting as a developer in Japan, and not nearly enough to live on in a big city like Milan.
 
 ---
-
 [.hide-footer]
 [.slidenumbers: false]
+[.header: #FFFFFF, text-scale(1.84)]
 
-![](https://www.dropbox.com/s/mon1g4vzvayolub/ruby_day_it.jpg?dl=1)
+![original](https://www.dropbox.com/s/mon1g4vzvayolub/ruby_day_it.jpg?dl=1)
 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 # Italian Ruby Day :it:
 
 ^
@@ -883,7 +923,7 @@ After talking to some Italian developers at Italian Ruby Day, they told me that 
 
 ---
 
-# [fit] Time to go
+# [fit] **_Time to_** **go**
 
 ^
 So, I unfortunately came to the realisation that I wasn't going to be able to stay in Italy for as long as I wanted.<br />
@@ -925,8 +965,8 @@ However, I had a few concerns that I needed to figure out a strategy for, which 
 
 ---
 
-# [fit] Public
-# [fit] Presence
+# [fit] **Public**
+# [fit] **_Presence_**
 
 ^
 I figured that in order to solve these problems I needed to have some kind of public presence or portfolio that would demonstrate that I could still actually code, and that I could explain and solve technological problems, with some kind of validation of this from third parties who I don't have any previous relationship with.<br />
@@ -948,7 +988,7 @@ On StackOverflow, I created an account and asked and answered as many questions 
 # [fit] **_Community_**
 
 ^
-Since I didn't have any local references, before I got back to Australia I looked up what Ruby-based community groups existed and made a beeline for them as soon as I got back to Australia: both to get known, and make new friends and work contacts.
+Since I didn't have any local references, before I got back to Australia I looked up what Ruby-based community groups existed and made a beeline for them as soon as I got back: both to get known, and make new friends and work contacts.
 
 ---
 
@@ -995,11 +1035,18 @@ Don't forget your human communication skills as they're just as important as cod
 # [fit] **_Meetups!_**
 
 ^
-Meetups are a great place to meet your people and every Ruby meetup there is always a section for people looking for and offering work.<br />
-The next Ruby on Rails Oceania meetup, known as RORO, which I'm a co-organiser of, is on *tomorrow* at Pivotal Labs, so please consider signing up today and coming to see what's going on in the Ruby community.  I'm sure you will have lots of fun, and at the very least you'll get free food and drinks out of it!
+Meetups are a great place to meet your people, and every Ruby meetup always has a section for people looking for and offering work.<br />
+The next Ruby on Rails Oceania meetup, known also as RORO, which I'm co-incidentally a co-organiser of, is on <date> at <place>, so please consider signing up today and coming to see what's going on in the Ruby community.  I'm sure you will have lots of fun, and at the very least you'll get free food and drinks out of it!
 
 ---
 
+# [fit] **_ROROSyd_**
+
+- `https://www.meetup.com/Ruby-On-Rails-Oceania-Sydney/`
+- `https://github.com/rails-oceania/roro/issues`
+- `@rorosyd`
+
+---
 [.slidenumbers: false]
 
 ![right fit](https://www.dropbox.com/s/v91v736v5q9j272/mugshot_redacted.png?dl=1)
@@ -1012,4 +1059,11 @@ Thanks very much, and I'm more than happy to field any questions.
 
 ^
 Image credits:
+Slide 5: https://unsplash.com/photos/I--YyrXUphc
+Slide 6: https://unsplash.com/photos/u5XiXcOq2Tw
+Slide 7: https://i.kym-cdn.com/photos/images/newsfeed/000/112/566/business.jpg
 Slide 16: https://github.com/levymetal/github-iphone-wallpapers/blob/master/wallpapers/octocat_iphone_blue.jpg
+Slide 18: https://www.flickr.com/photos/xeero/5605678014
+Slide 21: https://unsplash.com/photos/yfmjALh1S6s
+Slide 35: https://unsplash.com/photos/N4yRJiFlnZM
+Slide 48: https://diylogodesigns.com/blog/java-logo-png-transparent-background-download/
