@@ -904,8 +904,8 @@ So once again, here we have two functions that are...
 
 ---
 
-![inline](https://www.dropbox.com/s/qbyevfsrimk72rd/elixir_each.png?dl=1)
-![inline](https://www.dropbox.com/s/axr64r5l58l10s8/elixir_map.png?dl=1)
+![inline](https://www.dropbox.com/s/imf5qxnnblv0rpk/elixir_each_181.jpg?dl=1)
+![inline](https://www.dropbox.com/s/e33n34drtwzv542/elixir_map_181.jpg?dl=1)
 
 ^
 Go check out the implementations for `each` and `map` and any other function in the Elixir Enum module itself and you will see that they all use the reduce function.<br />
