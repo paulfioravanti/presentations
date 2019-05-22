@@ -1,1 +1,3 @@
 *.pdf linguist-vendored
+*.md linguist-documentation=false
+**/*/README.md linguist-documentation
