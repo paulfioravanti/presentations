@@ -1,3 +1,1 @@
-**/*/*.pdf linguist-vendored
-**/*/*.md linguist-documentation=false
-**/*/README.md linguist-documentation
+code_quality/code_quality_speaker_notes.md linguist-documentation=false
