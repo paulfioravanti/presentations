@@ -1,2 +1,1 @@
-* text=auto
-*.pdf diff=astextplain
+*.pdf linguist-vendored
