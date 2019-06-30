@@ -1,4 +1,4 @@
-# Exercism: Scrabble Score
+# Exercism: Scrabble Score (Elixir)
 
 A presentation about my solution to the Elixir [Scrabble Score][] problem on
 [Exercism][].

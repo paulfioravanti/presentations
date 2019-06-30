@@ -1,6 +1,6 @@
-# Exercism: Grade School
+# Exercism: Grade School (Ruby)
 
-A presentation about my solution to the [Grade School][] problem on
+A presentation about my solution to the Ruby [Grade School][] problem on
 [Exercism][].
 
 Presented at:
