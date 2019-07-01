@@ -104,7 +104,7 @@ Score letters and words case-insensitively
 - **Score** **_non-words_**
 
 ^
-Score non-words like an empty string and a string with space characters in it like tabs and new lines.
+And score non-words like an empty string and a string with space characters in it like tabs and new lines.
 
 ---
 [.background-color: #009CA8]
@@ -158,8 +158,7 @@ end
 ```
 
 ^
-Next, we need a `score` function to do all the work.<br />
-That word variable come in as a string...
+Next, we need a `score` function to do all the work, which has a `word` variable comes in as a string...
 
 ---
 [.background-color: #FFFFFF]
@@ -297,7 +296,7 @@ end
 ^
 ...use `Enum.map` to transform the list from a list of characters to a list of integer scores.<br />
 We do this by using the `Map.get` function to fetch the character's score from the `@scores` map, making sure to provide a default return value should we not find the character in the map.<br />
-In this case, it's ultimately defensive programming for when the word contains a non-alphabetic character.<br />
+For this exercise, it's ultimately defensive programming for when the word contains a non-alphabetic character.<br />
 Once we have our list of integers...
 
 ---
@@ -489,8 +488,7 @@ iex> string = "\u0065\u0301"
 ```
 
 ^
-...'e' with an acute accent, here represented as the letter 'e' (65) single codepoint, and the "combining acute accent" Unicode character (301), taking up two codepoints.<br />
-What this means is that...
+...'e' with an acute accent, here represented as the letter 'e' (65), a single codepoint, and the "combining acute accent" Unicode character (301), taking up two codepoints.
 
 ---
 [.background-color: #FFFFFF]
@@ -504,7 +502,7 @@ iex> byte_size(string)
 ```
 
 ^
-...so, this string has a byte size of three.
+So, this string has a byte size of three.
 
 ---
 [.background-color: #FFFFFF]
@@ -520,7 +518,7 @@ iex> String.length(string)
 ```
 
 ^
-It is perceived as a single character by a user, though, so it's string length is one.
+But, it is perceived as a single character by a user, so its string length is one.
 
 ---
 [.background-color: #FFFFFF]
@@ -562,7 +560,7 @@ iex> String.graphemes(string)
 ```
 
 ^
-But, if we ask for the grapheme, we get back its more human perception as a single character.
+But, if we ask for the grapheme, we get back its more human-friendly perception as a single character.
 
 ---
 [.background-color: #FFFFFF]
@@ -612,7 +610,7 @@ end
 ```
 
 ^
-Oh alright, then, we'll peel off a layer towards the metal and change the keys to be integer codepoints and use `String.to_charlist()`.
+Oh alright, then, we'll peel off a layer towards the metal and change the keys to be integer codepoints using `String.to_charlist()`.
 
 ---
 [.background-color: #FFFFFF]
@@ -1059,7 +1057,7 @@ end
 ```
 
 ^
-...their own named guards to help with readability. 
+...their own named guards to help with readability. And we'll just name the guards after what they represent: one point, two points, ten points etc.
 
 ---
 [.header: #009CA8, alignment(center), text-scale(3.0), Lato]
@@ -1170,7 +1168,7 @@ Which is great!
 # **But...?**
 
 ^
-But now that I take another squint, there's something that worries me a bit. It might be nothing, but I'm now concerned with...
+But now that I take another squint, there's something else that worries me a bit. It might be nothing, but I'm now concerned with...
 
 ---
 [.header: #333333, alignment(center), text-scale(3.0), Lato Bold]
@@ -1365,7 +1363,7 @@ And most importantly, science says that all this refactoring was totally worth i
 # **`github.com/paulfioravanti/exercism_scrabble_benchmark`**
 
 ^
-If you're interested in having a look at all the benchmarks or even running them yourselves, then you can go and do so in the exercism_scrabble_benchmark repo on my Github.<br />
+If you're interested in having a look at all the benchmarks or even running them yourselves, then you can go and do so in the exercism\_scrabble\_benchmark repo on my Github.<br />
 Anyway, what this whole process has taught me about Exercism exercises is that...
 
 ---
