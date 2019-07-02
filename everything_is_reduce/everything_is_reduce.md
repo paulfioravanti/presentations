@@ -1,7 +1,7 @@
 theme: Fira, 3
 footer: @paulfioravanti
-slidenumbers: true
-slidecount: true
+slidenumbers: false
+slidecount: false
 
 # [fit] **EVERYTHING IS**
 # [fit] `reduce`
