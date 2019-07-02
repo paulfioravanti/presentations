@@ -8,6 +8,9 @@ theme: Next, 9
 
 # [fit] **__Scrabble Score__**
 
+^
+Hello everyone!
+
 ---
 
 ![inline](https://www.dropbox.com/s/t0nmmytvoegdedz/elixir-logo.png?dl=1)
@@ -32,7 +35,8 @@ This month's lines of Elixir...
 # [fit] **Scorer**
 
 ^
-Scrabble scorer, where given a word, you need to compute the scrabble score for that word.
+Scrabble scorer, where given a word, you need to compute its scrabble score.<br />
+Scrabble being a board game where you form words with tiles, each tile has a letter and a score, and you try and form words with the highest score.
 
 ---
 [.background-color: #FFFFFF]
@@ -104,7 +108,7 @@ Score letters and words case-insensitively
 - **Score** **_non-words_**
 
 ^
-And score non-words like an empty string and a string with space characters in it like tabs and new lines.
+And score non-words. Things like an empty string and a string with space characters in it like tabs and new lines.
 
 ---
 [.background-color: #009CA8]
@@ -158,7 +162,7 @@ end
 ```
 
 ^
-Next, we need a `score` function to do all the work, which has a `word` variable comes in as a string...
+Next, we need a `score` function to do all the work. It has a `word` variable comes in as a string...
 
 ---
 [.background-color: #FFFFFF]
@@ -198,7 +202,7 @@ end
 ```
 
 ^
-...so let's get started.
+...and now it needs some code to do all that work we mentioned.
 
 ---
 [.background-color: #FFFFFF]
@@ -222,7 +226,7 @@ end
 ```
 
 ^
-We'll take the word...
+So, what we'll do is take the word...
 
 ---
 [.background-color: #FFFFFF]
@@ -295,7 +299,7 @@ end
 
 ^
 ...use `Enum.map` to transform the list from a list of characters to a list of integer scores.<br />
-We do this by using the `Map.get` function to fetch the character's score from the `@scores` map, making sure to provide a default return value should we not find the character in the map.<br />
+We do this by using the `Map.get` function to fetch the character's score from the `@scores` map, making sure to provide a default return value of 0 should we not find the character in the map.<br />
 For this exercise, it's ultimately defensive programming for when the word contains a non-alphabetic character.<br />
 Once we have our list of integers...
 
@@ -358,7 +362,7 @@ This solution passes all the tests, and even Credo can't find anything wrong it.
 # **Done!**
 
 ^
-...and we're all done here. Thanks for coming to my TEDex talk.
+...and we're all done here. Thanks for coming to my TED.ex talk.
 
 ---
 [.header: #009CA8, alignment(center), text-scale(3.0), Lato]
@@ -368,7 +372,7 @@ This solution passes all the tests, and even Credo can't find anything wrong it.
 # **Done?**
 
 ^
-Or *are* we actually done?
+Or...*are* we actually done?
 
 ---
 [.background-color: #009CA8]
@@ -610,7 +614,7 @@ end
 ```
 
 ^
-Oh alright, then, we'll peel off a layer towards the metal and change the keys to be integer codepoints using `String.to_charlist()`.
+Oh alright, then, we'll peel off a layer towards the metal and change the keys to be integer codepoints (note the question marks in front of the letter keys), and we'll transform the word into a bare-bones charlist using `String.to_charlist()`.
 
 ---
 [.background-color: #FFFFFF]
