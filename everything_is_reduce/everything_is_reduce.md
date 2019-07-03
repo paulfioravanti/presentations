@@ -430,7 +430,7 @@ So, rather than a list, I want a map that will have the letters as its keys, and
 ```
 
 ^
-The `Enum.map` function returns a list, so I can't use that, and `Enum.each`'s returns value is the `:ok` atom, so what are my options?
+The `Enum.map` function returns a list, so I can't use that, and `Enum.each`'s return value is the `:ok` atom, so what are my options?
 
 ---
 
