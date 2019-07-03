@@ -21,6 +21,6 @@ be used in [Deckset][], and is best viewed in Raw form.
 [Deckset]: https://www.decksetapp.com/
 [Exercism]: http://exercism.io/
 [My Exercism Github repo]: https://github.com/paulfioravanti/exercism
-[PDF slides on Speaker Deck]: https://speakerdeck.com/paulfioravanti/exercism-scrabble-score
+[PDF slides on Speaker Deck]: https://speakerdeck.com/paulfioravanti/exercism-elixir-scrabble-score
 [Scrabble Score]: https://exercism.io/tracks/elixir/exercises/scrabble-score
 [Sydney Elixir meetup on 3 July 2019]: https://www.meetup.com/elixir-sydney/events/qfdzcryzkbfb/
