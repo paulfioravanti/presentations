@@ -548,7 +548,7 @@ end
 ```
 
 ^
-...and an initializer for it that takes in a `name` parameter, and sets a `@name` instance variable with it, defaulting to `nil` if no value is given...
+...and we'll give it an initializer that takes in a `name` parameter, and sets a `@name` instance variable with it, defaulting to `nil` if no value is given...
 
 ---
 [.background-color: #F0F0F0]
@@ -573,7 +573,57 @@ end
 ```
 
 ^
-...we'll allow getting and setting of the `@name` instance variable by adding an `attr_accessor` statement, which will create instance methods called `name` and `name=`...
+...we'll allow getting and setting of `@name` by adding an `attr_accessor` statement...
+
+---
+[.background-color: #F0F0F0]
+[.header: #171717, alignment(left), text-scale(1.0), Source Code Pro Bold]
+[.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.6)]
+
+```ruby
+class Person
+  def name
+    @name
+  end
+
+  def name=(new_name)
+    @name = new_name
+  end
+
+  def initialize(name = nil)
+    @name = name
+  end
+
+end
+```
+
+^
+...which is shorthand for creating instance methods called `name` and `name=`, which get and set the `@name` instance variable...
+
+---
+[.background-color: #F0F0F0]
+[.header: #171717, alignment(left), text-scale(1.0), Source Code Pro Bold]
+[.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.6)]
+
+```ruby
+class Person
+  attr_accessor :name
+
+  def initialize(name = nil)
+    @name = name
+  end
+
+
+
+
+
+
+
+end
+```
+
+^
+...and finally...
 
 ---
 [.background-color: #F0F0F0]
@@ -598,8 +648,8 @@ end
 ```
 
 ^
-...and finally, we want to give the Person the ability to say their name, making sure that we handle the case when the Person is not given a name at initialization, by enabling them to say that their name is "Unknown".<br />
-Now, given what we now know of local variable and method assignment, I would expect the following to happen when we attempt to get a Person to say its name.
+...we want to give the Person the ability to say their name, making sure that we handle the case when the Person is not given a name at initialization, by enabling them to say that their name is "Unknown".<br />
+So, given what we now know of local variable and method assignment, I would expect the following to happen when we attempt to get a Person to say its name.
 
 ---
 [.background-color: #F0F0F0]
@@ -724,7 +774,7 @@ end
 ```
 
 ^
-Therefore, even if an object of class `Person` had a `@name` instance variable assigned to it on initialisation...
+Therefore, even if an object of class `Person` had a `@name` assigned to it on initialisation...
 
 ---
 [.background-color: #F0F0F0]
@@ -749,7 +799,7 @@ end
 ```
 
 ^
-...the name referenced in the final line of the `#say_name` method (in `name.inspect`) would have a value of `nil`.
+...the `name` referenced in the final line of the `#say_name` method (in `name.inspect`) would have a value of `nil`.
 
 ---
 [.background-color: #F0F0F0]
@@ -774,7 +824,7 @@ end
 ```
 
 ^
-This is because at the point of `name.inspect`, even though `name.nil?` would have failed, and therefore the `name = "Unknown"` local variable assignment would not actually be made, the parser _still_ sees that name should now refer to a local variable, which has not been assigned to, and so is `nil`.
+This is because at the point of `name.inspect`, even though `name.nil?` would have failed, and therefore the `name = "Unknown"` local variable assignment would not actually be made, the parser _still_ sees that `name` should now refer to a local variable, which has not been assigned to, and so is `nil`.
 
 ---
 [.background-color: #F0F0F0]
@@ -818,7 +868,7 @@ nil
 ```
 
 ^
-...it looks like the first assumption is confirmed, even though this is probably really counter-intuitive:
+...it looks like our assumptions are confirmed, even though this is probably really counter-intuitive:
 
 ---
 [.background-color: #F0F0F0]
@@ -1046,7 +1096,7 @@ end
 ```
 
 ^
-...and we actually enter the block here and assign the name local variable to "Unknown", noting again that from here on, `name` refers to the local variable and not the instance method.
+...and we actually enter the block here and assign the `name` local variable to `"Unknown"`, noting again that from here on, `name` refers to the local variable and not the instance method.
 
 ---
 [.background-color: #F0F0F0]
@@ -1103,7 +1153,7 @@ Great! I mean, all this is kind of weird, but okay!
 ![](https://www.dropbox.com/s/jvn1uzck2jem0cu/matthew-henry-Gyti0PhoQjY-unsplash.jpg?dl=1)
 
 ^
-Now, how about we dive a bit deeper and see if we can observe how the referencing of name changes as the Ruby parser reads through the code.
+Now, how about we dive a bit deeper and see if we can observe how the referencing of `name` changes as the Ruby parser reads through the code.
 
 ---
 [.background-color: #000000]
@@ -1111,7 +1161,7 @@ Now, how about we dive a bit deeper and see if we can observe how the referencin
 ![1500%](https://www.dropbox.com/s/k13y8fr2jdlm9b0/pry-logo.png?dl=1)
 
 ^
-To do this, let's use the Pry debugger to see if we can follow name's journey from instance method to local variable.
+To do this, let's use the Pry debugger to see if we can follow `name`'s journey from instance method to local variable.
 
 ---
 [.background-color: #F0F0F0]
@@ -1148,7 +1198,7 @@ From: /person.rb @ line 13 Person#say_name:
 
 ^
 Right, we now have a breakpoint where `name.nil?` gets checked.<br />
-At this point, we have not reached the name variable assignment, so name should refer to the instance method, and have a value of "Paul". Let's check.
+At this point, we have not reached the `name` variable assignment, so name should refer to the instance method, and have a value of `"Paul"`. Let's check.
 
 ---
 [.background-color: #F0F0F0]
