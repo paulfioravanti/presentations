@@ -7,7 +7,7 @@ header-strong: Hoefler Text Black
 
 ^
 Everyone knows that coding in Ruby is full of sweetness and light.<br />
-But where there is light, shadows are cast. And so it is into the dark we go...
+But where there is light, shadows are cast. And so it is into the shade we go...
 
 ---
 [.background-color: #000000]
@@ -98,7 +98,7 @@ The...
 # [fit] **_SHADOW_**
 
 ^
-Now, you may have heard the word "shadow" used in the context of a programming language.
+Now, you may have heard the word "shadow" used in the context of a programming language before. And it was probably in reference to the issue of...
 
 ---
 [.background-color: #000000]
@@ -111,13 +111,7 @@ Now, you may have heard the word "shadow" used in the context of a programming l
 # [fit] **_SHADOWING_**
 
 ^
-And what was being referred to was very likely the issue of variable shadowing.
-
----
-[.background-color: #F0F0F0]
-
-^
-A basic example of this in Ruby would be:
+...variable shadowing. A basic example of this in Ruby would be:
 
 ---
 [.background-color: #F0F0F0]
@@ -141,7 +135,7 @@ x = 42
 ```
 
 ^
-...we assign a variable x with the value of 42...
+...we assign a variable `x` with the value of `42`...
 
 ---
 [.background-color: #F0F0F0]
@@ -156,53 +150,9 @@ x = 42
 ```
 
 ^
-and then we add a loop that runs three times, printing out the value for x on each run of the loop.<br />
-I'm sure that you have noticed that there are two variables named "x": the outer variable, and the block variable. But, is this an actual problem, though?
-
----
-[.background-color: #F0F0F0]
-[.header: #171717, alignment(left), text-scale(1.0), Source Code Pro Bold]
-[.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.6)]
-
-# shadow.rb
-
-```ruby
-x = 42
-3.times { |x| puts "x is #{x}" }
-```
-
-```sh
-$ ruby shadow.rb
-x is 0
-x is 1
-x is 2
-```
-
-^
+and then we add a loop that runs three times, printing out the value of `x` on each run of the loop.<br />
+I'm sure that you have noticed that there are two variables named "`x`": the outer variable, and the block variable. But, is this an actual problem, though?<br />
 Let's try running it.<br />
-And the output looks reasonable. The call to puts is inside a block, so it outputs the x value that is local to that block: it would definitely be surprising...
-
----
-[.background-color: #F0F0F0]
-[.header: #171717, alignment(left), text-scale(1.0), Source Code Pro Bold]
-[.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.6)]
-
-# shadow.rb
-
-```ruby
-x = 42
-3.times { |x| puts "x is #{x}" }
-```
-
-```sh
-$ ruby shadow.rb
-x is 42
-x is 42
-x is 42
-```
-
-^
-...if puts prioritised values that are outside of its local scope, and output "x is 42" three times.
 
 ---
 [.background-color: #F0F0F0]
@@ -224,7 +174,51 @@ x is 2
 ```
 
 ^
-But of course it doesn't.
+And the output looks reasonable. The call to `puts` is inside a block, and so it outputs the `x` value that is local to that block. It would definitely be surprising...
+
+---
+[.background-color: #F0F0F0]
+[.header: #171717, alignment(left), text-scale(1.0), Source Code Pro Bold]
+[.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.6)]
+
+# shadow.rb
+
+```ruby
+x = 42
+3.times { |x| puts "x is #{x}" }
+```
+
+```sh
+$ ruby shadow.rb
+x is 42
+x is 42
+x is 42
+```
+
+^
+...if `puts` prioritised values that are outside of its local scope, and output `"x is 42"` three times.
+
+---
+[.background-color: #F0F0F0]
+[.header: #171717, alignment(left), text-scale(1.0), Source Code Pro Bold]
+[.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.6)]
+
+# shadow.rb
+
+```ruby
+x = 42
+3.times { |x| puts "x is #{x}" }
+```
+
+```sh
+$ ruby shadow.rb
+x is 0
+x is 1
+x is 2
+```
+
+^
+But since local variables are always prioritised in Ruby when there is a shadow, we get the output we expect.
 
 ---
 [.background-color: #111111]
@@ -237,7 +231,7 @@ But of course it doesn't.
 # [fit] **_SHADOWING?_**
 
 ^
-So, does Ruby really care that we are writing our code like this as long as we are getting the output we expect?
+So, does Ruby itself really care that we are writing our code like this as long as we are getting the correct output?
 
 ---
 [.background-color: #F0F0F0]
@@ -295,8 +289,8 @@ x is 2
 ```
 
 ^
-It looks like Ruby does care: about both the shadowing, as well as declaring an unused variable<br />
-(not enough to raise an error, but enough to make you feel that perhaps Matz is very mildly frowning at you)
+It looks like Ruby does care: about both the shadowing, as well as declaring an unused variable, which in this case is the outer `x` variable.<br />
+(Ruby doesn't care enough to raise an error, but enough to make you feel that perhaps Matz is very mildly frowning at you)
 
 ---
 [.background-color: #111111]
@@ -342,8 +336,8 @@ end
 ```
 
 ^
-...to have puts output both the block variable and the outer variable?<br />
-Since we already have a local variable named x, there is no way to access some other variable, also called x, that is outside the local scope. In order to get this to work...
+...to have `puts` output both the block variable and the outer variable?<br />
+Since we already have a local variable named `x`, there is no way to access some other variable, also called `x`, that is outside the local scope. In order to get this to work...
 
 ---
 [.background-color: #F0F0F0]
@@ -380,7 +374,7 @@ x is 2 and y is 42
 ```
 
 ^
-And when we run it, we get what we expect: x is our local variable, and y is a constant 42.
+And when we run it, we get what we expect: `x` is our dynamic local variable, and `y` is always 42.
 
 ---
 
@@ -397,14 +391,16 @@ This is why variable shadowing in Ruby is generally considered "a bad habit and 
 # [fit] `ShadowingOuterLocalVariable`
 
 ^
-Aside from Ruby warnings, Rubocop has a ShadowingOuterLocalVariable cop (which mimics Ruby's warning), so there are ways to enable your tools to help you keep the shadows at bay.
+Aside from warnings from Ruby itself, if you use Rubocop, it has a ShadowingOuterLocalVariable cop (which mimics Ruby's warning), so there are ways to enable your tools to help you keep the shadows at bay.
 
 ---
 
 ![](https://www.dropbox.com/s/gwo3n23001qaayz/samuel-zeller-15925-unsplash.jpg?dl=1)
 
 ^
-However, there is another kind of shadowy figure lurking at the peripheries of the Ruby language, aside from the variable-shaped kind, that Ruby tooling does not warn you about. You are probably unlikely to come across it in the wilds of production code, but it is worth knowing about since it can make for some interesting or confusing behaviour.
+However, there is another kind of shadowy figure lurking at the peripheries of the Ruby language. One that is not variable-shaped, and one that Ruby tooling does not warn you about.<br />
+You are probably unlikely to come across it in the wilds of production code, but it is worth knowing about since it can make for some potentially confusing behaviour.<br />
+So, let us venture deeper into the depths of the Ruby runtime, and discover a new shade of darkness called...
 
 ---
 [.background-color: #000000]
@@ -417,39 +413,39 @@ However, there is another kind of shadowy figure lurking at the peripheries of t
 # [fit] **_SHADOWING_**
 
 ^
-So, let us venture deeper into the depths of the Ruby runtime, and discover a new shade of darkness: instance method shadowing.
+...instance method shadowing.  In Ruby's syntax documentation, The Local Variables and Methods Assignment section says that...
 
 ---
 [.text-strong: #11A4B8]
 
-> "In Ruby, local variable **names** and method **names** are nearly identical."
+> "In Ruby, _local variable_ **names** and _method_ **names** are nearly identical."
 
 ^
-The Local Variables and Methods Assignment section of Ruby's syntax documentation says that "In Ruby, local variable **names** and method **names** are nearly identical."
+"In Ruby, _local variable_ **names** and _method_ **names** are nearly identical."
 
 ---
 [.text-strong: #11A4B8]
 
-> "If you have not assigned to one of these ambiguous **names**, Ruby will assume you wish to call a method."
+> "If you have not assigned to one of these ambiguous **names**, Ruby will _assume you wish to call a method_."
 
 ^
-"If you have not assigned to one of these ambiguous **names**, Ruby will assume you wish to call a method."
+"If you have not assigned to one of these ambiguous **names**, Ruby will _assume you wish to call a method_."
 
 ---
 [.text-strong: #11A4B8]
 
-> "Once you have assigned to the **name**, Ruby will assume you wish to reference a local variable."
+> "Once you have assigned to the **name**, Ruby will _assume_ you wish to reference a _local variable_."
 
 ^
-"Once you have assigned to the **name**, Ruby will assume you wish to reference a local variable."
+"Once you have assigned to the **name**, Ruby will _assume_ you wish to reference a _local variable_."
 
 ---
 
-> "The local variable is created when the parser encounters the assignment, not when the assignment occurs."
+> "The local variable is created _when the parser encounters the assignment_, not when the assignment occurs."
 -- Local Variables and Methods Assignment section of Ruby's syntax documentation
 
 ^
-"The local variable is created when the parser encounters the assignment, not when the assignment occurs."
+"The local variable is created _when the parser encounters the assignment_, not when the assignment occurs."
 
 ---
 [.background-color: #111111]
