@@ -1667,7 +1667,7 @@ From: /person.rb @ line 13 Person#say_name:
 ```
 
 ^
-at the point of the `name.nil?` statement, the Ruby parser sees `name` as referring to a method, since it knows nothing about any assignment statements yet.<br />
+at the point of the `name.nil?` statement, the Ruby parser (Ruby itself) sees `name` as referring to a method, since it knows nothing about any assignment statements yet.<br />
 Pry, on the other hand...
 
 ---
@@ -1760,7 +1760,7 @@ end
 ```
 
 ^
-Specifically assign to the person's name attribute if they were not given one using `self.name = "Unknown"`, or...
+Specifically assign to the person's `name` instance variable if they were not given one using `self.name = "Unknown"`, or...
 
 ---
 [.background-color: #F0F0F0]
@@ -1774,7 +1774,7 @@ end
 ```
 
 ^
-...output a display name without assigning a `name` attribute if one was not originally given, here using `self` to refer explicitly to the `name` instance method
+...output a display name without assigning a `name` instance variable if one was not originally given, here using `self.name` to refer explicitly to the `name` instance method
 
 ---
 [.background-color: #F0F0F0]
