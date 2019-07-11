@@ -12,7 +12,7 @@ Current version presented at:
 
 - :tent: [Elixir Camp][] 4, held at Camp Wombaroo, Mittagong,
   on 26-29 October 2018
-- :computer: [Culture Amp][] brown bag lunch, held over [Zoom][] on 3 July 2019
+- :video_camera: [Culture Amp][] brown bag lunch, held over [Zoom][] on 3 July 2019
   ([video][Everything is Reduce video])
 
 The Markdown files for each version of the presentation, which include speaker
