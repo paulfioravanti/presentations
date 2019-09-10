@@ -65,7 +65,7 @@ This month's lines of Ruby...
 [.header-strong: #009CA8]
 
 # [fit] **Raised** to the **power** of
-# [fit] the **number** of **digits**
+# [fit] the **number** of its **digits**
 
 ^
 ...raised to the power of the number of its digits.
@@ -277,20 +277,18 @@ end
 The `module_function` directive means that, in a similar way to using `private`, any method defined below it is a module function...
 
 ---
-[.background-color: #FFFFFF]
-[.header: #009CA8, alignment(center), text-scale(1.5), Lato]
+[.background-color: #009CA8]
+[.header: #FFFFFF, alignment(center), text-scale(1.5), Lato]
 [.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(2.0)]
 
 <br />
 <br />
 <br />
 
-```ruby
-ArmstrongNumbers.include?(154)
-```
+# [fit] `ArmstrongNumbers.include?(154)`
 
 ^
-...which means that we can just call `ArmstrongNumbers.include?(number)` like this.
+...which means that we can just call `ArmstrongNumbers.include?(number)` like this, similar to Ruby class methods.
 
 ---
 [.background-color: #FFFFFF]
@@ -390,7 +388,7 @@ end
 ```
 
 ^
-So, I'll pretend I have a `sum_powers` method that I can give the digits to...
+So, I'll pretend I have a `sum_powers` method that I can give the digits to using the `then` function, which is an alias for `yield_self`, and...
 
 ---
 [.background-color: #FFFFFF]
@@ -626,7 +624,7 @@ The parameter that this method takes actually ends up being an array with the tw
 ```
 
 ^
-So, this is the entire solution on a slide...
+So, this is the shape of the entire solution. Not too long...
 
 ---
 [.background-color: #002B36]
@@ -782,7 +780,7 @@ end
 ```
 
 ^
-...and compare the number to sum of the digit powers, all using an inline block.
+...and compare the number to the sum of the digit powers, all using an inline block.
 
 ---
 [.background-color: #002B36]
@@ -917,7 +915,7 @@ There are only 88 Armstrong numbers in Base 10, with the largest one being...
 ![fit](https://www.dropbox.com/s/4e64tbx4mluz09f/big_armstrong_number.png?dl=1)
 
 ^
-...which, of course, I had to try with the solution, and it works!
+...which, of course, I had to try with the solution, and it works! So my solution is totally robust.
 
 ---
 [.background-color: #009CA8]
