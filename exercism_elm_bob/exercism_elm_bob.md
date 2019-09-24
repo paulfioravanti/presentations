@@ -810,7 +810,7 @@ Now that we have all these functions inline, we're going to use them to reduce t
 [.header: #009CA8, alignment(left), text-scale(1.5), Lato]
 [.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(0.825)]
 
-# [fit] **Distinguish Shouting/Yelling/Other**
+# [fit] **Distinguish Question/Yelling Combos**
 
 ```elm
 respondToVerbalRemark : String -> String
@@ -829,7 +829,7 @@ respondToVerbalRemark message =
 [.header: #009CA8, alignment(left), text-scale(1.5), Lato]
 [.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(0.825)]
 
-# [fit] **Distinguish Shouting/Yelling/Other**
+# [fit] **Distinguish Question/Yelling Combos**
 
 ```elm
 respondToVerbalRemark : String -> String
@@ -847,7 +847,7 @@ And, now we go through our combinations for a question that is being yelled...
 [.header: #009CA8, alignment(left), text-scale(1.5), Lato]
 [.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(0.825)]
 
-# [fit] **Distinguish Shouting/Yelling/Other**
+# [fit] **Distinguish Question/Yelling Combos**
 
 ```elm
 respondToVerbalRemark : String -> String
@@ -867,7 +867,7 @@ respondToVerbalRemark message =
 [.header: #009CA8, alignment(left), text-scale(1.5), Lato]
 [.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(0.825)]
 
-# [fit] **Distinguish Shouting/Yelling/Other**
+# [fit] **Distinguish Question/Yelling Combos**
 
 ```elm
 respondToVerbalRemark : String -> String
@@ -889,7 +889,7 @@ respondToVerbalRemark message =
 [.header: #009CA8, alignment(left), text-scale(1.5), Lato]
 [.code: auto(42), Source Code Pro Medium, line-height(1.0), text-scale(0.825)]
 
-# [fit] **Distinguish Shouting/Yelling/Other**
+# [fit] **Distinguish Question/Yelling Combos**
 
 ```elm
 respondToVerbalRemark : String -> String
