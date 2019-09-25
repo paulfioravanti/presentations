@@ -261,12 +261,12 @@ From here, I think the easiest use case to deal with is silence, so let's start 
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
 ```
 
 ^
-So let's say we have a function called `silence`, that takes in the message, and let's us know if it is silent.
+So let's say we have a function called `isSilence`, that takes in the message, and let's us know if it is silent.
 
 ---
 [.background-color: #FFFFFF]
@@ -278,11 +278,11 @@ So let's say we have a function called `silence`, that takes in the message, and
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
 
-silence : String -> Bool
-silence message =
+isSilence : String -> Bool
+isSilence message =
     String.trim message == ""
 ```
 
@@ -300,7 +300,7 @@ Not a bad start. Next, we need to respond to questions, yelling, yelling questio
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
     else if isYelling message && isQuestion message then
         "Calm down, I know what I'm doing!"
@@ -308,7 +308,7 @@ hey message =
 
 ^
 ...before dealing with them individually.<br />
-So we have an isYelling function and an isQuestion function, which together distinguish a question yelled.
+So we have an `isYelling` function and an `isQuestion` function, which together distinguish a question yelled.
 
 ---
 [.background-color: #FFFFFF]
@@ -321,7 +321,7 @@ So we have an isYelling function and an isQuestion function, which together dist
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
     else if isYelling message && isQuestion message then
         "Calm down, I know what I'm doing!"
@@ -332,7 +332,7 @@ isYelling message =
 ```
 
 ^
-The definition for isYelling looks like this, where we uppercase the entire message to see if it matches the message we put in, since the exercise defines yelling as being a message in all uppercase letters...
+The definition for `isYelling` looks like this, where we uppercase the entire message to see if it matches the message we put in, since the exercise defines yelling as being a message in all uppercase letters...
 
 ---
 [.background-color: #FFFFFF]
@@ -345,7 +345,7 @@ The definition for isYelling looks like this, where we uppercase the entire mess
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
     else if isYelling message && isQuestion message then
         "Calm down, I know what I'm doing!"
@@ -353,11 +353,12 @@ hey message =
 isYelling : String -> Bool
 isYelling message =
     (String.toUpper message == message)
-        && not (onlyDigitsAndNonWords message)
+        && not (onlyDigitsOrNonWords message)
 ```
 
 ^
-...and we add in another condition to make sure that the message does not contain only digits and non words. This is to counter some of the tests in the suite that just throw numbers and symbols as the message, and they are all the same when you upcase them.
+...and we add in another condition to make sure that the message does not contain only digits or non word characters.<br />
+This is to counter some of the tests in the suite that just throw numbers and symbols as the message, and as we all know, numbers and symbols output all the same when you attempt to upcase them.
 
 ---
 [.background-color: #FFFFFF]
@@ -371,10 +372,10 @@ isYelling message =
 isYelling : String -> Bool
 isYelling message =
     (String.toUpper message == message)
-        && not (onlyDigitsAndNonWords message)
+        && not (onlyDigitsOrNonWords message)
 
-onlyDigitsAndNonWords : String -> Bool
-onlyDigitsAndNonWords message =
+onlyDigitsOrNonWords : String -> Bool
+onlyDigitsOrNonWords message =
     let
         regex =
             "^([0-9]|[^a-zA-Z])+$"
@@ -385,7 +386,7 @@ onlyDigitsAndNonWords message =
 ```
 
 ^
-The implementation for the `onlyDigitsAndNonWords` function uses a regex string that checks for a string full of only numbers or non letters, does the Maybe regex dance of grabbing the string, creating an actual regex from it, and giving it a default value if that regex creation fails. Only then does it check the regex to see if the message matches it.
+The implementation for the `onlyDigitsOrNonWords` function uses a regex string that checks for a string full of only numbers or non letters, does the Maybe regex dance of grabbing the string, creating an actual regex from it, and giving it a default value if that regex creation fails. Only then does it check the regex to see if the message matches it.
 
 ---
 [.background-color: #FFFFFF]
@@ -397,14 +398,14 @@ The implementation for the `onlyDigitsAndNonWords` function uses a regex string 
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
     else if isYelling message && isQuestion message then
         "Calm down, I know what I'm doing!"
 ```
 
 ^
-So that's the isYelling part, and for isQuestion...
+So that's the `isYelling` part, and for `isQuestion`...
 
 ---
 [.background-color: #FFFFFF]
@@ -417,7 +418,7 @@ So that's the isYelling part, and for isQuestion...
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
     else if isYelling message && isQuestion message then
         "Calm down, I know what I'm doing!"
@@ -442,14 +443,14 @@ isQuestion message =
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
     else if isYelling message && isQuestion message then
         "Calm down, I know what I'm doing!"
 ```
 
 ^
-That's all for the internal private functions, but we now have all the essential building blocks to finish off the rest of this exercise.
+That's all for the internal private functions. But, we now have all the essential building blocks to finish off for the rest of this exercise.
 
 ---
 [.background-color: #FFFFFF]
@@ -461,7 +462,7 @@ That's all for the internal private functions, but we now have all the essential
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
     else if isYelling message && isQuestion message then
         "Calm down, I know what I'm doing!"
@@ -470,7 +471,7 @@ hey message =
 ```
 
 ^
-In order for Bob to distinguish just straight yelling, we check the isYelling function just by itself...
+In order for Bob to distinguish just straight yelling, we check the `isYelling` function just by itself...
 
 ---
 [.background-color: #FFFFFF]
@@ -482,7 +483,7 @@ In order for Bob to distinguish just straight yelling, we check the isYelling fu
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
     else if isYelling message && isQuestion message then
         "Calm down, I know what I'm doing!"
@@ -493,7 +494,7 @@ hey message =
 ```
 
 ^
-...and in order to distinguish questions, we check the isQuestion by itself...
+...and in order to distinguish questions, we check the `isQuestion` by itself...
 
 ---
 [.background-color: #FFFFFF]
@@ -505,7 +506,7 @@ hey message =
 ```elm
 hey : String -> String
 hey message =
-    if silence message then
+    if isSilence message then
         "Fine. Be that way!"
     else if isYelling message && isQuestion message then
         "Calm down, I know what I'm doing!"
@@ -526,7 +527,14 @@ hey message =
 ![131%](https://www.dropbox.com/s/tgl61e51m30zqts/passing-tests.jpg?dl=1)
 
 ^
-...and it looks like all the tests pass.
+...and it looks like all the tests pass...
+
+---
+
+![fit](https://www.dropbox.com/s/253m9k18zzbqglp/elm-analyse.jpg?dl=1)
+
+^
+...and Elm Analyse gives it a tick for code quality...
 
 ---
 [.header: text-scale(6.0)]
@@ -600,7 +608,7 @@ Anyway, we have repetition in the condition checking. We check `isYelling` and `
 - **Repetition** with `String.trim`
 
 ^
-We're trimming the string twice: once in the `silence` function, and again in the `isQuestion` function.
+We're trimming the string twice: once in the `isSilence` function, and again in the `isQuestion` function.
 
 ---
 [.list: bullet-character(🤘)]
@@ -674,7 +682,7 @@ hey input =
 ```
 
 ^
-...we'll do it only once, up front. And for the isSilence function...
+...we'll do it only once, up front. And as for the `isSilence` function...
 
 ---
 [.background-color: #FFFFFF]
@@ -822,7 +830,7 @@ respondToVerbalRemark message =
 ```
 
 ^
-...case statement.
+...case statement, where we'll evaluate the results of `isQuestion` and `isYelling` at the same time using a tuple.
 
 ---
 [.background-color: #FFFFFF]
