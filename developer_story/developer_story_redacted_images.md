@@ -44,7 +44,7 @@ I've been in the IT industry for 12 years so far...
 [.hide-footer]
 [.slidenumbers: false]
 
-![](https://www.dropbox.com/s/epcb27v0jkrml6j/programmer.jpg?dl=1)
+![](https://www.dropbox.com/s/k52013a5z7wwdle/paul-programmer-redacted.jpg?dl=1)
 
 ^
 During that time I've been a programmer...
@@ -53,7 +53,7 @@ During that time I've been a programmer...
 [.hide-footer]
 [.slidenumbers: false]
 
-![](https://www.dropbox.com/s/i18c09aarjdvmh4/consultant.jpg?dl=1)
+![40%](https://www.dropbox.com/s/3hz1glbdbo0xca0/paul-consultant.jpg?dl=1)
 
 ^
 ...a project consultant...
@@ -63,7 +63,7 @@ During that time I've been a programmer...
 [.slidenumbers: false]
 [.background-color: #000000]
 
-![130%](https://www.dropbox.com/s/177rome9g1qxmrg/haha-business.jpg?dl=1)
+![](https://www.dropbox.com/s/zzjspnw2h44p5pz/paul-presales-consultant-redacted.jpg?dl=1)
 
 ^
 ...and a technical pre-sales consultant...
@@ -695,7 +695,7 @@ Since this was back in 2006, Rails was at version 1.1.2...
 [.slidenumbers: false]
 [.background-color: #F0F0F0]
 
-![100%](https://www.dropbox.com/s/3vmsra59gccn06b/ruby-book.jpg?dl=1) ![100%](https://www.dropbox.com/s/uf2cjoy17v2p5qw/rails2-book.jpg?dl=1)
+![100%](https://www.dropbox.com/s/3vmsra59gccn06b/ruby-book.jpg?dl=1) ![255%](https://www.dropbox.com/s/k8wb7ibcy271x8a/rails1-book.jpg?dl=1)
 
 ^
 ...so I was handed the only textbooks that really existed at the time for Ruby and Rails and told to get through them as fast as I could while beginning the project.<br />
@@ -1035,8 +1035,8 @@ Don't forget your human communication skills as they're just as important as cod
 # [fit] **_Meetups!_**
 
 ^
-Meetups are a great place to meet your people, and every Ruby meetup always has a section for people looking for and offering work.<br />
-The next Ruby on Rails Oceania meetup, known also as RORO, which I'm co-incidentally a co-organiser of, is on <date> at <place>, so please consider signing up today and coming to see what's going on in the Ruby community.  I'm sure you will have lots of fun, and at the very least you'll get free food and drinks out of it!
+Meetups are a great place to meet your people, and every tech meetup always has a section for people looking for and offering work.<br />
+I currently help organise 4 different tech meetups in Sydney (this is too much and I'm trying to gradually hand over one), but I would emphasise that there are huge benefits to getting involved in local communities, as well as attending or speaking at events.
 
 ---
 
@@ -1045,6 +1045,43 @@ The next Ruby on Rails Oceania meetup, known also as RORO, which I'm co-incident
 - `https://www.meetup.com/Ruby-On-Rails-Oceania-Sydney/`
 - `https://github.com/rails-oceania/roro/issues`
 - `@rorosyd`
+
+^
+Since you're currently doing Ruby at the moment, you should know that the next Ruby on Rails Oceania meetup, known also as RORO, is on Tuesday November 19th at Jora, which is near North Sydney station, so it's very nearby. So please consider signing up today and coming to see what's going on in the Ruby community.  I'm sure you will have lots of fun, and at the very least you'll get free food and drinks out of it!
+
+---
+
+# [fit] **Elixir** **_Sydney_**
+
+- `https://www.meetup.com/elixir-sydney/`
+- `https://github.com/elixirsydney/elixirsydney/issues`
+- `@ElixirSydney`
+
+^
+Next meetup Wed November 6 at Expert 360 near Martin Place
+
+---
+
+# [fit] **GraphQL** **_Sydney_**
+
+- `https://www.meetup.com/GraphQL-Sydney/`
+- `https://github.com/graphqlsydney/graphqlsydney/issues`
+- `@graphqlsydney`
+
+^
+Next meetup Wed November 20 at Microsoft Reactor, above Wynyard Station
+
+---
+
+# [fit] **Elm** **_Sydney_**
+
+- `https://www.meetup.com/Sydney-Elm-Meetup/`
+- `https://github.com/elmsydney/elmsydney/issues`
+- `@ElmSydney`
+
+^
+Next meetup Thursday, November 28 November at DiUS on York Street.<br />
+At the very least with all of these meetups, you will get fed for free since we have good sponsorship, so come along just for that and you might just get the bonus of learning something as well.
 
 ---
 [.slidenumbers: false]
@@ -1059,9 +1096,6 @@ Thanks very much, and I'm more than happy to field any questions.
 
 ^
 Image credits:
-Slide 5: https://unsplash.com/photos/I--YyrXUphc
-Slide 6: https://unsplash.com/photos/u5XiXcOq2Tw
-Slide 7: https://i.kym-cdn.com/photos/images/newsfeed/000/112/566/business.jpg
 Slide 16: https://github.com/levymetal/github-iphone-wallpapers/blob/master/wallpapers/octocat_iphone_blue.jpg
 Slide 18: https://www.flickr.com/photos/xeero/5605678014
 Slide 21: https://unsplash.com/photos/yfmjALh1S6s
