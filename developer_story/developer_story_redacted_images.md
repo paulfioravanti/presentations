@@ -804,16 +804,6 @@ After much stress due to being the go-between for that company and everything Ja
 
 ^
 ...I quit that company after a year and moved even further away from programming and into pre-sales, which entailed being the person that teams up with a sales person to go and perform product presentations and demos to CEOs and CTOs in hopes they'll give you lots of money.<br />
-
----
-[.hide-footer]
-[.slidenumbers: false]
-[.header: #707070, alignment(right)]
-
-![original](https://www.dropbox.com/s/wn96p71cr0k28xa/gw_bulgari_redacted.png?dl=1)
-# Ha Ha!
-
-^
 Sometimes, I'd get to go and drink fancy Gin & Tonics in the Bvlgari rooftop bar in Ginza after meetings, so that was fun, too.
 
 ---
