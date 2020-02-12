@@ -1,1 +1,3 @@
+# Ensure that Github reports that this repo contains Markdown
+# https://twitter.com/paulfioravanti/status/1134325035030597632
 *.md linguist-detectable=true
