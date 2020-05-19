@@ -290,7 +290,20 @@ x is 2
 
 ^
 It looks like Ruby does care: about both the shadowing, as well as declaring an unused variable, which in this case is the outer `x` variable.<br />
-(Ruby doesn't care enough to raise an error, but enough to make you feel that perhaps Matz is very mildly frowning at you)
+(Ruby doesn't care enough to raise an error, but enough to make you feel that perhaps...
+
+---
+[.background-color: #FCFCFC]
+
+![fit](https://www.dropbox.com/s/w1q4s5smxjx2ehz/matz-full-bw.jpg?dl=1)
+
+^
+...Matz is very mildly frowning at you)
+
+---
+[.background-color: #FCFCFC]
+
+![350%](https://www.dropbox.com/s/w1q4s5smxjx2ehz/matz-full-bw.jpg?dl=1)
 
 ---
 [.background-color: #111111]
@@ -395,11 +408,18 @@ Aside from warnings from Ruby itself, if you use Rubocop, it has a ShadowingOute
 
 ---
 
-![](https://www.dropbox.com/s/gwo3n23001qaayz/samuel-zeller-15925-unsplash.jpg?dl=1)
+![](https://www.dropbox.com/s/7eqxplfvcazahrh/rene-bohmer-6SFfFpHmVjI-unsplash.jpg?dl=1)
 
 ^
 However, there is another kind of shadowy figure lurking at the peripheries of the Ruby language. One that is not variable-shaped, and one that Ruby tooling does not warn you about.<br />
-You are probably unlikely to come across it in the wilds of production code, but it is worth knowing about since it can make for some potentially confusing behaviour.<br />
+You are probably unlikely to come across it in the wilds of production code...
+
+---
+
+![](https://www.dropbox.com/s/gwo3n23001qaayz/samuel-zeller-15925-unsplash.jpg?dl=1)
+
+^
+...but it is worth knowing about since it can make for some potentially confusing behaviour.<br />
 So, let us venture deeper into the depths of the Ruby runtime, and discover a new shade of darkness called...
 
 ---
@@ -463,11 +483,11 @@ Ruby parses code line by line from top to bottom during run time.
 [.background-color: #111111]
 [.header: #F0F0F0, alignment(center), text-scale(1.175)]
 [.header-strong: #11A4B8]
-[.header-emphasis: #777777, alignment(center), text-scale(3.1)]
+[.header-emphasis: #C7B810, alignment(center), text-scale(3.1)]
 
 # [fit] **NAMES**
-# [fit] **_CAN_**
-# [fit] CHANGE
+# [fit] CAN
+# [fit] **_CHANGE_**
 
 ^
 So, the understood meaning of one of the "names" mentioned in the documentation can change as the parser moves down the file.
@@ -1742,9 +1762,24 @@ So, how can you avoid falling into these kinds of pits of potential confusion? W
 # [fit] **_SHADOW_**
 
 ^
-...shadow. Leaving aside the quality issues of the example code (since it is meant to illustrative of the problem and not exemplary Ruby code after all), to get expected results, there are enough ways it could be changed to fulfil different objectives like:
+...shadow.
 
 ---
+
+![350%](https://www.dropbox.com/s/w1q4s5smxjx2ehz/matz-full-bw.jpg?dl=1)
+
+[.background-color: #000000]
+[.header-strong: #FF0700]
+[.header-emphasis: #F0F0F0, alignment(center), text-scale(3.1)]
+
+# [fit] **DON'T**
+# [fit] **_SHADOW_**
+
+^
+Leaving aside the quality issues of the example code (since it is meant to illustrative of the problem and not exemplary Ruby code after all), to get expected results, there are enough ways it could be changed to fulfil different objectives like:
+
+---
+
 [.background-color: #F0F0F0]
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.5)]
 
