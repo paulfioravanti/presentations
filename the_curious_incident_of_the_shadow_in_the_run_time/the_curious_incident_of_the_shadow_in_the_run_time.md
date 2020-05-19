@@ -53,17 +53,6 @@ The...
 ---
 [.background-color: #000000]
 [.header: #F0F0F0, alignment(left), text-scale(1.175)]
-
-![115%](https://www.dropbox.com/s/0nh30ydsygp5cld/matthew-ansley-254316-unsplash.jpg?dl=1)
-
-# The Curious Incident of the
-
-^
-...of the...
-
----
-[.background-color: #000000]
-[.header: #F0F0F0, alignment(left), text-scale(1.175)]
 [.header-emphasis: #777777, alignment(center), text-scale(3.0)]
 
 ![115%](https://www.dropbox.com/s/0nh30ydsygp5cld/matthew-ansley-254316-unsplash.jpg?dl=1)
@@ -72,7 +61,7 @@ The...
 # [fit] **_SHADOW_**
 
 ^
-...shadow...
+...of the shadow...
 
 ---
 [.background-color: #000000]
