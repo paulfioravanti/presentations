@@ -857,7 +857,7 @@ So, let's open up an IRB console and test these assumptions.
 $ irb
 irb(main):001:0> require "./person.rb"
 true
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 ```
 
 ^
@@ -871,7 +871,7 @@ We'll create a new person, give them a name, and then get them to say their name
 $ irb
 irb(main):001:0> require "./person.rb"
 true
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 My name is nil
 nil
 ```
@@ -987,7 +987,7 @@ This means that in the last line, the `name.inspect` method call is attempting t
 $ irb
 irb(main):001:0> require "./person.rb"
 true
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 My name is nil
 nil
 irb(main):003:0>
@@ -1004,7 +1004,7 @@ Going back to IRb...
 $ irb
 irb(main):001:0> require "./person.rb"
 true
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 My name is nil
 nil
 irb(main):003:0> Person.new.say_name
@@ -1021,7 +1021,7 @@ irb(main):003:0> Person.new.say_name
 $ irb
 irb(main):001:0> require "./person.rb"
 true
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 My name is nil
 nil
 irb(main):003:0> Person.new.say_name
@@ -1177,7 +1177,7 @@ To do this, let's use the Pry debugger to see if we can follow `name`'s journey 
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(0.8)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 ```
 
 ^
@@ -1188,7 +1188,7 @@ Back to our IRb console, let's run `say_name` with a named person and see what h
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(0.8)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1207,14 +1207,14 @@ From: /person.rb @ line 13 Person#say_name:
 
 ^
 Right, we now have a breakpoint where `name.nil?` gets checked.<br />
-At this point, we have not reached the `name` variable assignment, so name should refer to the instance method, and have a value of `"Paul"`. Let's check.
+At this point, we have not reached the `name` variable assignment, so name should refer to the instance method, and have a value of `"Matz"`. Let's check.
 
 ---
 [.background-color: #F0F0F0]
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(0.8)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1251,7 +1251,7 @@ Err...what?
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(0.8)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1401,7 +1401,7 @@ Well, before we start handing ourselves honorary doctorates in quantum computing
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(0.8)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1427,7 +1427,7 @@ We've added a `puts name.inspect` in the code, so now, let's compare what value 
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(0.8)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1457,7 +1457,7 @@ First up, Pry, which says `name` is `nil`, and now...
 [1] pry(#<Person>)> name
 nil
 [2] pry(#<Person>)> next
-"Paul"
+"Matz"
 
 From: /person.rb @ line 14 Person#say_name:
 
@@ -1474,7 +1474,7 @@ From: /person.rb @ line 14 Person#say_name:
 ```
 
 ^
-...running next executes the `puts name.inspect` code, which gives us `"Paul"`, the value we expect, but Pry still says that `name` is `nil`.<br />
+...running next executes the `puts name.inspect` code, which gives us `"Matz"`, the value we expect, but Pry still says that `name` is `nil`.<br />
 How can the same variable have two values? It can't, so there must be something else at play here. What version of `name` exactly are Pry and `puts` seeing when the code is being stepped through?
 
 ---
@@ -1498,7 +1498,7 @@ Well, there is one more Ruby tool that can help us find that out...
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(0.8)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1524,7 +1524,7 @@ Okay, back to IRb again, and we've added `defined?` to our `puts` calls. Let's f
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(0.8)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1551,7 +1551,7 @@ Ruby says `name` is a method! That gels with what we would expect. So what about
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(0.8)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1586,7 +1586,7 @@ Can Pry see into the future? Well, Pry itself can't, and what is happening is no
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.0)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1610,7 +1610,7 @@ The key to this mystery is the...
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.0)]
 
 ```ruby, [.highlight: 6]
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1635,7 +1635,7 @@ Ruby's Binding "encapsulates the execution context at some particular place in t
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.0)]
 
 ```ruby, [.highlight: 5-14]
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1659,7 +1659,7 @@ From: /person.rb @ line 13 Person#say_name:
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.0)]
 
 ```ruby, [.highlight: 9]
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1684,7 +1684,7 @@ Pry, on the other hand...
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.0)]
 
 ```ruby, [.highlight: 5-14]
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
@@ -1708,7 +1708,7 @@ From: /person.rb @ line 13 Person#say_name:
 [.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.0)]
 
 ```ruby
-irb(main):002:0> Person.new("Paul").say_name
+irb(main):002:0> Person.new("Matz").say_name
 
 From: /person.rb @ line 13 Person#say_name:
 
