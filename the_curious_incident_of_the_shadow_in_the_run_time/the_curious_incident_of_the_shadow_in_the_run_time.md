@@ -1835,4 +1835,4 @@ So, be kind to your future self and your team mates. Be the light against the sh
 # [fit] **`@paulfioravanti`**
 
 ^
-Thanks very much.
+My name is Paul, and thank you for your company in our curious journey into Ruby's shadows.
