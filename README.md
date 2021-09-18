@@ -2,6 +2,15 @@
 
 This is a repository for presentations that I have delivered at various meetups.
 
+## Meta
+
+Aside from the actual content of presentations contained in this repository, I
+have written some blog posts about presenting at, and organising, meetups, which
+can be found here:
+
+- _[Speak at a Meetup][]_
+- _[Organise a Meetup][]_
+
 ## License
 
 | Category |                         License                           |
@@ -27,6 +36,8 @@ SPDX-License-Identifier: (MIT AND CC-BY-4.0)
 [license-mit]: LICENSE-MIT.txt
 [license-mit-badge]: https://img.shields.io/badge/License-MIT-lightgrey.svg
 [license-mit-url]: https://opensource.org/licenses/MIT
+[Organise a Meetup]: https://www.paulfioravanti.com/blog/organise-meetups/
+[Speak at a Meetup]: https://www.paulfioravanti.com/blog/speak-at-meetups/
 [stackoverflow-badge]: http://stackoverflow.com/users/flair/567863.png
 [stackoverflow-url]: http://stackoverflow.com/users/567863/paul-fioravanti
 [twitter-badge]: https://img.shields.io/badge/contact-%40paulfioravanti-blue.svg
