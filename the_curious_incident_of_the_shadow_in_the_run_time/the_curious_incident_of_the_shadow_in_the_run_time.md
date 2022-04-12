@@ -339,7 +339,8 @@ end
 
 ^
 ...to have `puts` output both the block variable and the outer variable?<br />
-Since we already have a local variable named `x`, there is no way to access some other variable, also called `x`, that is outside the local scope. In order to get this to work...
+Since we already have a local variable named `x`, there is no way to access some other variable, also called `x`, that is outside the local scope.<br />
+In order to get this to work...
 
 ---
 [.background-color: #F0F0F0]
@@ -422,7 +423,8 @@ So, let us venture deeper into the depths of the Ruby runtime, and discover a ne
 # [fit] **_SHADOWING_**
 
 ^
-...instance method shadowing.  In Ruby's syntax documentation, The Local Variables and Methods Assignment section says that...
+...instance method shadowing.<br />
+In Ruby's syntax documentation, The Local Variables and Methods Assignment section says that...
 
 ---
 [.text-strong: #11A4B8]
@@ -443,10 +445,10 @@ So, let us venture deeper into the depths of the Ruby runtime, and discover a ne
 ---
 [.text-strong: #11A4B8]
 
-> "Once you have assigned to the **name**, Ruby will _assume_ you wish to reference a _local variable_."
+> "Once you have _assigned_ to the **name**, Ruby will _assume_ you wish to reference a _local variable_."
 
 ^
-"Once you have assigned to the **name**, Ruby will _assume_ you wish to reference a _local variable_."
+"Once you have _assigned_ to the **name**, Ruby will _assume_ you wish to reference a _local variable_."
 
 ---
 
@@ -479,7 +481,7 @@ Ruby parses code line by line from top to bottom during run time.
 # [fit] **_CHANGE_**
 
 ^
-So, the understood meaning of one of the "names" mentioned in the documentation can change as the parser moves down the file.
+So, the understood meaning of one of the "names" mentioned in the documentation can _change_ as the parser moves down the file.
 
 ---
 [.background-color: #111111]
@@ -758,7 +760,7 @@ end
 ```
 
 ^
-When the Ruby parser sees the `name = "Unknown"` assignment line, it will, from that point on, consider any reference to "`name`" after the assignment to refer to a local variable called "`name`", and not the instance method `#name`
+But, when the Ruby parser sees the `name = "Unknown"` assignment line, it will, from that point on, consider any reference to "`name`" to refer to a local variable called "`name`", and not the instance method `#name`
 
 ---
 [.background-color: #F0F0F0]
@@ -808,7 +810,7 @@ end
 ```
 
 ^
-...the "`name`" referenced in the final line of the `#say_name` method (in `name.inspect`) would have a value of `nil`.
+...the "`name`" referenced in the final line of the `#say_name` method (in the `name.inspect` statement) would have a value of `nil`.
 
 ---
 [.background-color: #F0F0F0]
@@ -927,7 +929,7 @@ end
 ```
 
 ^
-...we can see that the instance method check of `name.nil?` fails because the instance method call "`name`" is not `nil`...
+...we can see that the instance method check of `name.nil?` fails because the instance method call to "`name`" is not `nil` since we initialised the `Person` with a `"name"`...
 
 ---
 [.background-color: #F0F0F0]
@@ -952,8 +954,8 @@ end
 ```
 
 ^
-...and so a "`name`" local variable does not get assigned.
-But, Ruby sees that from this point forward, "`name`" should refer to a local variable, and not a method call.
+...and so a "`name`" local variable does _not_ get assigned.<br />
+But, regardless of that, Ruby sees that from this point forward, "`name`" should refer to a local variable, and _not_ a method call.
 
 ---
 [.background-color: #F0F0F0]
@@ -1164,7 +1166,7 @@ Great! I mean, all this is kind of weird, but okay!
 ![](https://www.dropbox.com/s/jvn1uzck2jem0cu/matthew-henry-Gyti0PhoQjY-unsplash.jpg?dl=1)
 
 ^
-Now, how about we dive another level deeper, and see if we can observe how the referencing of "`name`" changes as the Ruby parser reads through the code.
+Now, how about we dive another yet level deeper, and see if we can observe how the referencing of "`name`" changes as the Ruby parser reads through the code.
 
 ---
 [.background-color: #000000]
@@ -1481,7 +1483,7 @@ From: /person.rb @ line 14 Person#say_name:
 ^
 ...running the "`next`" command executes the `puts name.inspect` code, which gives us `"Matz"`, the value we expect.
 But, Pry still says that "`name`" is `nil`.<br />
-How can the same variable have two values? It can't, so there must be something else at play here. What version of "`name`" exactly are Pry and `puts` seeing when the code is being stepped through?
+How can the same variable have two values? It absolutely can not, so there must be something else at play here. What version of "`name`" exactly are Pry and `puts` seeing when the code is being stepped through?
 
 ---
 [.background-color: #F0F0F0]
@@ -1506,7 +1508,7 @@ Well, there is one more Ruby tool that can help us find that out...
 # [fit] `defined?(arg)`
 
 ^
-defined? takes an argument, but is still a keyword and not a method, and it returns a string describing that argument.<br />
+defined? takes an argument, but is still a keyword and not a method, and it returns a string describing the argument passed in.<br />
 
 ---
 [.background-color: #F0F0F0]
@@ -1591,7 +1593,7 @@ From: /person.rb @ line 13 Person#say_name:
 ```
 
 ^
-Ruby says "`name`" is a method! That gels with what we would expect. So what about Pry...?
+Ruby says "`name`" is a method! That gels with what we would expect, since we have not reached the assignment statement. So what about Pry...?
 
 ---
 [.background-color: #F0F0F0]
@@ -1618,7 +1620,7 @@ From: /person.rb @ line 13 Person#say_name:
 ```
 
 ^
-Pry sees name as a local variable! How can this be if we have not reached the assignment statement yet?
+Pry sees name as a local variable! How can this be, though, if we have not yet reached the assignment statement?
 
 ---
 [.background-color: #000000]
@@ -1882,4 +1884,4 @@ So, be kind to your future self and your team mates. Be the light against the sh
 # [fit] **`@paulfioravanti`**
 
 ^
-My name is Paul, and thank you for your company in our curious journey into Ruby's shadows.
+My name is Paul, and thank you for your company in our curious journey into the dark realm of Ruby's shadows.
