@@ -557,7 +557,7 @@ end
 ```
 
 ^
-...and we'll give it an initializer that takes in a `name` parameter, and sets a `@name` instance variable with it, defaulting to `nil` if no value is given...
+...and we'll give it an initializer that takes in a "`name`" parameter, and sets a `@name` instance variable with it, defaulting to `nil` if no value is given...
 
 ---
 [.background-color: #F0F0F0]
@@ -607,7 +607,7 @@ end
 ```
 
 ^
-...which is shorthand for creating instance methods called `name` and `name=`, which get and set the `@name` instance variable...
+...which is shorthand for creating instance methods called "`name`" and "`name=`", which get and set the "`@name`" instance variable...
 
 ---
 [.background-color: #F0F0F0]
@@ -758,7 +758,7 @@ end
 ```
 
 ^
-When the Ruby parser sees the `name = "Unknown"` assignment line, it will, from that point on, consider any reference to `name` after the assignment to refer to a local variable called `name`, and not the instance method `#name`
+When the Ruby parser sees the `name = "Unknown"` assignment line, it will, from that point on, consider any reference to "`name`" after the assignment to refer to a local variable called "`name`", and not the instance method `#name`
 
 ---
 [.background-color: #F0F0F0]
@@ -808,7 +808,7 @@ end
 ```
 
 ^
-...the `name` referenced in the final line of the `#say_name` method (in `name.inspect`) would have a value of `nil`.
+...the "`name`" referenced in the final line of the `#say_name` method (in `name.inspect`) would have a value of `nil`.
 
 ---
 [.background-color: #F0F0F0]
@@ -833,7 +833,7 @@ end
 ```
 
 ^
-This is because at the point of `name.inspect`, even though `name.nil?` would have failed, and therefore the `name = "Unknown"` local variable assignment would not actually be made, the parser _still_ sees that `name` should now refer to a local variable, which has not been assigned to, and so is `nil`.
+This is because at the point of `name.inspect`, even though `name.nil?` would have failed, and therefore the `name = "Unknown"` local variable assignment would not actually be made, the parser _still_ sees that "`name`" should now refer to a local variable, which has not been assigned to, and so is `nil`.
 
 ---
 [.background-color: #F0F0F0]
@@ -927,7 +927,7 @@ end
 ```
 
 ^
-...we can see that the instance method check of `name.nil?` fails because instance method call `name` is not `nil`...
+...we can see that the instance method check of `name.nil?` fails because the instance method call "`name`" is not `nil`...
 
 ---
 [.background-color: #F0F0F0]
@@ -952,7 +952,8 @@ end
 ```
 
 ^
-...and so a `name` local variable does not get assigned, but Ruby sees that from this point forward, `name` should refer to a local variable, and not a method call.
+...and so a "`name`" local variable does not get assigned.
+But, Ruby sees that from this point forward, "`name`" should refer to a local variable, and not a method call.
 
 ---
 [.background-color: #F0F0F0]
@@ -977,7 +978,7 @@ end
 ```
 
 ^
-This means that in the last line, the `name.inspect` method call is attempting to call `inspect` on `nil`, since local variable `name` did not get assigned.
+This means that in the last line, since the local variable "`name`" did not get assigned, the `name.inspect` method call is attempting to call `inspect` on `nil`.
 
 ---
 [.background-color: #F0F0F0]
@@ -1030,6 +1031,7 @@ nil
 ```
 
 ^
+My name is "Unknown".
 So this output is probably a bit more intuitive:
 
 ---
@@ -1080,7 +1082,7 @@ end
 ```
 
 ^
-Instance method call `name.nil?` succeeds since there is no name...
+Since no name was passed in as a parameter, the instance method call `name.nil?` succeeds since "`name`" is, well, `nil`...
 
 ---
 [.background-color: #F0F0F0]
@@ -1105,7 +1107,7 @@ end
 ```
 
 ^
-...and we actually enter the block here and assign the `name` local variable to `"Unknown"`, noting again that from here on, `name` refers to the local variable and not the instance method.
+...which means we actually enter the block here and assign the "`name`" local variable to `"Unknown"`, noting again that from here on, "`name`" refers to the local variable and not the instance method.
 
 ---
 [.background-color: #F0F0F0]
@@ -1130,7 +1132,7 @@ end
 ```
 
 ^
-...And then at the end, local variable `name`, with `"Unknown"` as its value, gets output.
+...And then at the end, the local variable "`name`", with `"Unknown"` as its value, gets output.
 
 ---
 [.background-color: #F0F0F0]
@@ -1162,7 +1164,7 @@ Great! I mean, all this is kind of weird, but okay!
 ![](https://www.dropbox.com/s/jvn1uzck2jem0cu/matthew-henry-Gyti0PhoQjY-unsplash.jpg?dl=1)
 
 ^
-Now, how about we dive a bit deeper and see if we can observe how the referencing of `name` changes as the Ruby parser reads through the code.
+Now, how about we dive another level deeper, and see if we can observe how the referencing of "`name`" changes as the Ruby parser reads through the code.
 
 ---
 [.background-color: #000000]
@@ -1170,7 +1172,7 @@ Now, how about we dive a bit deeper and see if we can observe how the referencin
 ![1500%](https://www.dropbox.com/s/k13y8fr2jdlm9b0/pry-logo.png?dl=1)
 
 ^
-To do this, let's use the Pry debugger to see if we can follow `name`'s journey from instance method to local variable.
+To do this, let's use the Pry debugger to see if we can follow "`name`"'s journey from instance method to local variable.
 
 ---
 [.background-color: #F0F0F0]
@@ -1207,7 +1209,7 @@ From: /person.rb @ line 13 Person#say_name:
 
 ^
 Right, we now have a breakpoint where `name.nil?` gets checked.<br />
-At this point, we have not reached the `name` variable assignment, so name should refer to the instance method, and have a value of `"Matz"`. Let's check.
+At this point, we have not reached the "`name`" variable assignment, so "`name`" should refer to the instance method, and have a value of `"Matz"`. Let's check.
 
 ---
 [.background-color: #F0F0F0]
@@ -1234,7 +1236,7 @@ nil
 ```
 
 ^
-And...name is `nil`.
+And..."`name`" is `nil`.
 
 ---
 [.background-color: #111111]
@@ -1271,9 +1273,9 @@ nil
 ```
 
 ^
-How does `name` have a value of `nil` if we have not reached the variable assignment statement yet? What is `name` referring to? Is this some weird Pry thing? So many questions...<br />
+How does "`name`" have a value of `nil` if we have not reached the variable assignment statement yet? What is "`name`" referring to? Is this some weird Pry thing? So many questions...<br />
 Well, regardless of having our expectations flipped, let's follow this through to the end.<br />
-Since we now have `nil`, I would expect that our next stop will be at line 14, where `"Unknown"` does get assigned to `name`.
+Since we now have `nil`, I would expect that our next stop will be at line 14, where `"Unknown"` does get assigned to "`name`".
 
 ---
 [.background-color: #F0F0F0]
@@ -1286,7 +1288,7 @@ nil
 ```
 
 ^
-Let's get Pry go to the next execution statement.
+Let's get Pry go to the next execution statement, and find out...
 
 ---
 [.background-color: #F0F0F0]
@@ -1313,7 +1315,8 @@ From: /person.rb @ line 17 Person#say_name:
 ```
 
 ^
-It...skipped directly to the bottom, and it would seem that the assignment did not happen. Let's see if that actually is the case, and what gets output.
+It...skipped directly to the bottom, and it would seem that the assignment did not actually happen.<br />
+Let's see if that is the case, and what gets output.
 
 ---
 [.background-color: #F0F0F0]
@@ -1341,6 +1344,7 @@ My name is nil
 ```
 
 ^
+And `"name"` is `nil`...<br />
 This is all quite confusing. We got the expected result from initializing a person with a name, but, on the way, did we encounter some kind of...
 
 ---
@@ -1374,7 +1378,7 @@ Spooky...
 # [fit] **RUBY**
 
 ^
-...Ruby that ended up changing the value of `name`...
+...Ruby that ended up changing the value of "`name`"...
 
 ---
 [.background-color: #111111]
@@ -1394,7 +1398,7 @@ Spooky...
 ![](https://www.dropbox.com/s/0ki6ybose7437k5/hand-over-degree.jpg?dl=1)
 
 ^
-Well, before we start handing ourselves honorary doctorates in quantum computing, let's call on the old traditional Ruby debugger, `puts`, to see if we can get an impartial view of what the value of `name` is before the `name.nil?` check.
+Well, before we start handing ourselves honorary doctorates in quantum computing, let's call on the old traditional Ruby debugger, `puts`, to see if we can get an impartial view of what the value of "`name`" is before the `name.nil?` check.
 
 ---
 [.background-color: #F0F0F0]
@@ -1420,7 +1424,8 @@ From: /person.rb @ line 13 Person#say_name:
 ```
 
 ^
-We've added a `puts name.inspect` in the code, so now, let's compare what value we get for `name` when using Pry, versus the value we get inside the code with `puts`.
+Here, we've added a `puts name.inspect` in the code.<br />
+So now, let's compare what value we get for "`name`" when using Pry, versus the value we get inside the code with `puts`.
 
 ---
 [.background-color: #F0F0F0]
@@ -1447,7 +1452,7 @@ nil
 ```
 
 ^
-First up, Pry, which says `name` is `nil`, and now...
+First up, Pry, which says "`name`" is `nil`, and now...
 
 ---
 [.background-color: #F0F0F0]
@@ -1474,8 +1479,9 @@ From: /person.rb @ line 14 Person#say_name:
 ```
 
 ^
-...running next executes the `puts name.inspect` code, which gives us `"Matz"`, the value we expect, but Pry still says that `name` is `nil`.<br />
-How can the same variable have two values? It can't, so there must be something else at play here. What version of `name` exactly are Pry and `puts` seeing when the code is being stepped through?
+...running the "`next`" command executes the `puts name.inspect` code, which gives us `"Matz"`, the value we expect.
+But, Pry still says that "`name`" is `nil`.<br />
+How can the same variable have two values? It can't, so there must be something else at play here. What version of "`name`" exactly are Pry and `puts` seeing when the code is being stepped through?
 
 ---
 [.background-color: #F0F0F0]
@@ -1491,7 +1497,48 @@ Well, there is one more Ruby tool that can help us find that out...
 # [fit] `defined?`
 
 ^
-...the defined? keyword, which returns a string describing its argument
+...the defined? Ruby keyword...
+
+---
+[.background-color: #F0F0F0]
+[.header: #11A4B8, alignment(center), text-scale(1.175)]
+
+# [fit] `defined?(arg)`
+
+^
+defined? takes an argument, but is still a keyword and not a method, and it returns a string describing that argument.<br />
+
+---
+[.background-color: #F0F0F0]
+[.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.5)]
+<br />
+
+```ruby
+irb> x = 42
+irb> defined?(x)
+=> "local-variable"
+```
+
+^
+Amongst other things, you can see whether something is defined as a local variable...
+
+---
+[.background-color: #F0F0F0]
+[.code: auto(42), Source Code Pro Bold, line-height(1.0), text-scale(1.5)]
+<br />
+
+```ruby
+irb> x = 42
+irb> defined?(x)
+=> "local-variable"
+
+irb> def y; end
+irb> defined?(y)
+=> "method"
+```
+
+^
+...or whether something is defined as a method. Let's see what `defined?` has to say about our `"name"` weirdness.
 
 ---
 [.background-color: #F0F0F0]
@@ -1517,7 +1564,7 @@ From: /person.rb @ line 13 Person#say_name:
 ```
 
 ^
-Okay, back to IRb again, and we've added `defined?` to our `puts` calls. Let's first see what what the Ruby code considers `name` to be.
+Back to IRb again, and we've added `defined?` to our `puts` calls. Let's first see what what the Ruby code considers "`name`" to be.
 
 ---
 [.background-color: #F0F0F0]
@@ -1544,7 +1591,7 @@ From: /person.rb @ line 13 Person#say_name:
 ```
 
 ^
-Ruby says `name` is a method! That gels with what we would expect. So what about Pry...?
+Ruby says "`name`" is a method! That gels with what we would expect. So what about Pry...?
 
 ---
 [.background-color: #F0F0F0]
@@ -1676,7 +1723,7 @@ From: /person.rb @ line 13 Person#say_name:
 ```
 
 ^
-at the point of the `name.nil?` statement, the Ruby parser (Ruby itself) sees `name` as referring to a method, since it knows nothing about any assignment statements yet.<br />
+at the point of the `name.nil?` statement, the Ruby parser (Ruby itself) sees "`name`" as referring to a method, since it knows nothing about any assignment statements yet.<br />
 Pry, on the other hand...
 
 ---
@@ -1701,7 +1748,7 @@ From: /person.rb @ line 13 Person#say_name:
 ```
 
 ^
-...thanks to the `binding` effectively "rushing ahead to read the rest of the method" so it can create its execution context, knows all about the local variable assignments that could happen.
+...thanks to the `binding` effectively "rushing ahead to read the rest of the method" so it can create its execution context, knows all about the local variable assignments that _could_ happen.
 
 ---
 [.background-color: #F0F0F0]
@@ -1784,7 +1831,7 @@ end
 ```
 
 ^
-Specifically assign to the person's `name` instance variable if they were not given one using `self.name = "Unknown"`, or...
+Use `self.name = "Unknown"` to specifically assign to the person's "`name`" instance variable if they were not given one, or...
 
 ---
 [.background-color: #F0F0F0]
@@ -1798,7 +1845,7 @@ end
 ```
 
 ^
-...output a display name without assigning a `name` instance variable if one was not originally given, here using `self.name` to refer explicitly to the `name` instance method
+...refer explicitly to the "`name`" instance method by using `self.name`, and output a display name without assigning a "`name`" instance variable if one was not originally given...
 
 ---
 [.background-color: #F0F0F0]
