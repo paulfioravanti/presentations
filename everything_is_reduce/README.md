@@ -12,8 +12,8 @@ Current version presented at:
 
 - :tent: [Elixir Camp][] 4, held at Camp Wombaroo, Mittagong,
   on 26-29 October 2018
-- :video_camera: [Culture Amp][] brown bag lunch, held over [Zoom][] on 3 July 2019
-  ([video][Everything is Reduce video])
+- :video_camera: [Culture Amp][] brown bag lunch, held over [Zoom][] on 3 July
+  2019 ([video][Everything is Reduce video])
 
 The Markdown files for each version of the presentation, which include speaker
 notes, are best viewed in Raw form when viewed on Github, and can be used in:
@@ -31,6 +31,6 @@ notes, are best viewed in Raw form when viewed on Github, and can be used in:
 [elixir-meetup]: https://www.meetup.com/sydney-ex/events/241639658/
 [Elixir Girls]: http://elixirgirls.com
 [`Enum.reduce/3`]: https://hexdocs.pm/elixir/Enum.html#reduce/3
-[Everything is Reduce video]: https://vimeo.com/347426803
+[Everything is Reduce video]: https://www.youtube.com/watch?v=OQrfedclHfk
 [speakerdeck]: https://speakerdeck.com/paulfioravanti/everything-is-reduce
 [Zoom]: https://zoom.us/
