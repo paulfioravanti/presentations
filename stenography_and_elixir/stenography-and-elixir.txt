@@ -1,0 +1,87 @@
+Open programs:
+
+- Chrome with the following tabs open in the following order:
+Links from the Stenography and Elixir talk:
+- Open Steno Project: http://www.openstenoproject.org/
+- Vim snippets: https://github.com/SirVer/ultisnips
+- Plover Getting Started: https://github.com/openstenoproject/plover/wiki/Beginner's-Guide:-Get-Started-with-Plover
+- Plover Discord: https://discord.me/plover
+- Build a real-time Twitter clone with steno using LiveView and Phoenix 1.6: https://www.youtube.com/watch?v=T_kMd7rxYU0
+
+- Plover
+- Tapey Tape window (fill with asterisks before starting)
+- iTerm window inside a "~/Desktop/steno" directory with two tabs:
+  - one with elixir-sydney.txt open, :setlocal textwidth=48
+  - other with elixir-sydney.ex open
+
+- A few years ago, I wondered if it was possible to improve my typing speeds as I seem to have hit a ceiling with qwerty
+- I looked at Dvorak, Coleman, and Workman layouts, and none of them quite grabbed me
+- but then I stumbled upon stenography, which is the process of writing in shorthand, which, on a keyboard, is performed through the use of **chorded keystrokes: where you press multiple keys together, like playing a piano**
+- professional stenographers and court reporters have used this system to capture text at the speed of speech
+- But, it has been a locked-down art for a long time: its software had been proprietary, and the specialised keyboards used for it can cost as much as a high-end computer.
+- However, thanks to the efforts of the Open Steno Project, we now have Plover, an open source stenography engine, available to everyone.
+- It can turn any N-key rollover-compatible keyboard into a fully-fledged steno-chording machine! STKPWHRAOEUFRPBLGTSDZ
+- What you're seeing on screen is my dedicated hobbyist steno machine, and below it, you can see the keyboard layout on the side of the screen there that shows you **what keys I'm pressing together**.
+- and at the very bottom of the screen, you may have noticed a logged output of my keystrokes and what they translate to.
+- these strokes yield more output-per-keystroke than any other input method, and that output can be anything from a single letter,
+  - s t p l f m y j g z
+- a word
+  - hello world!
+- multiple words
+  - This is a pen. It was on the table.
+- full phrases
+  - Ladies and Gentlemen of the Jury HRA*EURPBLG
+  - as a matter of fact SPHABGT
+- emoji
+  - 👍😂(╯°□°）╯︵ ┻━┻
+- party tricks
+  - supercalifragilisticexpialidocious STPRAPBLG
+- shell commands
+  - git add .
+  - git commit --message="initial commit"
+  - git push
+  - mix phx.new app --live
+  - iex -S mix phx.server
+- steno chords are not limited to just producing text output either:
+- computer hot key commands
+  - copy/paste
+  - open/close Tapey Tape window
+- run scripts
+  - page up
+  - page down
+  - find
+- running these scripts is made possible by Plover's plugin system, in this case allowing me to run a shell command, which runs an AppleScript to determine how a page up or down or find should execute depending on the app in focus.
+- if I could use something else, I would, but I don't know of a cross platform systems programming language. So if you do, please let me know.
+- anyway, since steno can output anything your keyboard can, it stands to reason that it can also be used for coding
+- But, writing code isn't the same as writing prose. We have text structures like modules and functions and if blocks and tagged tuples and prependable lists, and because I'm lazy, I don't want to have to write them out by hand if I can help it
+- Plenty of devs use their IDEs to help out with autotyping this kind of boilerplate, but since I'm a vim user, I had to go looking for plugins
+- since steno itself is pretty much snippets on steroids, I looked up and found Ultisnips, and used it to create a layer of snippets that essentially sits on top of steno that helps me, at least, feel like I can code elixir using more natural language:
+
+- Elixir snippets to show:
+  - string
+  - list
+  - list prepend
+  - keyword
+  - map (string)
+  - map (atom)
+  - struct
+  - tuple
+  - tuple okay
+  - if
+  - case
+  - filter fn less than 3 Enum.filter(numbers, fn number -> number < 3 end)
+  - filter fn capture less than 3 Enum.filter(numbers, &(&1 > 3))
+  - Repo.all(from(p in Post, order_by: [desc: p.id]))
+  - def module
+  - use phoenix
+  - def
+  - render
+    <div id={"post-#{@post.id}"} class="post">
+    </div>
+  - handle event
+
+- anyway, I hope this gives you a taste of what stenography is and how it can be used in the daily workflow of a developer
+- if you're interested in giving steno a try, go check out the guides on the Plover GitHub repo to get Plover set up and start learning steno
+- there's a great community around open steno, and you can find them on the Plover Discord
+- Finally, all my steno dictionary entries are up on GitHub, as well as my vim snippets
+- And if you want to see a longer form Elixir steno demo in action, I've got a YouTube video that recreates Chris McCord's Twitter timeline clone. So smash like and subscribe to that
