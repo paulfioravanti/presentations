@@ -1,0 +1,205 @@
+PRE-FLIGHT CHECKLIST
+--------------------
+- Ensure internet connection working.
+
+Open programs:
+
+- Chrome with the following tabs open in the following order:
+Links from the Stenography and Ruby talk:
+- Open Steno Project: https://www.openstenoproject.org/
+- Vim snippets: https://github.com/SirVer/ultisnips
+- Exercism Luhn problem page: https://exercism.org/tracks/ruby/exercises/luhn
+- Plover Getting Started: https://github.com/openstenoproject/plover/wiki/Beginner's-Guide:-Get-Started-with-Plover
+- Plover Discord: https://discord.me/plover
+- Rails 7: The Steno Demo: https://www.youtube.com/watch?v=q7g0ml60LGY
+
+- Plover
+- Tapey Tape window (clear tape before starting)
+- iTerm window inside a "~/Desktop/ruby" directory with three tabs:
+  - one with roro_sydney.txt open
+    - use profile "demo mode"
+    - :setlocal textwidth=44
+    - text size: 34
+  - one with roro_sydney.rb open
+    - `:set filetype=ruby.rails.eruby.html` to make sure all snippet types work
+    - text size: 30
+  - one with Luhn exercism open
+    - mux exercism ruby luhn
+    - clear file
+    - text size: 24
+    - `:GitGutterToggle` to remove that distraction
+- Clear Tape
+- 2 instances of quicktime
+  - one hooked into phone looking at keyboard
+  - one using the feed from the webcam
+    - `open -n -a /System/Applications/QuickTime\ Player.app`
+-------------------
+
+- A few years ago, I wondered if it was possible to improve my typing speeds as
+  I seem to have hit a ceiling with QWERTY
+- I looked at Dvorak, Coleman, and Workman layouts, and none of them really made
+  me want to invest the time and effort for what seemed like could be only
+  marginal gain.
+- but then I stumbled upon stenography, which is the process of writing in
+  shorthand, which, on a keyboard, is performed through the use of **chorded
+  keystrokes: where you press multiple keys together, like playing a piano**
+- professional stenographers and court reporters have used this system to
+  capture text at the speed of speech
+- But, it has been a locked-down art for a long time: its software had been
+  proprietary, and the specialised keyboards used for it can cost as much as a
+  high-end computer.
+- However, thanks to the efforts of the Open Steno Project, we now have Plover,
+  an open source stenography engine, available to everyone.
+- It can turn any N-key rollover-compatible keyboard into a fully-fledged
+  steno-chording machine! STKPWHRAOEUFRPBLGTSDZ
+- What you're seeing on screen is my dedicated hobbyist steno machine, and below
+  it, you can see the keyboard layout on the side of the screen there that shows
+  you **what keys I'm pressing together**.
+- and at the very bottom of the screen, you may have noticed a logged output of
+  my keystrokes and what they translate to.
+- these strokes yield more output-per-keystroke than any other input method, and
+  that output can be anything from a single letter,
+  - s t p l f m y j g z
+- a word
+  - hello world!
+- multiple words
+  - This is a pen. THA*EUS
+  - It was on the table.
+- full phrases
+  - ladies and gentlemen HRAEURPBLG
+  - Ladies and Gentlemen of the Jury HRA*EURPBLG
+  - as a matter of fact SPHABGT
+  - burden of proof PW-RP
+- emoji
+  - 👍😂(╯°□°）╯︵ ┻━┻
+- party tricks
+  - supercalifragilisticexpialidocious STPRAPBLG
+  - dociousaliexpilisticfragicalirupes STPRA*PBLG
+- shell commands
+  - git add .
+  - git commit --message="initial commit"
+  - git push
+  - rails new my-app --database=postgres RAEULS/TPHU, TKA*EUBS/POEFT/TKPWRES
+  - bin/rails server RAEULS/S-FR
+  - bin/rails db:migrate RAEULS/TK-B/PHAOEUG
+- steno chords are not limited to just producing text output either:
+- computer hot key commands
+  - copy/paste
+  - open/close Tapey Tape window
+- run scripts
+  - page up
+  - page down
+  - find
+- running these scripts is made possible by Plover's plugin system, in this case
+  allowing me to run a shell command, which runs an AppleScript to determine how
+  a page up or down or find should execute depending on the app in focus.
+- if I could use something else, I would, but I don't know of a cross platform
+  systems programming language. So if you do, please let me know.
+- anyway, since steno can output anything your keyboard can, it stands to reason
+  that it can also be used for coding
+- But, writing code isn't the same as writing prose. We have text structures
+  and boilerplate like classes, methods, and blocks, strings and arrays, and if
+  and case statements
+- and because I'm lazy, I don't want to have to write them out by hand if I can
+  help it
+- Plenty of devs use their IDEs to help out with autotyping this kind of
+  boilerplate, but since I'm a vim user, I had to go looking for plugins
+- since steno itself is pretty much snippets on steroids, I looked up and found
+  Ultisnips, and used it to create a layer of snippets that essentially sits on
+  top of steno that helps me, at least, feel like I can code Ruby using more
+  natural language:
+
+- Ruby snippets to show:
+  - string
+  - array
+  - word array
+  - symbol array
+  - hash (string)
+  - hash (symbol)
+  - if
+  - case
+
+  - Rails
+  - Router
+resources :posts
+root to: "posts#index"
+
+  - Controller
+class PostsController < ApplicationController
+  before_action :set_post
+
+  private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def post_params
+    params.require(:post).permit(:id)
+  end
+end
+
+  - Model
+class Post < ApplicationRecord
+  has_many :comments
+  validates_presence_of :title, on: :create, message: "required"
+end
+
+  - View
+<%= @post.title %>
+<div id="#{@post.id}" class="post">
+  blah-blah-blah
+</div>
+
+- So you have now been served an entree on what stenography is and how it
+  could be used in the daily workflow of a Ruby and Rails developer, so let's
+  get on to the main course of solving the Luhn Exercism.
+- First of, let's just reacquaint ourselves with the problem on its exercism
+  problem page...
+
+module Luhn
+  TWO_OR_MORE_DIGITS = /\A\d{2,}\z/.freeze
+  private_constant :TWO_OR_MORE_DIGITS
+
+  module_function
+
+  def valid?(string)
+    string = string.gsub(/\s/, "")
+    return false unless string.match?(TWO_OR_MORE_DIGITS)
+
+    string
+      .then(&method(:convert_to_reversed_numbers))
+      .each_slice(2)
+      .sum(&method(:calculate_pair))
+      .then(&method(:divisible_by_ten?))
+  end
+
+  private_class_method def convert_to_reversed_numbers(string)
+    string.reverse.chars.map(&:to_i)
+  end
+
+  private_class_method def calculate_pair((first, second))
+    return first if second.blank?
+
+    second =
+      second
+      .then { |number| number * 2 }
+      .then { |number| number > 9 ? number - 9 : number }
+
+    first + second
+  end
+
+  private_class_method def divisible_by_ten?(number)
+    number.modulo(10).zero?
+  end
+end
+
+- if you're interested in giving steno a try, go check out the guides on the
+  Plover GitHub repo to get Plover set up and start learning steno
+- there's a great community around open steno, and you can find them on the Plover Discord
+- Finally, all my steno dictionary entries are up on GitHub, as well as my vim snippets
+- And if you want to see a longer form Rails steno demo in action, I've got a
+  YouTube video that recreates DHH's Rails 7 blog demo. So smash like and
+  subscribe to that
+- that's all I've got for now, but I'm happy to answer any questions...
+- Thank you very much! KPA*/THAUFP
