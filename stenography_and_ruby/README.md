@@ -8,9 +8,9 @@ Presented at:
 
 ## Other Resources
 
-- :video_camera: [YouTube][] (TBD)
+- :video_camera: [YouTube][]
 
 [Ruby]: https://www.ruby-lang.org/en/
 [Ruby on Rails Oceania Sydney meetup]: https://www.meetup.com/ruby-on-rails-oceania-sydney/events/291724620/
-[YouTube]: #
+[YouTube]: https://www.youtube.com/watch?v=3W9_k2CXrXE
 
