@@ -1,0 +1,240 @@
+PRE-FLIGHT CHECKLIST
+--------------------
+- Ensure internet connection working.
+
+Open programs:
+
+- Chrome with the following tabs open in the following order:
+  - Open Steno Project: https://www.openstenoproject.org/ (125%)
+  - Vim snippets: https://github.com/SirVer/ultisnips (125%)
+  - Plover Getting Started: https://github.com/openstenoproject/plover/wiki/Beginner's-Guide:-Get-Started-with-Plover (125%)
+  - Plover Discord: https://discord.me/plover (80%)
+  - My dictionaries: https://github.com/paulfioravanti/steno-dictionaries (125%)
+  - My vim snippets: https://github.com/paulfioravanti/vim-snippets (125%)
+  - Steno Coding: React Tic-Tac-Toe: https://www.youtube.com/watch?v=3TDgZVIxncg (100%, Cinema mode, show video at point 1:10:39 to see the whole board)
+
+- Plover
+- Tapey Tape window (clear tape before starting)
+  - Remove display of suggestions
+  - Set height to 8 lines
+- iTerm window inside a "~/Desktop/js" directory with five tabs:
+  - one with SydJs.txt open
+    - text size: 38
+    - :setlocal textwidth=40
+  - one with SydJS.js open
+    - text size: 32
+    - // setlocal textwidth=40
+  - one with dictionaries repo open
+  - one with vim snippets repo open
+  - one with command line open, to be used to run clear tape shell script
+- Clear Tape
+- OBS or 1 instance of quicktime
+  - one hooked into phone looking at keyboard
+-------------------
+
+- **Hello, SydJS!**
+- **So, some time ago, I wondered whether it would be possible to improve my typing
+  speeds, as I seem to have hit a ceiling with QWERTY**
+- I looked at Dvorak, Coleman, and Workman layouts for use on a standard keyboard,
+  but none of them really made me want to invest the time and effort for what seemed
+  to only be of potentially marginal gain.
+- but then I stumbled upon stenography, which is the process of writing in
+  shorthand, which, on a keyboard, is performed through the use of
+- **chorded keystrokes: where you press multiple keys together,
+  like playing a piano** S*R
+- professional stenographers and court reporters have used this system to
+  capture text at the speed of speech.
+  <SWITCH TO BROWSER>
+- Thanks to the efforts of the Open Steno Project, this system is now
+  accessible to anyone
+- Prior to Open Steno, stenography had really been a locked-down art:
+  its software had been proprietary, and the specialised keyboards used
+  for it can cost as much as one of our high-end laptop computers.
+- But we now have Plover, an open source stenography engine.
+- It can turn any N-key rollover-compatible keyboard into a fully-fledged
+  steno-chording machine! STKPWHRAO*EUFRPBLGTSDZ
+- What you're seeing on screen is my dedicated hobbyist steno machine, and below
+  it, you can see the keyboard layout that shows you
+- **what keys I'm pressing together**.
+- The steno keymap is made up of what are called:
+  - initial keys on the left, that represent initial word sounds
+  - vowels in the middle (i is eu together)
+  - and final keys on the right representing word ending sounds
+- and the flow of keys to make a chord typically goes from left to right in what's
+  known as "steno order", which is key to being able to figure out how to chord words on the fly
+- star key - undo your last output, and disambiguator when used in a chord
+  (which I'll talk more about in a moment)
+- and at the very bottom of the screen, you may have noticed a logged output of
+  my keystrokes and what they translate to.
+- these strokes yield more output-per-keystroke than any other input method, and
+  that output can be single letters, words, phrases, or whatever
+- let's start out simple with individual letters
+  - stkpwhrao
+  - abcdefghijklmnopqrstuvwxyz
+  - this kind of inputting is only really used in steno if you don't have a dictionary
+    chord entry for a word, or you have forgotten or cannot figure out how to write it 
+- a word
+  - hello world!
+- multiple words
+  - This is a pen. THA*EUS
+  - It was on the table.
+- disambiguating
+  - bob, Bob
+  - you are, you're
+  - hello, hole (hello is breaking left to right steno order so it gets starred)
+- longer phrases
+  - ladies and gentlemen HRAEURPBLG
+  - Ladies and Gentlemen of the Jury HRA*EURPBLG
+  - as a matter of fact SPHABGT
+  - burden of proof PW-RP
+- party tricks
+  - supercalifragilisticexpialidocious STPRAPBLG
+  - dociousaliexpilisticfragicalirupes STPRA*PBLG
+- emoji
+  - 👍😂(╯°□°）╯︵ ┻━┻
+- shell commands
+  - git add .
+  - git commit --message="initial commit"
+  - git push
+  - npx create-react-app
+  - npm install
+  - npm run
+- steno chords are not limited to just producing text output either:
+- computer keyboard hot key commands
+  - copy/paste
+  - open/close Tapey Tape window
+- run scripts
+  - page up
+  - page down
+  - find "hello", replace with "goodbye"
+  - undo, clear highlighting
+- running these scripts is made possible by Plover's plugin system, in this case
+  allowing me to run a shell command, which runs an AppleScript to determine how
+  a page up or down or find should execute depending on the app in focus.
+- if I could use something else, I would, but I don't know of a cross platform
+  systems programming language. So if you do, please let me know.
+- anyway, since steno can output anything your keyboard can, it stands to reason
+  that it can also be used for coding
+- But, writing code isn't the same as writing prose. We have text structures
+  and boilerplate like classes and functions, strings and arrays, control-flow
+  and iteration statements
+- and because I'm lazy, I don't want to have to write them out by hand if I can
+  help it
+- Plenty of devs use their IDEs to help out with autotyping this kind of
+  boilerplate, but since I'm a vim user, I had to go looking for plugins
+- since steno itself is pretty much snippets on steroids, I looked up and found
+  Ultisnips, and used it to create a layer of snippets that essentially sits on
+  top of steno. And I feel that the combination of steno and snippets helps 
+  reduce the gap between prose and code, and makes me feel like I can code
+  JavaScript using more natural language, and I'll show you what I mean inside
+  of a JS file:
+
+- JS snippets to show:
+// snippets consist of configuring words, which when triggered perform some kind
+// of text transformation. Within the transformation, there are things called tabstops.
+// tabstops like debugger breakpoints, sit there and wait for some kind of
+// user input or action, and you can jump forward and backward between them
+[1, 2, 3] 
+
+// visually selected text can be put aside to be inserted into your next snippet 
+const array = [...Array(10).keys()];
+array.slice(2);
+array.map(n => n + 1);
+
+// FIVE LINES FROM BOTTOM OF SCREEN
+// choice tabstop
+for (let i = 0; i < array.length; i++) {
+  array.push(i);
+}
+
+let host = "Sharkie";
+`The SydJS host is ${host}`;
+
+{ name: "Sharkie", host: true }
+
+if (host === "Sharkie") {
+  return "yay"
+} else {
+  return "boo"
+}
+
+return (host ? "yay" : "boo")
+
+switch (host) {
+  case "Sharkie":
+    console.log("yay");
+    break;
+  case value2: {
+    // statements
+    break;
+  }
+  default: {
+    // statements
+  }
+}
+
+// FIVE LINES FROM BOTTOM OF SCREEN
+function greet() {
+  return "hi!";
+}
+const greet = (name) => `Hi ${name}!`;
+(async (foo) => {
+  console.log(foo);
+})(foo);
+
+// dynamic tabstops
+class SydJS extends Meetup {
+  constructor(time, place) {
+    this.time = time;
+    this.place = place;
+  }
+}
+
+// FIVE LINES FROM BOTTOM OF SCREEN
+<Person name="Sharkie" />
+
+export default function Person({ name }) {
+  return (
+    <div className="person">
+      h2#name.text
+      <h2 id="name" className="text">{name}</h2>
+    </div>
+  );
+}
+
+import { useState } from "react";
+export default function Person({ name }) {
+  const [age, setAge] = useState(20);
+
+  function increment() {
+    setAge(a => a + 1);
+  }
+
+  return (
+    <div className="person">
+      <h2 id="name" className="text">{name}</h2>
+      <h3 id="age">Age: {age}</h3>
+      <button onClick={() => increment()}>+1</button>
+    </div>
+  );
+}
+
+- So you have now been served a small taste on what stenography is and how it
+  could be used in the daily workflow of a Javascript developer
+- if you're interested in giving steno a try, go check out the guides on the
+  Plover GitHub repo to get Plover set up and start learning steno
+- there's a great community around open steno, and you can find them on the Plover Discord
+- All my steno dictionary entries are up on GitHub, as well as my vim snippets
+- And if you want to see a longer form JavaScript steno demo in action, I've got a
+  YouTube video that recreates the tic-tac-toe application on the react tutorial's
+  website. So smash like and subscribe to that
+- As for whether my typing speeds have actually increased, I'd say that my QWERTY and
+  steno speeds are about the same now.
+- I ended up sacrificing time to increase speed to making steno and snippets a viable
+  option for coding, up to the point where I do not have a QWERTY keyboard on my desk
+  anymore, and use steno for everything.
+- So you won't see me taking testimony in a courtroom or doing live captioning, but now
+  that I've laid my own foundations for using steno everyday, I'm hoping to devote more
+  time to speeding up.
+- that's all I've got for now, but I'm happy to answer any questions...
+- Thank you very much! KPA*/THAUFP
